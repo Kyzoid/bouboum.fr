@@ -1,0 +1,32 @@
+{
+  "name": "bouboum-ranking",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "sync": "node dataSynchronizer.js",
+    "start": "nodemon ./bin/www",
+    "build": "postcss css/tailwind.css -o public/stylesheets/tailwind.css"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.0",
+    "autoprefixer": "^9.7.6",
+    "axios": "^0.19.2",
+    "cookie-parser": "~1.4.4",
+    "dayjs": "^1.8.26",
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
+    "express": "^4.17.1",
+    "express-generator": "^4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "postcss-cli": "^7.1.1",
+    "sqlite3": "^4.2.0",
+    "tailwindcss": "^1.4.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
+}

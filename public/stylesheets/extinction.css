@@ -1,0 +1,49 @@
+.bg-extinction {
+  background-color: #303036;
+}
+
+.bg-extinction-dark {
+  background-color: #212127;
+}
+
+.text-white-extinction {
+  color: #c2c2da;
+}
+
+.text-red-extinction {
+  color: #cb546b;
+}
+
+.text-yellow-extinction {
+  color: #c9cd36;
+}
+
+.text-green-extinction {
+  color: #019d9d;
+}
+
+.text-blue-extinction {
+  color: #6872b8;
+}
+
+tr {
+  padding: 1rem;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0 .20rem;
+    border-collapse: none;
+}
+
+table tr {
+  border-radius: 4px;
+}
+
+table td {
+  padding: 6px 0px;
+}
+
+.date-selector {
+  cursor: pointer;
+}

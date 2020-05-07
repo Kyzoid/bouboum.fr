@@ -1,0 +1,27 @@
+<%- include('header') %>
+
+<div class="shadow flex flex-col items-center bg-extinction container mx-auto p-4">
+  <h1 class="font-bold text-2xl mb-4 text-red-extinction">Classement Bouboum</h1>
+
+  <nav class="noselect flex items-center justify-between date-pagination m-4 text-green-extinction">
+    <span id="prev" title="Précédent"><i class="date-selector fas fa-caret-square-left fa-lg"></i></span>
+    <div id="current-date" class="text-xl ml-5 mr-5"><%= date %></div>
+    <span id="next" title="Suivant"><i class="date-selector fas fa-caret-square-right fa-lg"></i></span>
+  </nav>
+
+  <table class="mt-4 mr-0">
+    <thead>
+      <tr class="text-left">
+        <th style="width: 60px"></th>
+        <th style="width: 300px"></th>
+        <th class="text-center" style="width: 170px">Parties gagnées</th>
+        <th class="text-center" style="width: 170px">Parties jouées</th>
+        <th class="text-center" style="width: 100px">TPM</th>
+      </tr>
+    </thead>
+    <tbody id="tbody">
+    </tbody>
+  </table>
+</div>
+
+<%- include('footer') %>
