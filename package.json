@@ -6,14 +6,17 @@
   "scripts": {
     "sync": "node dataSynchronizer.js",
     "start": "nodemon ./bin/www",
-    "build": "postcss css/tailwind.css -o public/stylesheets/tailwind.css"
+    "build": "postcss css/tailwind.css -o public/stylesheets/tailwind.css",
+    "es-dev-server": "npx es-dev-server --node-resolve --watch --open"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
+    "@fullhuman/postcss-purgecss": "^2.2.0",
     "autoprefixer": "^9.7.6",
     "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
     "cookie-parser": "~1.4.4",
     "dayjs": "^1.8.26",
     "debug": "~2.6.9",
@@ -27,6 +30,7 @@
     "tailwindcss": "^1.4.4"
   },
   "devDependencies": {
+    "es-dev-server": "^1.48.1",
     "nodemon": "^2.0.3"
   }
 }

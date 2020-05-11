@@ -28,7 +28,7 @@ class IndexController {
     
     res.render('index', {
       scores: scores,
-      date: dayjs().locale('fr').format('DD MMMM YYYY'),
+      date: dayjs().locale('fr').format('DD/MM/YYYY'),
     });
   }
 

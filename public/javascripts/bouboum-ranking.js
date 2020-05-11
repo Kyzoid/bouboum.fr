@@ -11,25 +11,25 @@ const currentDate = document.getElementById('current-date');
 const getRanking = (date, isPrevButtonAvailable = true, isNextButtonAvailable = true) => {
   const htmlDate = date ? date : dayjs().format('YYYY-MM-DD');
   currentDate.dataset.date = htmlDate;
-  const link = `/bouboum_ranking?date=${htmlDate}`;
+  const link = `/bouboum-ranking?date=${htmlDate}`;
   const table = document.getElementById('tbody');
 
   fetch(link, { headers: { "Content-Type": "application/json; charset=utf-8" } })
     .then(res => res.json())
     .then(response => {
-      currentDate.innerText = dayjs(htmlDate).locale('fr').format('DD MMMM YYYY');
+      currentDate.innerText = dayjs(htmlDate).locale('fr').format('DD/MM/YYYY');
       tbody.innerText = '';
 
       if (isPrevButtonAvailable) {
-        document.getElementById('prev').classList.remove('text-gray-700');
+        document.getElementById('prev').classList.remove('opacity-25');
       } else {
-        document.getElementById('prev').classList.add('text-gray-700');
+        document.getElementById('prev').classList.add('opacity-25');
       }
 
       if (isNextButtonAvailable) {
-        document.getElementById('next').classList.remove('text-gray-700');
+        document.getElementById('next').classList.remove('opacity-25');
       } else {
-        document.getElementById('next').classList.add('text-gray-700');
+        document.getElementById('next').classList.add('opacity-25');
       }
       
       if (response.length > 0) {
@@ -53,8 +53,12 @@ const getRanking = (date, isPrevButtonAvailable = true, isNextButtonAvailable = 
             if (Object.keys(row)[i] === 'win') {
               td.classList.add('text-center');
               td.classList.add('text-yellow-extinction');
-              const percent = ((column / Object.values(row)[i + 1]) * 100).toFixed(1);
-              td.innerText = `${column} (${percent}%)`;
+              const percent = ((column / Object.values(row)[i + 1]) * 100).toFixed(2);
+              const percentElement = document.createElement('SPAN');
+              percentElement.innerText = ` (${percent}%)`;
+              percentElement.classList.add('text-xs');
+              td.innerText = `${column}`;
+              td.appendChild(percentElement);
             }
             if (Object.keys(row)[i] === 'total') {
               td.classList.add('text-center');
