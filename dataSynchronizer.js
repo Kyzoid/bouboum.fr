@@ -1,4 +1,4 @@
-const fileDirectory = "./data/ranking_bouboum.txt";
+const fileDirectory = "./data/bouboum.txt";
 const fs = require('fs').promises;
 const Database = require('./controllers/Database');
 
@@ -7,7 +7,6 @@ db.open();
 
 const formatData = async () => {
   const data = await fs.readFile(fileDirectory, 'utf8');
-  //let usersToInsert = [];
   let scoresToInsert = [];
   
   if (data) {

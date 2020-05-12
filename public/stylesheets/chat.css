@@ -1,0 +1,226 @@
+/*
+  white: #C2C2DA
+  yellow: #C9CD36
+  info: #6C77C1
+  username: #019D9D
+  rouge: #C8536A
+
+  background: #303036
+*/
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    user-select: none;
+}
+
+body {
+    background-color: black;
+    font-family: 'Verdana';
+    font-weight: 500;
+    font-size: 14px;
+    color: #C2C2DA;
+    text-shadow: #C2C2DA 0px 0px 0.5px;
+}
+
+.yellow {
+    color: #C9CD36;
+    text-shadow: #C9CD36 0px 0px 0.5px;
+}
+
+.info {
+    color: #6C77C1;
+    text-shadow: #6C77C1 0px 0px 0.5px;
+}
+
+.red {
+    color: #C8536A;
+    text-shadow: #C8536A 0px 0px 0.5px;
+}
+
+.blue {
+    color: #019D9D;
+    text-shadow: #019D9D 0px 0px 0.5px;
+}
+
+.message .blue {
+    margin-right: .25rem;
+}
+
+.flex {
+    display: flex;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 100%;
+}
+
+#clock {
+  text-align: center;
+  width: 600px;
+  color: #C1C1D9;
+}
+
+#clock #digits {
+  font-size: 46px;
+  text-shadow: #019D9D 0px 0px 15px;
+}
+
+#clock #labels {
+  font-size: 12px;
+}
+
+#main {
+    border: 1px solid #142C50;
+    outline: 1px solid #000000;
+    box-shadow: 0px 0px 0px 2px #808080;
+    background-color: #303036;
+    padding: .5rem;
+    border-radius: 2px;
+}
+
+#top {
+    display: flex;
+    flex-direction: row;
+}
+
+#top canvas {
+    padding: 1rem;
+    background-color: black;
+    margin-bottom: .5rem;
+}
+
+#top #game-infos {
+    width: 300px;
+    color: #7D88B0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 14rem;
+}
+
+#chat {
+    margin-right: 1.5rem;
+    user-select: text;
+    position: relative;
+}
+
+.user {
+    background-color: #1E1E22;
+    border: 1px solid #999999;
+    outline: 1px solid #232059;
+    box-shadow: 0px 0px 2px 2px black;
+    padding: 3px 5px;
+    width: 200px;
+    margin-bottom: 4px;
+}
+
+#users {
+    overflow-y: scroll;
+    padding-right: 1.5rem;
+}
+
+#bottom-right-pannel {
+    width: 300px;
+}
+
+#bottom-right-pannel #quit{
+    text-align: center;
+    text-shadow: black 0px 0px 5px;
+    display: flex;
+    justify-content: center;
+}
+
+#bottom-right-pannel #quit span:hover {
+    cursor: pointer;
+    text-shadow: #019D9D 0px 0px 5px;
+}
+
+#message-content {
+    color: #C2C2DA;
+    text-shadow: #C2C2DA 0px 0px 0.5px;
+    border-radius: 6px;
+    background-color: #1E1E24;
+    height: 22px;
+    width: 580px;
+    border-style: solid;
+    border-width: 1px;
+    border-top-color: black;
+    border-left-color: black;
+    border-right-color: #686875;
+    border-bottom-color: #686875;
+    padding: 0px 6px;
+    padding-left: 55px;
+}
+
+#message-content:focus {
+    outline: none;
+}
+
+#messages {
+    height: 85%;
+    overflow-y: auto;
+    width: 640px;
+    overflow-wrap: break-word;
+}
+
+#messages>div {
+    margin-right: 10px;
+}
+
+#messages::-webkit-scrollbar {
+    background: #C8C9DD;
+    width: 1px;
+}
+
+#messages::-webkit-scrollbar-track {
+    background: #212127;
+    width: 1px;
+}
+
+#messages::-webkit-scrollbar-thumb {
+    background: #C2C2DA;
+}
+
+#users::-webkit-scrollbar {
+    background: #C8C9DD;
+    width: 1px;
+}
+
+#users::-webkit-scrollbar-track {
+    background: #212127;
+    width: 1px;
+}
+
+#users::-webkit-scrollbar-thumb {
+    background: #C2C2DA;
+}
+
+.wrapper {
+    position: absolute;
+    bottom: 0;
+    margin-top: .5rem;
+}
+
+.wrapper label {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    left: 8px;
+    bottom: 5px;
+    user-select: none;
+}

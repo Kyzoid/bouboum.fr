@@ -10,14 +10,15 @@ module.exports = class Database {
       if (err) {
         return console.error(err.message);
       }
-      console.log('Connected to the SQlite database.');
+      console.log('Connecté à la base de données SQlite.');
+
       this.db.run('CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR(50) NOT NULL)', err => {
         if (err) return console.error(err.message);
-        console.log('Table user has been created.');
+        console.log('La table user a bien été créée.');
       });
       this.db.run('CREATE TABLE IF NOT EXISTS score (id INTEGER PRIMARY KEY AUTOINCREMENT, username_id VARCHAR(50) NOT NULL, total INT NOT NULL, win INT NOT NULL,  ratio REAL NOT NULL, created_at TEXT NOT NULL, FOREIGN KEY(username_id) REFERENCES user(id))', err => {
         if (err) return console.error(err.message);
-        console.log('Table score has been created.');
+        console.log('La table score a bien été créée.');
       });
     });
   }
@@ -91,7 +92,7 @@ module.exports = class Database {
     let userId = await this.selectUserId(username);
 
     if (userId.length === 1) {
-      const createdAt = score[score.length-1];
+      const createdAt = score[score.length - 1];
       const scoreId = await this.selectScoreId(userId[0].id, createdAt);
 
       if (scoreId.length === 0) {
@@ -109,12 +110,22 @@ module.exports = class Database {
     }
   }
 
+  async selectAdminUser (username) {
+    const sql = `SELECT password FROM admin WHERE username = ?`;
+    return new Promise((resolve, reject) => {
+      this.db.all(sql, username, (err, row) => {
+        if (err) { reject("Read error: " + err.message) }
+        resolve(row);
+      });
+    });
+  }
+
   close() {
     this.db.close((err) => {
       if (err) {
         return console.error(err.message);
       }
-      console.log('Close the database connection.');
+      console.log('Connexion à la base de données fermée.');
     });
   }
 };

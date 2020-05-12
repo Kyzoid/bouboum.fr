@@ -1,4 +1,6 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
+const createError = require('http-errors');
 const IndexController = require('../controllers/IndexController');
 const Index = new IndexController();
 const router = express.Router();
@@ -10,6 +12,10 @@ require('dayjs/locale/fr');
 /* GET home page. */
 router.get('/', (req, res, next) => {
   Index.ranking(req, res, next)
+});
+
+router.get('/match', (req, res, next) => {
+  res.render('match');
 });
 
 router.get('/bouboum-ranking', async (req, res, next) => {
@@ -25,7 +31,7 @@ router.get('/bouboum-ranking', async (req, res, next) => {
   }
 });
 
-router.post('/add-data', (req, res, next) => {
+router.post('/add-data', auth, (req, res, next) => {
   try {
     const data = req.body;
     if (Object.keys(data).length) {
@@ -51,8 +57,32 @@ router.post('/add-data', (req, res, next) => {
   }
 });
 
-router.get('/data', (req, res, next) => {
-  res.render('data');
+router.all('/admin', auth, (req, res, next) => {
+  res.render('admin');
 });
+
+async function auth(req, res, next) {
+  if (req.method === 'POST') {
+    const username = req.body.username;
+    const database = new Database();
+    database.open();
+    const admin = await database.selectAdminUser(username);
+    database.close();
+
+    if (req.body.password && admin.length) {
+      if (await bcrypt.compare(req.body.password || '', admin[0].password || '')) {
+        next();
+      } else {
+        res.render('auth', { err: "Où est-ce que tu essayes d'entrer sale fou ?!" });
+      }
+    } else {
+      res.render('auth', { err: "Où est-ce que tu essayes d'entrer sale fou ?!" });
+    }
+  } else {
+    res.render('auth');
+  }
+
+  
+}
 
 module.exports = router;
