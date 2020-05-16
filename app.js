@@ -6,19 +6,21 @@ const logger = require('morgan');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const rateLimit = require("express-rate-limit");
+const Redis = require('ioredis')
+const RedisStore = require('connect-redis')(session);
+const { REDIS_OPTIONS, SESSION_OPTIONS, APP_PORT } = require('./config')
 
-const TWO_HOURS = 1000 * 60 * 60 * 2;
+const client = new Redis(REDIS_OPTIONS);
 
-const {
-  SESS_LIFETIME = TWO_HOURS,
-  SESS_NAME = 'sid',
-  SESS_SECRET = 'ssh!se#ssion:sec#ret',
-  NODE_ENV = 'development'
-} = process.env;
+const app = express();
+ 
+app.use(
+  session({
+    ...SESSION_OPTIONS,
+    store: new RedisStore({ client })
+  })
+)
 
-const IN_PROD = NODE_ENV === 'production';
-
-// app.set('trust proxy', 1);
  
 const limiter = rateLimit({
   windowMs: 2 * 60 * 1000, // 2 minutes
@@ -28,25 +30,11 @@ const limiter = rateLimit({
 const indexRouter = require('./routes/index');
 const adminRouter = require('./routes/admin');
 
-const app = express();
-
-app.use(session({
-  name: SESS_NAME,
-  resave: false,
-  saveUninitialized: false,
-  secret: SESS_SECRET,
-  cookie: {
-    maxAge: SESS_LIFETIME,
-    sameSite: true,
-    secure: IN_PROD,
-  }
-}));
 
 app.use(logger('dev'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -75,7 +63,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-
-
-
-module.exports = app;
+app.listen(APP_PORT, () => console.log(`http://localhost:${APP_PORT}`));
