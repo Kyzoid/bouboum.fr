@@ -3,4 +3,3 @@ scanner.bat
 .vscode
 raw_data.txt
 data/db.sqlite
-.env
