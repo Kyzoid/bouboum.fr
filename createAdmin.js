@@ -18,11 +18,6 @@ class Database {
       console.log('Connecté à la base de données SQlite.');
     });
 
-    this.db.run('CREATE TABLE IF NOT EXISTS admin (id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR(50) NOT NULL, password VARCHAR(255) NOT NULL)', err => {
-      if (err) return console.error(err.message);
-      console.log('La table admin a bien été créée.');
-    });
-
     if (username && password) {
       const salt = await bcrypt.genSalt();
       const hashedPassword = await bcrypt.hash(password, salt);

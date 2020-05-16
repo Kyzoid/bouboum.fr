@@ -17,18 +17,12 @@ class IndexController {
   }
 
   async ranking(req, res, next) {
-    const database = new Database();
-    database.open();
-    const scores = await database.selectUsersAndScoreByDate(this.todayDate);
-    database.close();
+    const isBouboum = req.url.includes('bouboum');
+    const game = isBouboum ? 'Bouboum' : 'Aaaah';
 
-    scores.forEach(score => {
-      score.username = this.ucFirst(score.username);
-    });
-    
-    res.render('index', {
-      scores: scores,
+    res.render('ranking', {
       date: dayjs().locale('fr').format('DD/MM/YYYY'),
+      game: game
     });
   }
 

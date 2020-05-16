@@ -1,62 +1,76 @@
-<%- include('header') %>
+<%- include('templates/header') %>
 
-<div class="container mx-auto flex flex-col">
-  <div class="team-one">
-    <div class="bg-black p-5">
-      <h1 id="team-one-title" class="text-xl mb-4 text-red-extinction"></h1>
-      <div id="team-one-list" class="players"></div>
+<div class="h-full container mx-auto flex flex-col">
+  <div class="flex flex-auto bg-black justify-between">
+    <div id="team-one" class="team p-6">
+      <button data-team="team-one" class="w-full mb-4 add-player-button bg-extinction-dark p-2 rounded validate">
+        Ajouter un joueur
+      </button>
+      <div class="bg-black">
+        <div class="h-8 text-red-extinction team-name">
+          <span id="team-one-title" contenteditable="true" class="bg-black text-xl mb-4 "></span>
+        </div>
+        <div id="team-one-list" class="list players">
+        </div>
+      </div>
     </div>
-    <div class="mt-2">
-      <label class="mr-1">Nom de la team</label>
-      <input id="team-one-name" class="input-text" type="text" />
-      <button data-team="team-one" class="edit-team-name ml-1 bg-extinction p-1 rounded text-xs validate">OK</button>
-    </div>
-    <div class="mt-1">
-      <label class="mr-1">Ajouter un joueur</label>
-      <input id="team-one-input" class="input-text" type="text" />
-      <button data-team="team-one" class="add-player-button ml-1 bg-extinction p-1 rounded text-xs validate">OK</button>
+
+    <div id="team-two" class="team p-6">
+      <button data-team="team-two" class="w-full mb-4 add-player-button bg-extinction-dark p-2 rounded validate">
+        Ajouter un joueur
+      </button>
+      <div class="bg-black">
+        <div class="h-8 text-red-extinction team-name">
+          <span id="team-two-title" contenteditable="true" class=" bg-black text-xl mb-4"></span>
+        </div>
+        <div id="team-two-list" class="list players"></div>
+      </div>
     </div>
   </div>
 
-  <div class="mt-10 team-two">
-    <div class="bg-black p-5">
-      <h1 id="team-two-title" class="text-xl mb-4 text-red-extinction"></h1>
-      <div id="team-two-list" class="players"></div>
+  <div class="mb-4">
+    <div class="p-5 bg-black mt-5 text-xl justify-center items-center flex-col score">
+      <div class="flex justify-center items-center">
+        <div class="h-8 flex items-center team-name">
+          <span id="team-one-versus-title" contenteditable="true" class="bg-black"></span>
+        </div>
+        <span id="team-one-score" class="ml-5 text-3xl text-yellow-extinction"></span>
+        <span class="ml-5 mr-5 text-red-extinction">vs</span>
+        <span id="team-two-score" class="mr-5 text-3xl text-yellow-extinction"></span>
+        <div class="h-8 flex items-center team-name">
+          <span id="team-two-versus-title" contenteditable="true" class="bg-black"></span>
+        </div>
+      </div>
+      <div class="bg-black justify-center items-center flex score">
+        <div class="h-8 flex items-center team-name">
+          <span contenteditable="true" class="bg-black ml-5 text-xl text-yellow-extinction">0</span>
+        </div>
+        <span class="ml-5 mr-5 text-red-extinction">vs</span>
+        <div class="h-8 flex items-center team-name">
+          <span contenteditable="true" class="bg-black mr-5 text-xl text-yellow-extinction">0</span>
+        </div>
+      </div>
     </div>
-    <div class="mt-2">
-      <label class="mr-1">Nom de la team</label>
-      <input id="team-two-name" class="input-text" type="text" />
-      <button data-team="team-two" class="edit-team-name ml-1 bg-extinction p-1 rounded text-xs validate">OK</button>
-    </div>
-    <div class="mt-1">
-      <label class="mr-1">Ajouter un joueur</label>
-      <input id="team-two-input" class="input-text" type="text" />
-      <button data-team="team-two" class="add-player-button ml-1 bg-extinction p-1 rounded text-xs validate">OK</button>
-    </div>
-  </div>
 
-  <div class="p-5 bg-black mt-10 text-3xl justify-center items-center flex score">
-    <span id="team-one-versus-title"></span>
-    <span id="team-one-score" class="ml-10 text-5xl text-yellow-extinction"></span>
-    <span class="ml-10 mr-10 text-red-extinction">vs</span>
-    <span id="team-two-score" class="mr-10 text-5xl text-yellow-extinction"></span>
-    <span id="team-two-versus-title"></span>
-  </div>
-
-  <div class="mt-2 flex justify-center items-center">
-    <div>
-      <label class="mr-1">Score 1</label>
-      <input id="team-one-number" class="input-number" type="number" />
-      <button data-team="team-one" class="edit-team-score ml-1 bg-extinction p-1 rounded text-xs validate">OK</button>
+    <div class="mt-2 flex justify-center items-center">
+      <div>
+        <label class="mr-1">Score 1</label>
+        <input id="team-one-number" class="input-number" type="number" />
+        <button data-team="team-one" class="edit-team-score ml-1 bg-extinction p-1 rounded text-xs validate">OK</button>
+      </div>
+      <div class="ml-20">
+        <label class="mr-1">Score 2</label>
+        <input id="team-two-number" class="input-number" type="number" />
+        <button data-team="team-two" class="edit-team-score ml-1 bg-extinction p-1 rounded text-xs validate">OK</button>
+      </div>
     </div>
-    <div class="ml-20">
-      <label class="mr-1">Score 2</label>
-      <input id="team-two-number" class="input-number" type="number" />
-      <button data-team="team-two" class="edit-team-score ml-1 bg-extinction p-1 rounded text-xs validate">OK</button>
+
+    <div class="flex justify-center items-center mt-4">
+      <button id="reset-all" class="items-center mt-4 bg-extinction p-2 rounded validate">Réinitialiser</button>
     </div>
   </div>
 </div>
 
 
 <script src="/javascripts/match.js"></script>
-<%- include('footer') %>
+<%- include('templates/footer') %>

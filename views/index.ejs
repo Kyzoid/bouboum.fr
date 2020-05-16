@@ -1,37 +1,23 @@
-<%- include('header') %>
+<%- include('templates/header') %>
 
-<div class="flex flex-col container mx-auto items-center">
-  <h1 class="text-4xl mb-4 text-red-extinction">Classement Bouboum</h1>
+<div class="container mx-auto px-4 text-center">
 
-  <nav class="noselect flex items-center justify-between date-pagination m-4 text-green-extinction">
-    
-    <button id="prev" title="Précédent" class="opacity-25 date-selector uppercase text-2xs text-green-extinction bg-extinction font-bold py-2 px-4 rounded-full inline-flex items-center">
-      <img src="/images/left_arrow.svg" width="8">
-      <span class="ml-1">Précédent</span>
-    </button>
-    
-    <div id="current-date" class="text-xl ml-5 mr-5"><%= date %></div>
+    <div>
+        <h1 class="text-3xl text-green-extinction">Classements</h1>
+        <p>Cliquez sur un jeu pour afficher le classement</p>
+        <div class="menu mt-6 flex items-center justify-center">
+            <a class="menu-choice flex items-center justify-center" href="/aaaah">
+                <img src="/images/menu_aaaah.png">
+            </a>
+            <a class="menu-choice ml-6 flex items-center justify-center" href="/bouboum">
+                <img src="/images/menu_bouboum.png">
+            </a>
+            <a class="menu-choice p-2 ml-6 break-words flex items-center justify-center" href="/match">
+                Match<br>overlay
+            </a>
+        </div>
+    </div>
 
-    <button id="next" title="Suivant" class="opacity-25 date-selector uppercase text-2xs text-green-extinction bg-extinction font-bold py-2 px-4 rounded-full inline-flex items-center">
-      <span class="mr-1">Suivant</span>
-      <img src="/images/right_arrow.svg" width="8">
-    </button>
-  </nav>
-
-  <table class="mt-4 mr-0 bg-extinction px-6 py-5 rounded">
-    <thead>
-      <tr class="text-left">
-        <th style="width: 60px"></th>
-        <th style="width: 300px"></th>
-        <th class="text-center" style="width: 170px">Parties gagnées</th>
-        <th class="text-center" style="width: 170px">Parties jouées</th>
-        <th class="text-center" style="width: 100px">TPM</th>
-      </tr>
-    </thead>
-    <tbody id="tbody">
-    </tbody>
-  </table>
 </div>
 
-<script type='module' src="/javascripts/bouboum-ranking.js"></script>
-<%- include('footer') %>
+<%- include('templates/footer') %>

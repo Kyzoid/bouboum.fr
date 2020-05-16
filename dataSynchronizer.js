@@ -1,9 +1,15 @@
-const fileDirectory = "./data/bouboum.txt";
 const fs = require('fs').promises;
 const Database = require('./controllers/Database');
 
+const args = process.argv.slice(2);
+const game = args[0];
+
+const fileDirectory = `./data/${game}.txt`;
+
 const db = new Database();
 db.open();
+
+console.log(`Synchronisation ${game} en cours...`);
 
 const formatData = async () => {
   const data = await fs.readFile(fileDirectory, 'utf8');
@@ -24,13 +30,10 @@ const formatData = async () => {
         userStat = userStat.split(',');
         userStat[0] = userStat[0].toLowerCase();
         userStat[userStat.length] = date;
-        //usersToInsert.push(username);
         scoresToInsert.push(userStat);
       });
     });
-    
-    //usersToInsert = removeDuplicates(usersToInsert);
-    
+
     return scoresToInsert;
   }
 
@@ -40,8 +43,14 @@ formatData().then( async (scores) => {
   let endedQueries = 0;
 
   for (score of scores) {
-    await db.insertScore(score);
+    if (game === 'bouboum') {
+      await db.insertBouboumScore(score, game);
+    }
+    if (game === 'aaaah') {
+      await db.insertAaaahScore(score, game);
+    }
   }
 
+  db.close();
+  console.log(`Synchronisation ${game} terminée.`);
 });
-

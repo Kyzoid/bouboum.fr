@@ -1,3 +1,8 @@
+html, body {
+  height: 100%;
+
+}
+
 .bg-extinction {
   background-color: #303036;
 }
@@ -19,6 +24,10 @@
   color: #cb546b;
 }
 
+.bg-red-extinction {
+  background-color: #cb546b;
+}
+
 .text-yellow-extinction {
   color: #c9cd36;
 }
@@ -31,18 +40,19 @@
   color: #6872b8;
 }
 
-tr {
+table tr {
   padding: 1rem;
+  border-radius: 4px;
+}
+
+tbody tr:hover {
+  background-color: #1b1b20;
 }
 
 table {
     border-collapse: separate;
     border-spacing: 0 .20rem;
     border-collapse: none;
-}
-
-table tr {
-  border-radius: 4px;
 }
 
 table td {
@@ -60,4 +70,37 @@ table td {
 .date-selector {
   outline: none;
   box-shadow: none;
+}
+
+.section {
+  border: 1px solid #142C50;
+  outline: 1px solid #000000;
+  box-shadow: 0px 0px 0px 2px #808080;
+  background-color: #303036;
+  padding: .5rem;
+}
+
+.menu-choice {
+  width: 120px;
+  height: 90px;
+  overflow: hidden;
+}
+
+.menu-choice {
+  border-radius: 6px;
+  border: 2px solid black;
+  cursor: pointer;
+  background-color: #212127;
+}
+
+.menu-choice:hover {
+  background-color: #18181d;
+}
+
+nav a:hover {
+  text-shadow: #019D9D 0px 0px 5px;
+}
+
+.show-data {
+  cursor: pointer;
 }

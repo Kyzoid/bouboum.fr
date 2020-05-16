@@ -8,7 +8,8 @@
     "start": "nodemon ./bin/www",
     "build": "postcss css/tailwind.css -o public/stylesheets/tailwind.css",
     "es-dev-server": "npx es-dev-server --node-resolve --watch --open",
-    "createAdmin": "node createAdmin.js"
+    "createAdmin": "node createAdmin.js",
+    "createDatabase": "node createDatabase.js"
   },
   "author": "",
   "license": "ISC",
@@ -25,6 +26,8 @@
     "ejs": "~2.6.1",
     "express": "^4.17.1",
     "express-generator": "^4.16.1",
+    "express-rate-limit": "^5.1.3",
+    "express-session": "^1.17.1",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
     "postcss-cli": "^7.1.1",

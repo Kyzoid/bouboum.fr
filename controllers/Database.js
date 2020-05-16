@@ -10,16 +10,7 @@ module.exports = class Database {
       if (err) {
         return console.error(err.message);
       }
-      console.log('Connecté à la base de données SQlite.');
-
-      this.db.run('CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR(50) NOT NULL)', err => {
-        if (err) return console.error(err.message);
-        console.log('La table user a bien été créée.');
-      });
-      this.db.run('CREATE TABLE IF NOT EXISTS score (id INTEGER PRIMARY KEY AUTOINCREMENT, username_id VARCHAR(50) NOT NULL, total INT NOT NULL, win INT NOT NULL,  ratio REAL NOT NULL, created_at TEXT NOT NULL, FOREIGN KEY(username_id) REFERENCES user(id))', err => {
-        if (err) return console.error(err.message);
-        console.log('La table score a bien été créée.');
-      });
+      return true;
     });
   }
 
@@ -64,8 +55,19 @@ module.exports = class Database {
     });
   }
 
-  selectScoreId(usernameId, createdAt) {
-    const sql = `SELECT id FROM score WHERE username_id = (?) and created_at = (?)`;
+  async selectAdminUser (username) {
+    const sql = `SELECT id, password FROM admin WHERE username = ?`;
+    return new Promise((resolve, reject) => {
+      this.db.all(sql, username, (err, row) => {
+        if (err) { reject("Read error: " + err.message) }
+        resolve(row);
+      });
+    });
+  }
+
+  selectScoreId(usernameId, createdAt, game) {
+    const table = `score_${game}`;
+    const sql = `SELECT id FROM ${table} WHERE username_id = (?) and created_at = (?)`;
 
     return new Promise((resolve, reject) => {
       this.db.all(sql, [usernameId, createdAt], (err, row) => {
@@ -75,8 +77,12 @@ module.exports = class Database {
     });
   }
 
-  selectUsersAndScoreByDate(date) {
-    const sql = `SELECT u.username, s.win, s.total, s.ratio FROM user u JOIN score s ON s.username_id = u.id WHERE s.created_at = ?`;
+  // BOUBOUM --------------------------------------------------------------------
+  
+
+  selectBouboumUsersAndScoreByDate(date) {
+    const table = 'score_bouboum';
+    const sql = `SELECT u.username, s.win, s.total, s.ratio FROM user u JOIN ${table} s ON s.username_id = u.id WHERE s.created_at = ?`;
 
     return new Promise((resolve, reject) => {
       this.db.all(sql, [date], (err, row) => {
@@ -86,17 +92,17 @@ module.exports = class Database {
     });
   }
 
-  async insertScore(score) {
+  async insertBouboumScore(score) {
+    const table = 'score_bouboum';
     const username = score[0];
     await this.insertUser(username);
     let userId = await this.selectUserId(username);
-
     if (userId.length === 1) {
       const createdAt = score[score.length - 1];
-      const scoreId = await this.selectScoreId(userId[0].id, createdAt);
+      const scoreId = await this.selectScoreId(userId[0].id, createdAt, 'bouboum');
 
       if (scoreId.length === 0) {
-        const sql = `INSERT INTO score (username_id, total, win, ratio, created_at) VALUES (?, ?, ?, ?, ?)`;
+        const sql = `INSERT INTO ${table} (username_id, total, win, ratio, created_at) VALUES (?, ?, ?, ?, ?)`;
         score[0] = userId[0].id;
         return new Promise((resolve, reject) => {
           this.db.run(sql, score, (err) => {
@@ -110,22 +116,51 @@ module.exports = class Database {
     }
   }
 
-  async selectAdminUser (username) {
-    const sql = `SELECT password FROM admin WHERE username = ?`;
+  // AAAAH --------------------------------------------------------------------
+
+  selectAaaahUsersAndScoreByDate(date) {
+    const table = 'score_aaaah';
+    const sql = `SELECT u.username, s.win, s.total, s.guiding, s.guiding_ratio, s.kills FROM user u JOIN ${table} s ON s.username_id = u.id WHERE s.created_at = ?`;
+
     return new Promise((resolve, reject) => {
-      this.db.all(sql, username, (err, row) => {
+      this.db.all(sql, [date], (err, row) => {
         if (err) { reject("Read error: " + err.message) }
         resolve(row);
       });
     });
   }
 
+  async insertAaaahScore(score) {
+    const table = 'score_aaaah';
+    const username = score[0];
+    await this.insertUser(username);
+    let userId = await this.selectUserId(username);
+    if (userId.length === 1) {
+      const createdAt = score[score.length - 1];
+      const scoreId = await this.selectScoreId(userId[0].id, createdAt, 'aaaah');
+
+      if (scoreId.length === 0) {
+        const sql = `INSERT INTO ${table} (username_id, total, guiding, win, win_ratio, guiding_ratio, kills, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+        score[0] = userId[0].id;
+        return new Promise((resolve, reject) => {
+          this.db.run(sql, score, (err) => {
+            if (err) { reject("Insert error: " + err.message) }
+            else {
+              resolve(1);
+            }
+          });
+        });
+      }
+    }
+  }
+
+
   close() {
     this.db.close((err) => {
       if (err) {
         return console.error(err.message);
       }
-      console.log('Connexion à la base de données fermée.');
+      return true;
     });
   }
 };

@@ -6,6 +6,17 @@
     padding: 3px 5px;
     width: 200px;
     margin-bottom: 4px;
+    overflow: hidden;
+}
+
+span:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.player:hover {
+    background-color: rgb(20, 20, 22);
+    cursor: text;
 }
 
 .input-text {
