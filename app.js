@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -13,15 +15,17 @@ const { REDIS_OPTIONS, SESSION_OPTIONS, APP_PORT } = require('./config')
 const client = new Redis(REDIS_OPTIONS);
 
 const app = express();
- 
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 app.use(
   session({
     ...SESSION_OPTIONS,
-    store: new RedisStore({ client })
+    store : new RedisStore({ client })
   })
-)
+);
 
- 
 const limiter = rateLimit({
   windowMs: 2 * 60 * 1000, // 2 minutes
   max: 10000
@@ -30,11 +34,7 @@ const limiter = rateLimit({
 const indexRouter = require('./routes/index');
 const adminRouter = require('./routes/admin');
 
-
 app.use(logger('dev'));
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

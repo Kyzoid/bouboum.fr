@@ -6,25 +6,25 @@
   "scripts": {
     "sync": "node dataSynchronizer.js",
     "start": "nodemon app.js",
+    "start:prod": "NODE_ENV=production node app.js",
     "build": "postcss css/tailwind.css -o public/stylesheets/tailwind.css",
     "es-dev-server": "npx es-dev-server --node-resolve --watch --open",
     "createAdmin": "node createAdmin.js",
     "createDatabase": "node createDatabase.js"
   },
-  "author": "",
+  "author": "Kyzoid",
   "license": "ISC",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.13.0",
     "@fullhuman/postcss-purgecss": "^2.2.0",
     "autoprefixer": "^9.7.6",
-    "axios": "^0.19.2",
     "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
     "connect-redis": "^4.0.4",
     "cookie-parser": "~1.4.4",
-    "dayjs": "^1.8.26",
+    "dayjs": "^1.8.27",
     "debug": "~2.6.9",
-    "ejs": "~2.6.1",
+    "dotenv": "^8.2.0",
+    "ejs": "^2.6.2",
     "express": "^4.17.1",
     "express-generator": "^4.16.1",
     "express-rate-limit": "^5.1.3",
@@ -34,10 +34,10 @@
     "morgan": "~1.9.1",
     "postcss-cli": "^7.1.1",
     "sqlite3": "^4.2.0",
-    "tailwindcss": "^1.4.4"
+    "tailwindcss": "^1.4.6"
   },
   "devDependencies": {
-    "es-dev-server": "^1.48.1",
-    "nodemon": "^2.0.3"
+    "es-dev-server": "^1.50.5",
+    "nodemon": "^2.0.4"
   }
 }

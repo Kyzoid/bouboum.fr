@@ -1,5 +1,3 @@
-const { RedisOptions } = require('ioredis');
-
 const config = {};
 
 // app
@@ -18,15 +16,13 @@ config.REDIS_OPTIONS = {
   password: config.REDIS_PASSWORD
 };
 
-// db
-
 // session
-
-const HALF_HOUR = 1000 * 60 * 30;
+const ONE_HOUR = 1000 * 60 * 60;
+const THIRTY_MINUTES = ONE_HOUR/2;
 
 config.SESSION_SECRET = process.env.SESSION_SECRET || 'very secret';
 config.SESSION_NAME = process.env.SESSION_NAME || 'sid';
-config.SESSION_IDLE_TIMEOUT = process.env.SESSION_IDLE_TIMEOUT || HALF_HOUR;
+config.SESSION_IDLE_TIMEOUT = process.env.SESSION_IDLE_TIMEOUT || THIRTY_MINUTES;
 
 config.SESSION_OPTIONS = {
   secret: config.SESSION_SECRET,

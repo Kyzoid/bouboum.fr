@@ -37,7 +37,7 @@ router.get('/ranking', async (req, res, next) => {
     database.close();
     res.send(scores);
   } catch (e) {
-    
+
   }
 });
 
