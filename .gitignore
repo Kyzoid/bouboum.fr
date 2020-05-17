@@ -2,4 +2,3 @@ node_modules
 scanner.bat
 .vscode
 raw_data.txt
-data/db.sqlite

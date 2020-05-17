@@ -8,12 +8,21 @@
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
 
+html {
+  line-height: 1.15; /* 1 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+
 /* Sections
    ========================================================================== */
 
 /**
  * Remove the margin in all browsers.
  */
+
+body {
+  margin: 0;
+}
 
 /**
  * Render the `main` element consistently in IE.
@@ -135,6 +144,7 @@ select { /* 1 */
 
 button,
 [type="button"],
+[type="reset"],
 [type="submit"] {
   -webkit-appearance: button;
 }
@@ -145,6 +155,7 @@ button,
 
 button::-moz-focus-inner,
 [type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
 [type="submit"]::-moz-focus-inner {
   border-style: none;
   padding: 0;
@@ -156,6 +167,7 @@ button::-moz-focus-inner,
 
 button:-moz-focusring,
 [type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
 [type="submit"]:-moz-focusring {
   outline: 1px dotted ButtonText;
 }
@@ -279,6 +291,11 @@ button:focus {
  * 2. Use Tailwind's default "normal" line-height so the user isn't forced
  *    to override it to ensure consistency even when using the default theme.
  */
+
+html {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* 1 */
+  line-height: 1.5; /* 2 */
+}
 
 /**
  * 1. Prevent padding and border from affecting element width.
@@ -414,7 +431,8 @@ textarea {
  */
 
 img,
-svg {
+svg,
+object {
   display: block;
   vertical-align: middle;
 }
@@ -507,6 +525,12 @@ img {
   background-color: rgba(43, 108, 176, var(--bg-opacity));
 }
 
+.hover\:border-white:hover {
+  --border-opacity: 1;
+  border-color: #fff;
+  border-color: rgba(255, 255, 255, var(--border-opacity));
+}
+
 .rounded {
   border-radius: 0.25rem;
 }
@@ -547,6 +571,10 @@ img {
   flex-direction: column;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .items-center {
   align-items: center;
 }
@@ -563,8 +591,28 @@ img {
   flex: 1 1 auto;
 }
 
+.flex-grow {
+  flex-grow: 1;
+}
+
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
 .font-bold {
   font-weight: 700;
+}
+
+.h-3 {
+  height: 0.75rem;
+}
+
+.h-4 {
+  height: 1rem;
 }
 
 .h-8 {
@@ -607,6 +655,10 @@ img {
   font-size: 3rem;
 }
 
+.m-0 {
+  margin: 0;
+}
+
 .m-4 {
   margin: 1rem;
 }
@@ -638,6 +690,10 @@ img {
 
 .mt-2 {
   margin-top: 0.5rem;
+}
+
+.mr-2 {
+  margin-right: 0.5rem;
 }
 
 .mb-2 {
@@ -680,6 +736,10 @@ img {
   margin-left: 1.5rem;
 }
 
+.mr-10 {
+  margin-right: 2.5rem;
+}
+
 .mb-10 {
   margin-bottom: 2.5rem;
 }
@@ -694,6 +754,10 @@ img {
 
 .opacity-25 {
   opacity: 0.25;
+}
+
+.p-0 {
+  padding: 0;
 }
 
 .p-1 {
@@ -741,12 +805,24 @@ img {
   padding-right: 1.5rem;
 }
 
+.pl-2 {
+  padding-left: 0.5rem;
+}
+
+.shadow-xs {
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
 .shadow {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
 .shadow-md {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.fill-current {
+  fill: currentColor;
 }
 
 .text-left {
@@ -793,8 +869,18 @@ img {
   color: rgba(56, 161, 105, var(--text-opacity));
 }
 
+.hover\:text-white:hover {
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+}
+
 .uppercase {
   text-transform: uppercase;
+}
+
+.tracking-tight {
+  letter-spacing: -0.025em;
 }
 
 .break-words {
@@ -803,6 +889,14 @@ img {
 
 .break-all {
   word-break: break-all;
+}
+
+.w-3 {
+  width: 0.75rem;
+}
+
+.w-8 {
+  width: 2rem;
 }
 
 .w-40 {
@@ -817,10 +911,46 @@ img {
   width: 100%;
 }
 
+body {
+  padding: 50px;
+  font: 14px Verdana, Helvetica, Arial, sans-serif;
+}
+
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */ /* Konqueror HTML */
   -moz-user-select: none; /* Old versions of Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+
+@media (min-width: 1024px) {
+
+  .lg\:inline-block {
+    display: inline-block;
+  }
+
+  .lg\:flex {
+    display: flex;
+  }
+
+  .lg\:hidden {
+    display: none;
+  }
+
+  .lg\:items-center {
+    align-items: center;
+  }
+
+  .lg\:flex-grow {
+    flex-grow: 1;
+  }
+
+  .lg\:mt-0 {
+    margin-top: 0;
+  }
+
+  .lg\:w-auto {
+    width: auto;
+  }
 }

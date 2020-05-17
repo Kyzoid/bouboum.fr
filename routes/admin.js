@@ -30,7 +30,7 @@ router.get('/', redirectLogin, (req, res, next) => {
 });
 
 router.post('/synchronization', redirectLogin, (req, res, next) => {
-  exec(`sudo npm run sync ${req.body.game}`, (error, stdout, stderr) => {
+  exec(`npm run sync ${req.body.game}`, (error, stdout, stderr) => {
     if (error) {
       res.status(500).send(error.message);
     } else if (stderr) {

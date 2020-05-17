@@ -3,7 +3,7 @@ const config = {};
 // app
 config.NODE_ENV = process.env.NODE_ENV || 'development';
 config.APP_PORT = process.env.APP_PORT || 3000;
-config.IN_PROD = (config.NODE_ENV === 'production');
+config.IN_PROD = config.NODE_ENV === 'production';
 
 // cache
 config.REDIS_PORT = process.env.REDIS_PORT || 6379;
