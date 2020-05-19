@@ -14,7 +14,6 @@
     "start:prod": "NODE_ENV=production node app.js",
     "createAdmin": "node ./scripts/createAdmin.js",
     "createDatabase": "node ./scripts/createDatabase.js",
-    "tailwind": "postcss css/tailwind.css -o public/stylesheets/tailwind.css",
     "webpack:dev": "webpack --mode=development",
     "webpack:prod": "webpack --mode=production"
   },
