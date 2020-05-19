@@ -5,14 +5,13 @@ Statistiques du classement Bouboum.
 ## Installation
 
 ```bash
-npm install
+docker-compose up -d
 ```
 
 ## Utilisation
 
 ```bash
-npm run sync
-npm start
+docker-compose exec app npm run webpack:dev
 ```
 
 ## Collaborer
