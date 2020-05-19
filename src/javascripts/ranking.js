@@ -1,9 +1,10 @@
 import { getBouboumRanking, getAaaahRanking } from './get-ranking.js';
+import dayjs from 'dayjs';
 
 const game = document.getElementById('title').dataset.game;
 const currentDate = document.getElementById('current-date');
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   if (game === 'bouboum') {
     getBouboumRanking(undefined, true, false, currentDate);
   } else {

@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   const dataTextarea = document.getElementById('textarea');
   const writeSelect = document.getElementById('write');
   const rankingSelect = document.getElementById('ranking');
@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
         body: JSON.stringify({ ranking: ranking, type: type, data: data })
       }).then(res => {
           textarea.value = '';
+          writeSelect.selectedIndex=0;
+          rankingSelect.selectedIndex=0;
           document.querySelector(`label[for='ranking']`).classList.remove('text-red-600');
           document.querySelector(`label[for='write']`).classList.remove('text-red-600');
           document.querySelector(`label[for='textarea']`).classList.remove('text-red-600');
@@ -80,7 +82,6 @@ document.addEventListener("DOMContentLoaded", function () {
           'Content-Type': 'application/json',
         }
       }).then(res => res.text()).then((res) => {
-        console.log(res)
         dataTextarea.value = '';
         const regex = /\[(.*?)\]/g;
         const row = res.match(regex);

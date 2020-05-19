@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  padding: 50px;
+  font: 14px Verdana, Helvetica, Arial, sans-serif;
+}
+
+.noselect {
+  user-select: none;
+}
+
+.h-90vh {
+  height: 90vh;
+}

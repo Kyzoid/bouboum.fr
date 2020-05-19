@@ -1,5 +1,5 @@
 const fs = require('fs').promises;
-const Database = require('./controllers/Database');
+const Database = require('../controllers/Database');
 
 const args = process.argv.slice(2);
 const game = args[0];

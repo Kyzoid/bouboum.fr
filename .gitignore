@@ -1,4 +1,5 @@
 node_modules
-scanner.bat
 .vscode
+dist/javascripts
+dist/stylesheets
 raw_data.txt

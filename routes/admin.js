@@ -62,7 +62,7 @@ router.post('/add-data', redirectLogin, (req, res, next) => {
           res.sendStatus(200);
         });
       } else {
-        fs.appendFile(file, data.data, err => {
+        fs.appendFile(file, "\n"+data.data, err => {
           if (err) { throw new Error('fs.appendFile() error.') }
           res.sendStatus(200);
         });
