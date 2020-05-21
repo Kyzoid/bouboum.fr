@@ -98,7 +98,7 @@ const config = {
       filename: '../dist/stylesheets/[name].min.css'
     }),
   ],
-  watch: false,
+  watch: true,
 };
 
 module.exports = config;

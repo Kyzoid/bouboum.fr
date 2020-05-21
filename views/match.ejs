@@ -1,14 +1,14 @@
 <%- include('templates/header') %>
 
 <div class="h-90vh container mx-auto flex flex-col">
-  <div class="flex flex-auto bg-black justify-between">
+  <div class="flex flex-auto bg-extinction-darker justify-between">
     <div id="team-one" class="team p-6">
       <button data-team="team-one" class="w-full mb-4 add-player-button bg-extinction-dark p-2 rounded validate">
         Ajouter un joueur
       </button>
-      <div class="bg-black">
+      <div class="bg-extinction-darker">
         <div class="h-8 text-red-extinction team-name">
-          <span id="team-one-title" contenteditable="true" class="bg-black text-xl mb-4 "></span>
+          <span id="team-one-title" contenteditable="true" class="bg-extinction-darker text-xl mb-4 "></span>
         </div>
         <div id="team-one-list" class="list players">
         </div>
@@ -19,9 +19,9 @@
       <button data-team="team-two" class="w-full mb-4 add-player-button bg-extinction-dark p-2 rounded validate">
         Ajouter un joueur
       </button>
-      <div class="bg-black">
+      <div class="bg-extinction-darker">
         <div class="h-8 text-red-extinction team-name">
-          <span id="team-two-title" contenteditable="true" class=" bg-black text-xl mb-4"></span>
+          <span id="team-two-title" contenteditable="true" class=" bg-extinction-darker text-xl mb-4"></span>
         </div>
         <div id="team-two-list" class="list players"></div>
       </div>
@@ -29,25 +29,25 @@
   </div>
 
   <div class="mb-4">
-    <div class="p-5 bg-black mt-5 text-xl justify-center items-center flex-col score">
+    <div class="p-5 bg-extinction-darker mt-5 text-xl justify-center items-center flex-col score">
       <div class="flex justify-center items-center">
         <div class="h-8 flex items-center team-name">
-          <span id="team-one-versus-title" contenteditable="true" class="bg-black"></span>
+          <span id="team-one-versus-title" contenteditable="true" class="bg-extinction-darker"></span>
         </div>
         <span id="team-one-score" class="ml-5 text-3xl text-yellow-extinction"></span>
         <span class="ml-5 mr-5 text-red-extinction">vs</span>
         <span id="team-two-score" class="mr-5 text-3xl text-yellow-extinction"></span>
         <div class="h-8 flex items-center team-name">
-          <span id="team-two-versus-title" contenteditable="true" class="bg-black"></span>
+          <span id="team-two-versus-title" contenteditable="true" class="bg-extinction-darker"></span>
         </div>
       </div>
-      <div class="bg-black justify-center items-center flex score">
+      <div class="bg-extinction-darker justify-center items-center flex score">
         <div class="h-8 flex items-center team-name">
-          <span contenteditable="true" class="bg-black ml-5 text-xl text-yellow-extinction">0</span>
+          <span contenteditable="true" class="bg-extinction-darker ml-5 text-xl text-yellow-extinction">0</span>
         </div>
         <span class="ml-5 mr-5 text-red-extinction">vs</span>
         <div class="h-8 flex items-center team-name">
-          <span contenteditable="true" class="bg-black mr-5 text-xl text-yellow-extinction">0</span>
+          <span contenteditable="true" class="bg-extinction-darker mr-5 text-xl text-yellow-extinction">0</span>
         </div>
       </div>
     </div>

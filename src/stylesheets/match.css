@@ -9,6 +9,10 @@
     overflow: hidden;
 }
 
+.bg-extinction-darker {
+    background-color: #1E1E22;
+}
+
 span:focus {
     outline: none;
     box-shadow: none;

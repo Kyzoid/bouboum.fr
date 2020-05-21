@@ -40,7 +40,6 @@ const formatData = async () => {
 };
 
 formatData().then( async (scores) => {
-  let endedQueries = 0;
 
   for (score of scores) {
     if (game === 'bouboum') {
