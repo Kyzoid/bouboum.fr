@@ -11,11 +11,11 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/bouboum', (req, res, next) => {
-  Index.ranking(req, res, next)
+  Index.ranking(req, res, next);
 });
 
 router.get('/aaaah', (req, res, next) => {
-  Index.ranking(req, res, next)
+  Index.ranking(req, res, next);
 });
 
 router.get('/match', (req, res, next) => {

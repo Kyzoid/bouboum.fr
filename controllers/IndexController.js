@@ -4,7 +4,6 @@ require('dayjs/locale/fr');
 
 class IndexController {
   constructor() {
-    this.date = 
     this.todayDate = dayjs().format('YYYY-MM-DD');
   }
 

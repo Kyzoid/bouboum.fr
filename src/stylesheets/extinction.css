@@ -3,6 +3,10 @@ html, body {
 
 }
 
+.bg-empty-square-extinction {
+  background-color:	#36364b;
+}
+
 .bg-extinction {
   background-color: #303036;
 }
@@ -83,17 +87,13 @@ table td {
   width: 120px;
   height: 90px;
   overflow: hidden;
-}
-
-.menu-choice {
   border-radius: 6px;
   border: 2px solid black;
   cursor: pointer;
-  background-color: #212127;
 }
 
-.menu-choice:hover {
-  background-color: #18181d;
+.menu-choice:hover span {
+  text-shadow: #019D9D 0px 0px 5px;
 }
 
 nav a:hover {
@@ -102,4 +102,8 @@ nav a:hover {
 
 .show-data {
   cursor: pointer;
+}
+
+.text-shadow {
+  text-shadow: 2px 1px 2px black;
 }
