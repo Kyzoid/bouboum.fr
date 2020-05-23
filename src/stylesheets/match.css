@@ -28,14 +28,14 @@ span:focus {
     text-shadow: #C2C2DA 0px 0px 0.5px;
     border-radius: 6px;
     background-color: #1E1E24;
-    height: 22px;
+    height: 24px;
     border-style: solid;
     border-width: 1px;
     border-top-color: black;
     border-left-color: black;
     border-right-color: #686875;
     border-bottom-color: #686875;
-    padding: 0px 6px;
+    padding: 2px 6px;
 }
 
 .input-number {

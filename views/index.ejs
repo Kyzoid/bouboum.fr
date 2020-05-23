@@ -7,26 +7,29 @@
         <p>Cliquez sur un jeu pour afficher le classement</p>
         <div class="menu mt-6 flex items-center justify-center">
             <a class="menu-choice flex items-center justify-center" href="/aaaah">
-                <div class="flex flex-col mt-2">
+                <div class="flex flex-col">
                     <img alt="aaaah" src="/images/menu_aaaah.png">
-                    <span class="mt-2 text-shadow text-xs">Aaaah !</span>
+                    <span class="text-shadow text-xs">Aaaah !</span>
                 </div>
             </a>
             <a class="menu-choice ml-6 flex items-center justify-center" href="/bouboum">
-                <div class="flex flex-col mt-2">
+                <div class="flex flex-col">
                     <img alt="bouboum" src="/images/menu_bouboum.png">
-                    <span class="mt-2 text-shadow text-xs">Bouboum</span>
+                    <span class="text-shadow text-xs">Bouboum</span>
                 </div>
             </a>
             <a class="menu-choice ml-6 flex items-center justify-center" href="/editeur">
-                <div class="flex flex-col mt-2">
+                <div class="flex flex-col">
                     <img alt="editeur" src="/images/editor_bouboum.png">
-                    <span class="mt-2 text-shadow text-xs">Editeur</span>
+                    <span class="text-shadow text-xs">Editeur</span>
                 </div>
             </a>
-            <a class="menu-choice p-2 ml-6 break-words flex items-center justify-center text-shadow text-xs"
+            <a id="match-overlay" style="position: relative;" class="bg-empty-square-extinction menu-choice ml-6 break-words flex items-center justify-center text-shadow text-xs"
                 href="/match">
-                <span>Match<br>overlay</span>
+                <span style="z-index: 10; position: absolute">Match<br>overlay</span>
+                <video class="mt-6 ml-10 pl-3" autoplay muted loop id="myVideo">
+                    <source src="/images/gif_bouboum_menu2.mp4" type="video/mp4">
+                </video>
             </a>
         </div>
     </div>

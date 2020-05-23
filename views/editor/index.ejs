@@ -4,9 +4,56 @@
 
     <h1 class="text-3xl text-green-extinction">Editeur Bouboum</h1>
 
-    <div>
-        
+    <div class="mt-6 mb-6 flex justify-center">
+        <div class="flex flex-col justify-between w-40 bg-extinction p-4">
+            <div id="canvas-squares">
+                <h2 class="font-bold text-lg text-left mb-4">Blocs</h2>
+                <div class="flex items-center mb-4">
+                    <img class="mr-2" id="orange-square" src="/images/orange_square.png">
+                    <span>Maj + 1</span>
+                </div>
+                <div class="flex items-center mb-4">
+                    <img class="mr-2" id="blue-square" src="/images/blue_square.png">
+                    <span>Maj + 2</span>
+                </div>
+                <div class="flex items-center mb-4">
+                    <img class="mr-2" id="black-square" src="/images/black_square.png">
+                    <span>Maj + 3</span>
+                </div>
+                <div class="flex items-center mb-4">
+                    <img class="mr-2" id="ice-square" src="/images/ice_square.png">
+                    <span>Maj + 4</span>
+                </div>
+                <div class="flex items-center">
+                    <div id="empty-square" class="mr-2 bg-empty-square-extinction"></div>
+                    <span>Clic droit</span>
+                </div>
+            </div>
+
+            <span id="reset" class="text-menu-extinction">Réinitialiser</span>
+        </div>
+
+        <div class="ml-4">
+            <div class="mb-2 flex items-center">
+                <span class="text-shadow">Titre :</span>
+                <span contenteditable="true" class="input-text ml-2 bg-extinction text-center flex items-center" style="min-width: 15rem; max-width: 30rem; overflow:hidden"></span>
+            </div>
+            <canvas id="editor-area" oncontextmenu="return false" height="456" width="696"
+                class="bg-empty-square-extinction">
+            </canvas>
+
+            <div class="mt-4 flex justify-between items-center">
+                <div class="flex flex-col text-left">
+                    <label class="text-menu-extinction mb-1">Importer à partir d'un fichier texte</label>
+                </div>
+                
+                <span class="text-menu-extinction">Soumettre la carte</span>
+            </div>
+        </div>
+
     </div>
 </div>
+
+<script src="/javascripts/editor.min.js"></script>
 
 <%- include('../templates/footer') %>

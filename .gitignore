@@ -3,3 +3,4 @@ node_modules
 dist/javascripts
 dist/stylesheets
 raw_data.txt
+scanner.bat
