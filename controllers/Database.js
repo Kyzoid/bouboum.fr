@@ -1,5 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 
+// TODO migrate to SQL
 module.exports = class Database {
   constructor() {
     this.db = null;

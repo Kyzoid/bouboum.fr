@@ -2,56 +2,78 @@
 
 <div class="container mx-auto px-4 text-center">
 
-    <h1 class="text-3xl text-green-extinction">Editeur Bouboum</h1>
+    <h1 class="text-4xl text-red-extinction mb-10">Editeur Bouboum</h1>
 
-    <div class="mt-6 mb-6 flex justify-center">
-        <div class="flex flex-col justify-between w-40 bg-extinction p-4">
-            <div id="canvas-squares">
+    <div class="select-none mb-6 flex justify-center">
+        <div class="flex flex-col justify-between w-56 bg-extinction p-4 rounded">
+            <div id="canvas-squares" class="flex flex-col">
                 <h2 class="font-bold text-lg text-left mb-4">Blocs</h2>
-                <div class="flex items-center mb-4">
-                    <img class="mr-2" id="orange-square" src="/images/orange_square.png">
-                    <span>Maj + 1</span>
-                </div>
-                <div class="flex items-center mb-4">
-                    <img class="mr-2" id="blue-square" src="/images/blue_square.png">
-                    <span>Maj + 2</span>
-                </div>
-                <div class="flex items-center mb-4">
-                    <img class="mr-2" id="black-square" src="/images/black_square.png">
-                    <span>Maj + 3</span>
-                </div>
-                <div class="flex items-center mb-4">
-                    <img class="mr-2" id="ice-square" src="/images/ice_square.png">
-                    <span>Maj + 4</span>
-                </div>
-                <div class="flex items-center">
-                    <div id="empty-square" class="mr-2 bg-empty-square-extinction"></div>
-                    <span>Clic droit</span>
-                </div>
+                <label class="radio-container flex items-center mb-4 text-xs">
+                    <input type="radio" id="radio-empty" name="square" value="0">
+                    <span class="checkmark"></span>
+                    <img id="empty-square" class="mr-3 bg-empty-square-extinction">Clic droit
+                </label>
+                <label class="radio-container flex items-center mb-4 text-xs">
+                    <input type="radio" id="radio-black" name="square" value="1">
+                    <span class="checkmark"></span>
+                    <img class="mr-3" id="black-square" src="/images/black_square.png">Maj + 1
+                </label>
+                <label class="radio-container flex items-center mb-4 text-xs">
+                    <input type="radio" id="radio-blue" name="square" value="2" checked>
+                    <span class="checkmark"></span>
+                    <img class="mr-3" id="blue-square" src="/images/blue_square.png">Maj + 2
+                </label>
+                <label class="radio-container flex items-center mb-4 text-xs">
+                    <input type="radio" id="radio-orange" name="square" value="3">
+                    <span class="checkmark"></span>
+                    <img class="mr-3" id="orange-square" src="/images/orange_square.png">Maj + 3
+                </label>
+                <label class="radio-container flex items-center text-xs">
+                    <input type="radio" id="radio-ice" name="square" value="4">
+                    <span class="checkmark"></span>
+                    <img class="mr-3" id="ice-square" src="/images/ice_square.png">Maj + 4
+                </label>
+
+                <label class="radio-container flex items-center mt-8"><span class="mt-1">Afficher la grille</span>
+                    <input id="grid" type="checkbox" checked>
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="radio-container flex items-center mt-1"><span class="mt-1">Afficher les spawns</span>
+                    <input id="spawns" type="checkbox" checked>
+                    <span class="checkmark"></span>
+                </label>
             </div>
 
-            <span id="reset" class="text-menu-extinction">Réinitialiser</span>
+            <div class="flex flex-col">
+                <label class="text-menu-extinction mb-2">Importer une carte</label>
+                <label class="text-yellow-extinction text-menu-extinction text-shadow mb-2" id="download">Télécharger la carte</label>
+                <span id="reset" class="text-menu-extinction text-red-extinction mb-2">Réinitialiser</span>
+                <span class="text-menu-extinction text-darkblue-extinction" id="submit">Soumettre la carte</span>
+            </div>
         </div>
 
-        <div class="ml-4">
-            <div class="mb-2 flex items-center">
-                <span class="text-shadow">Titre :</span>
-                <span contenteditable="true" class="input-text ml-2 bg-extinction text-center flex items-center" style="min-width: 15rem; max-width: 30rem; overflow:hidden"></span>
+        <div class="ml-6">
+            <div class="flex justify-between">
+                <div class="mb-2 flex items-center">
+                    <span class="text-shadow">Titre :</span>
+                    <input type="text" id="title" class="input-text ml-2 bg-extinction text-left flex items-center"
+                        style="width: 20rem; overflow:hidden"></span>
+                </div>
+                <div class="mb-2 flex items-center">
+                    <span class="text-shadow">Auteur :</span>
+                    <input type="text" id="author" class="input-text ml-2 bg-extinction text-left flex items-center"
+                        style="width: 10rem; overflow:hidden"></span>
+                </div>
             </div>
+            
             <canvas id="editor-area" oncontextmenu="return false" height="456" width="696"
                 class="bg-empty-square-extinction">
             </canvas>
-
-            <div class="mt-4 flex justify-between items-center">
-                <div class="flex flex-col text-left">
-                    <label class="text-menu-extinction mb-1">Importer à partir d'un fichier texte</label>
-                </div>
-                
-                <span class="text-menu-extinction">Soumettre la carte</span>
-            </div>
         </div>
-
     </div>
+
+    <img src="" id="preview" style="width: 20%; background-color: #36364B;">
 </div>
 
 <script src="/javascripts/editor.min.js"></script>
