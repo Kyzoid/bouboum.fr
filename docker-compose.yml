@@ -16,3 +16,13 @@ services:
         command: npm start
         links:
             - redis
+    db:
+        image: postgres
+        environment:
+            - POSTGRES_DB=database
+            - POSTGRES_USER=user
+            - POSTGRES_PASSWORD=secret
+        volumes:
+            - ./docker/db/data:/var/lib/postgresql/data:rw
+        ports:
+            - "5432:5432"

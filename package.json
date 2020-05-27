@@ -36,7 +36,9 @@
     "http-errors": "~1.6.3",
     "ioredis": "^4.17.0",
     "morgan": "~1.9.1",
+    "pg": "^8.2.1",
     "postcss-cli": "^7.1.1",
+    "sequelize": "^5.21.11",
     "sqlite3": "^4.2.0",
     "tailwindcss": "^1.4.6"
   },
