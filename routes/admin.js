@@ -1,9 +1,9 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
-const Database = require('../controllers/Database');
 const fs = require('fs');
 const { exec } = require('child_process');
+const Admin = require('../models/Admin');
 
 const {
   SESS_NAME = 'sid',
@@ -30,7 +30,7 @@ router.get('/', redirectLogin, (req, res, next) => {
 });
 
 router.post('/synchronization', redirectLogin, (req, res, next) => {
-  exec(`npm run sync ${req.body.game}`, (error, stdout, stderr) => {
+  exec(`npm run sync ${req.body.game}`, {maxBuffer: 1024*700},(error, stdout, stderr) => {
     if (error) {
       res.status(500).send(error.message);
     } else if (stderr) {
@@ -84,11 +84,7 @@ router.post('/login', redirectHome, async (req, res, next) => {
   const { username, password } = req.body;
   
   if (username && password) {
-    const database = new Database();
-    database.open();
-    const adminUser = await database.selectAdminUser(username);
-    database.close();
-    console.log(adminUser)
+    const adminUser = await Admin.findAll({ where: { name: username } });
     if (password && adminUser.length) {
       if ( await bcrypt.compare(password, adminUser[0].password) ) {
         req.session.userId = adminUser[0].id;

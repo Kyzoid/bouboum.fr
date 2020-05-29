@@ -2,7 +2,12 @@ const express = require('express');
 const IndexController = require('../controllers/IndexController');
 const Index = new IndexController();
 const router = express.Router();
-const Database = require('../controllers/Database');
+
+const Player = require('../models/Player');
+const ScoreBouboum = require('../models/ScoreBouboum');
+const ScoreAaaah = require('../models/ScoreAaaah');
+
+
 const dayjs = require('dayjs');
 require('dayjs/locale/fr');
 
@@ -23,21 +28,33 @@ router.get('/match', (req, res, next) => {
 });
 
 router.get('/ranking', async (req, res, next) => {
-  try {
-    const date = (req.query.date) ? req.query.date : dayjs().format('YYYY-MM-DD');
-    const game = req.query.game;
-    const database = new Database();
-    database.open();
-    let scores;
-    if (game === 'bouboum') {
-      scores = await database.selectBouboumUsersAndScoreByDate(date);
-    } else {
-      scores = await database.selectAaaahUsersAndScoreByDate(date);
-    }
-    database.close();
-    res.send(scores);
-  } catch (e) {
+  const date = (req.query.date) ? req.query.date : dayjs().format('YYYY-MM-DD');
+  const game = req.query.game;
 
+  if (game === 'bouboum') {
+    ScoreBouboum.findAll({
+      order: [['win', 'DESC']],
+      where: {
+        date: date
+      },
+      attributes: ['player.name', 'win', 'total', 'ratio'],
+      include: [{ model: Player, attributes: ['name'] }]
+    }).then(scores => {
+      res.send(scores);
+    });
+
+  } else {
+    ScoreAaaah.findAll({
+      order: [['win', 'DESC']],
+      where: {
+        date: date
+      },
+      attributes: ['player.name', 'win', 'total', 'guiding', 'guiding_ratio', 'kill'],
+      include: [{ model: Player, attributes: ['name'] }],
+      
+    }).then(scores => {
+      res.send(scores);
+    });
   }
 });
 

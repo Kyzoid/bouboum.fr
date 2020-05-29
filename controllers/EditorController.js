@@ -1,5 +1,3 @@
-const Database = require('./Database');
-
 class EditorController {
 
   index(req, res, next) {

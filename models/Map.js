@@ -1,0 +1,37 @@
+const sequelize = require("../controllers/Sequelize");
+const { DataTypes, Model } = require("sequelize");
+const Tag = require('./Tag');
+
+class Map extends Model {}
+Map.init(
+  {
+    name: {
+        type: DataTypes.STRING,
+        validate: {
+            len: [3, 100]
+        },
+        unique: true,
+        allowNull: false
+    },
+    author: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
+  },
+  {
+    sequelize,
+    modelName: "map",
+    paranoid: true,
+  }
+);
+
+Map.belongsToMany(Tag, {through: 'MapTag'});
+Tag.belongsToMany(Map, {through: 'MapTag'});
+
+Map.sync({ force: true });
+
+module.exports = Map;

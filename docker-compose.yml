@@ -11,9 +11,11 @@ services:
         volumes:
             - ".:/usr/src/app/"
             - "/usr/src/app/node_modules"
+        environment: 
+            DATABASE_URL: "postgres://user:secret@db/database"
         ports:
             - '8080:3000'
-        command: npm start
+        command: bash -c "npm install && npm start"
         links:
             - redis
     db:

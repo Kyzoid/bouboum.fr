@@ -1,4 +1,3 @@
-const Database = require('./Database');
 const dayjs = require('dayjs');
 require('dayjs/locale/fr');
 

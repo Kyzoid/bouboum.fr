@@ -5,3 +5,5 @@ dist/stylesheets
 raw_data.txt
 scanner.bat
 docker
+rest.http
+dist/temp

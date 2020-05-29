@@ -40,16 +40,17 @@ export const getBouboumRanking = (date, isPrevButtonAvailable = true, isNextButt
           const tr = table.insertRow();
           tr.classList.add('shadow-xs');
           tr.classList.add('bg-extinction-dark');
-          row = { id: i + 1, ...row };
+          row = { id: i + 1, player: row.player.name, win: row.win, total: row.total, ratio: row.ratio };
 
           Object.values(row).forEach((column, i) => {
             const td = tr.insertCell();
+            
             if (Object.keys(row)[i] === 'id') {
               td.classList.add('text-blue-extinction');
               td.classList.add('pl-2');
               td.innerText = '#' + column;
             }
-            if (Object.keys(row)[i] === 'username') {
+            if (Object.keys(row)[i] === 'player') {
               td.classList.add('text-blue-extinction');
               td.innerText = ucFirst(column);
             }
@@ -118,14 +119,13 @@ export const getAaaahRanking = (date, isPrevButtonAvailable = true, isNextButton
 
       if (response.length > 0) {
         response.forEach((row, i) => {
-          console.log(row)
           const tr = table.insertRow();
           tr.classList.add('shadow-xs');
           tr.classList.add('bg-extinction-dark');
-          row = { id: i + 1, ...row };
+          console.log(row)
+          row = { id: i + 1, player: row.player.name, win: row.win, total: row.total, guiding: row.guiding, guiding_ratio: row.guiding_ratio, kill: row.kill} ;
 
           Object.values(row).forEach((column, i) => {
-            console.log(column)
             let td;
             if (Object.keys(row)[i] !== 'guiding_ratio') {
               td = tr.insertCell();
@@ -136,7 +136,7 @@ export const getAaaahRanking = (date, isPrevButtonAvailable = true, isNextButton
               td.classList.add('pl-2');
               td.innerText = '#' + column;
             }
-            if (Object.keys(row)[i] === 'username') {
+            if (Object.keys(row)[i] === 'player') {
               td.classList.add('text-blue-extinction');
               td.innerText = ucFirst(column);
             }
@@ -164,7 +164,7 @@ export const getAaaahRanking = (date, isPrevButtonAvailable = true, isNextButton
               td.innerText = `${column}`;
               td.appendChild(percentElement);
             }
-            if (Object.keys(row)[i] === 'kills') {
+            if (Object.keys(row)[i] === 'kill') {
               td.classList.add('text-center');
               td.classList.add('text-red-extinction')
               td.innerText = column;
