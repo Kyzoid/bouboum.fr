@@ -46,11 +46,14 @@
             </div>
 
             <div class="flex flex-col">
-                <label class="text-menu-extinction mb-2">Importer une carte</label>
+                <label class="custom-file-upload text-menu-extinction mb-2" for="import-map" >
+                    <input id="import-map" type="file" accept=".txt">
+                    Importer une carte
+                </label>
                 <label class="text-yellow-extinction text-menu-extinction text-shadow mb-2" id="download">Télécharger la carte</label>
-                <span id="reset" class="text-menu-extinction text-red-extinction mb-2">Réinitialiser</span>
+                <span id="reset" class="text-menu-extinction text-red-extinction mb-6">Réinitialiser</span>
                 <span class="text-menu-extinction text-darkblue-extinction" id="submit">Soumettre la carte</span>
-                <a href="" download id="download-map" class="hidden">aa</a>
+                <a href="" download id="download-map" class="hidden"></a>
             </div>
         </div>
 
