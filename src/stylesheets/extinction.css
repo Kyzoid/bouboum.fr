@@ -198,16 +198,22 @@ video  {
 
 .map {
   width: 23.5%;
+  transition: all .15s;
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1279px) {
   .map {
     width: 31%;
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   .map {
     width: 100%;
   }
+}
+
+input::placeholder {
+  color: #54545e;
+  text-shadow: none;
 }

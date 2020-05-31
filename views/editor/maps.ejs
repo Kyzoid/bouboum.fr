@@ -1,16 +1,28 @@
 <%- include('../templates/header') %>
 
-<div class="container mx-auto px-4 text-center">
+<div class="container mx-auto px-4 items-center text-center">
 
     <h1 class="text-4xl text-red-extinction mb-10">Liste des cartes</h1>
 
+    <div class="mb-2 flex flex-col items-center mb-6">
+        <span>Rechercher</span>
+        <div class="flex mt-2">
+            <input type="text" id="search" maxlength="37" minlength="4"
+                class="overflow-hidden input-text ml-2 bg-extinction text-left flex items-center" style="width: 20rem;"
+                placeholder="Titre, auteur, date...">
+        </div>
+    </div>
+
     <div class="maps mb-6 flex flex-wrap">
+
         <% maps.forEach(map => { %>
-        <div class="map flex flex-col text-left mb-6 m-2">
+        <div class="map flex flex-col text-left mb-6 m-2" data-name="<%= map.name %>" data-author="<%= map.author %>"
+            data-created-at="<%= map.createdAt %>">
             <img class="bg-empty-square-extinction" src="<%= map.image %>" alt="<%= map.name %>">
-            
+
             <label class="uppercase mt-1 truncate text-base"><%= map.name %></label>
-            <label class="truncate text-xs">Créé par <span class="text-green-extinction"><%= map.author %></span> • <%= map.createdAt %></label>
+            <label class="truncate text-xs">Créé par <span class="text-green-extinction"><%= map.author %></span> •
+                <%= map.createdAt %></label>
             <label class="truncate text-xs"></label>
         </div>
         <% }); %>
@@ -18,5 +30,5 @@
 
 
 </div>
-
+<script src="/javascripts/search.min.js"></script>
 <%- include('../templates/footer') %>

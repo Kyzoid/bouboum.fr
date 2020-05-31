@@ -55,6 +55,7 @@ router.get('/map', (req, res) => {
     data.forEach(map => {
       map.dataValues.createdAt = dayjs(map.dataValues.createdAt).locale('fr').format('DD MMMM YYYY');
     });
+
     res.render('editor/maps', { maps: data });
   });
 });
