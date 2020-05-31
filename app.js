@@ -8,10 +8,9 @@ const logger = require('morgan');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const rateLimit = require("express-rate-limit");
-const Redis = require('ioredis')
+const Redis = require('ioredis');
 const RedisStore = require('connect-redis')(session);
-const sequelize = require('./controllers/Sequelize.js');
-const { REDIS_OPTIONS, SESSION_OPTIONS, APP_PORT } = require('./config')
+const { REDIS_OPTIONS, SESSION_OPTIONS, APP_PORT } = require('./config');
 
 const client = new Redis(REDIS_OPTIONS);
 
@@ -28,7 +27,7 @@ app.use(
 );
 
 const limiter = rateLimit({
-  windowMs: 2 * 60 * 1000, // 2 minutes
+  windowMs: 2 * 60 * 1000,
   max: 10000
 });
 

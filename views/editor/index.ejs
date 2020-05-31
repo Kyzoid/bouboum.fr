@@ -1,8 +1,10 @@
 <%- include('../templates/header') %>
 
-<div class="container mx-auto px-4 text-center">
+<div class="container mx-auto px-4 text-center flex flex-col items-center">
 
     <h1 class="text-4xl text-red-extinction mb-10">Editeur Bouboum</h1>
+
+    <%- include('./_info') %>
 
     <div class="select-none mb-6 flex justify-center">
         <div class="flex flex-col justify-between w-56 bg-extinction p-4 rounded">
@@ -16,25 +18,27 @@
                 <label class="radio-container flex items-center mb-4 text-xs">
                     <input type="radio" id="radio-black" name="square" value="1">
                     <span class="checkmark"></span>
-                    <img class="mr-3" id="black-square" src="/images/black_square.png">Maj + 1
+                    <img class="mr-3" id="black-square" src="/images/black_square.png">Touche 1
                 </label>
                 <label class="radio-container flex items-center mb-4 text-xs">
                     <input type="radio" id="radio-blue" name="square" value="2" checked>
                     <span class="checkmark"></span>
-                    <img class="mr-3" id="blue-square" src="/images/blue_square.png">Maj + 2
+                    <img class="mr-3" id="blue-square" src="/images/blue_square.png">Touche 2
                 </label>
                 <label class="radio-container flex items-center mb-4 text-xs">
                     <input type="radio" id="radio-orange" name="square" value="3">
                     <span class="checkmark"></span>
-                    <img class="mr-3" id="orange-square" src="/images/orange_square.png">Maj + 3
+                    <img class="mr-3" id="orange-square" src="/images/orange_square.png">Touche 3
                 </label>
                 <label class="radio-container flex items-center text-xs">
                     <input type="radio" id="radio-ice" name="square" value="4">
                     <span class="checkmark"></span>
-                    <img class="mr-3" id="ice-square" src="/images/ice_square.png">Maj + 4
+                    <img class="mr-3" id="ice-square" src="/images/ice_square.png">Touche 4
                 </label>
+            </div>
 
-                <label class="radio-container flex items-center mt-8"><span class="mt-1">Afficher la grille</span>
+            <div>
+                <label class="radio-container flex items-center"><span class="mt-1">Afficher la grille</span>
                     <input id="grid" type="checkbox" checked>
                     <span class="checkmark"></span>
                 </label>
@@ -61,13 +65,13 @@
             <div class="flex justify-between">
                 <div class="mb-2 flex items-center">
                     <span class="text-shadow">Titre :</span>
-                    <input type="text" id="title" class="input-text ml-2 bg-extinction text-left flex items-center"
-                        style="width: 20rem; overflow:hidden"></span>
+                    <input type="text" id="title" maxlength="37" minlength="4" class="overflow-hidden input-text ml-2 bg-extinction text-left flex items-center"
+                        style="width: 20rem;"></span>
                 </div>
                 <div class="mb-2 flex items-center">
                     <span class="text-shadow">Auteur :</span>
-                    <input type="text" id="author" class="input-text ml-2 bg-extinction text-left flex items-center"
-                        style="width: 10rem; overflow:hidden"></span>
+                    <input type="text" id="author" maxlength="12" minlength="3" class="overflow-hidden input-text ml-2 bg-extinction text-left flex items-center"
+                        style="width: 10rem;"></span>
                 </div>
             </div>
             
@@ -76,8 +80,6 @@
             </canvas>
         </div>
     </div>
-
-    <img src="" id="preview" style="width: 20%; background-color: #36364B;">
     
 </div>
 

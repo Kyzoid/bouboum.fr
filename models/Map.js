@@ -15,12 +15,19 @@ Map.init(
     },
     author: {
       type: DataTypes.STRING,
+      validate: {
+        len: [3, 12]
+      },
       allowNull: false
     },
     image: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false
-    }
+    },
+    path: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
   },
   {
     sequelize,
@@ -29,9 +36,5 @@ Map.init(
   }
 );
 
-Map.belongsToMany(Tag, {through: 'MapTag'});
-Tag.belongsToMany(Map, {through: 'MapTag'});
-
-Map.sync({ force: true });
-
+//Map.sync({ force : true })
 module.exports = Map;

@@ -1,3 +1,5 @@
+const infoModal = document.getElementById('info');
+
 class Editor {
   constructor(canvas) {
     this.canvas = canvas;
@@ -33,10 +35,15 @@ class Editor {
       [1, 18], [2, 18], [5, 18], [6, 18], [9, 18], [10, 18], [13, 18], [14, 18], [17, 18], [18, 18], [21, 18], [22, 18], [25, 18], [26, 18],
     ];
 
+
     // listeners
     this.isDrawing = false;
-    window.addEventListener('mousedown', () => this.isDrawing = true);
-    window.addEventListener('mouseup', () => this.isDrawing = false);
+    this.rightClick = false;
+    window.addEventListener('mousedown', (event) => { 
+      if (event.which === 3) this.rightClick = true;
+      this.isDrawing = true; 
+    });
+    window.addEventListener('mouseup', () => { this.isDrawing = false; this.rightClick = false; });
     this.canvas.addEventListener('mousemove', () => this.drawSquare(event, false));
     this.canvas.addEventListener('click', (event) => this.drawSquare(event, true));
 
@@ -46,6 +53,30 @@ class Editor {
     document.getElementById('download').addEventListener('click', () => this.downloadMap());
     document.getElementById('submit').addEventListener('click', () => this.submit());
     document.getElementById('import-map').addEventListener('change', () => this.importMap());
+    document.addEventListener('keydown', (event) => this.keyDownHandler(event));
+  }
+
+  keyDownHandler(event) {
+    if (event.keyCode >= 49 && event.keyCode <= 52) {
+      const inputSquareTypes = document.querySelectorAll('#canvas-squares .radio-container > input');
+      inputSquareTypes.forEach(element => element.checked = false);
+      switch (event.keyCode) {
+        case 49:
+          inputSquareTypes[1].checked = true;
+          break;
+        case 50:
+          inputSquareTypes[2].checked = true;
+          break;
+        case 51:
+          inputSquareTypes[3].checked = true;
+          break;
+        case 52:
+          inputSquareTypes[4].checked = true;
+          break;
+        default:
+          break;
+      }
+    }
   }
 
   importMap() {
@@ -70,6 +101,28 @@ class Editor {
     this.drawMap();
   }
 
+  infoModal(content, type) {
+    infoModal.textContent = content;
+    infoModal.classList.remove('border-red-700');
+    infoModal.classList.remove('text-red-extinction');
+    infoModal.classList.remove('border-green-700');
+    infoModal.classList.remove('text-green-extinction');
+
+    if (type === 'error') {
+      infoModal.classList.add('border-red-700');
+      infoModal.classList.add('text-red-extinction');
+    }
+
+    if (type === 'success') {
+      infoModal.classList.add('border-green-700');
+      infoModal.classList.add('text-green-extinction');
+    }
+
+    if (infoModal.classList.contains('hidden')) {
+      infoModal.classList.remove('hidden');
+    }
+  }
+
   downloadMap() {
     const mapValue = this.convertToOldFormat();
     const mapName = document.getElementById('title').value;
@@ -88,6 +141,8 @@ class Editor {
           downloadMapElement.setAttribute('download', `${res.filename}.txt`);
           downloadMapElement.click();
         });
+    } else {
+      this.infoModal('Vous devez mettre un titre à votre carte pour pouvoir la télécharger.', 'error');
     }
   }
 
@@ -180,7 +235,7 @@ class Editor {
       const { x, y } = this.getMousePos(event);
       const squareX = this.toFixed(x / this.squareSize);
       const squareY = this.toFixed(y / this.squareSize);
-      this.map[this.toIndex(squareX, squareY)] = this.getSquareType();
+      this.map[this.toIndex(squareX, squareY)] = this.rightClick ? 0 : this.getSquareType();
       localStorage.setItem('map', JSON.stringify(this.map));
       this.drawMap();
     }
@@ -248,11 +303,32 @@ class Editor {
   }
 
   submit() {
-    const title = document.getElementById('title').value;
-    const author = document.getElementById('author').value;
-    const canvasBase64 = this.canvas.toDataURL();
-    document.getElementById('preview').setAttribute('src', canvasBase64);
-    // TODO fetch post to submit route
+    const name = document.getElementById('title');
+    const author = document.getElementById('author');
+
+    const timeDiff = ((new Date() - new Date(localStorage.getItem('submittedAt'))) / 1000);
+
+    if (timeDiff >= 120) {
+      if (name.value && author.value && name.value.length >= 3 && author.value.length >= 3) {
+        const canvasBase64 = this.canvas.toDataURL();
+        fetch('/editeur/map', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name: name.value, author: author.value, image: canvasBase64, path: JSON.stringify(this.map) })
+        }).then(res => {
+          this.infoModal('Votre carte a été soumise avec succès !', 'success');
+          localStorage.setItem('submittedAt', new Date());
+        });
+      } else {
+        this.infoModal('L\'auteur et le titre de votre carte doit contenir au moins 3 caractères.', 'error');
+      }
+    } else {
+      const infoTimeDiff = timeDiff.toFixed(0);
+      const infoTimeRemaining = (120 - timeDiff).toFixed(0);
+      this.infoModal(`Vous avez déjà soumis une carte il y a ${infoTimeDiff} secondes. Merci de bien vouloir patienter encore ${infoTimeRemaining} secondes avant d'en soumettre une autre.`, 'error');
+    }
   }
 }
 
