@@ -4,6 +4,7 @@ const router = express.Router();
 const Map = require('../models/Map');
 const { ValidationError } = require('sequelize');
 const dayjs = require('dayjs');
+const { Op } = require("sequelize");
 
 router.get('/', (req, res, next) => {
   res.render('editor/index');
@@ -20,17 +21,31 @@ router.post('/download', (req, res) => {
 });
 
 router.post('/map', (req, res) => {
-  Map.create(req.body)
-  .then(response => console.log('create map', response) || res.sendStatus(201))
-    .catch((error) => {
-    if (error instanceof ValidationError) {
-      const errors = error.errors.reduce((acc, item) => {
-        acc[item.path] = [...(acc[item.path] || []), item.message];
-        return acc;
-      }, {});
-      res.status(400).json(errors);
-    } else {
-      res.sendStatus(500);
+  Map.findAll(
+    {
+      where: {
+        [Op.or]: [{ name: req.body.name}, { path: req.body.path }]
+      }
+    }
+  ).then(response => {
+    if (response.length >= 1) {
+      res.status(409).json({ message: 'La carte que vous essayez de soumettre existe déjà. Essayez de changer le titre de la carte sinon ça veut dire que votre carte existe déjà.' });
+    }
+
+    if (response.length === 0) {
+      Map.create(req.body)
+        .then(response => console.log('create map', response) || res.sendStatus(201))
+        .catch((error) => {
+          if (error instanceof ValidationError) {
+            const errors = error.errors.reduce((acc, item) => {
+              acc[item.path] = [...(acc[item.path] || []), item.message];
+              return acc;
+            }, {});
+            res.status(400).json(errors);
+          } else {
+            res.sendStatus(500);
+          }
+        });
     }
   });
 });

@@ -318,8 +318,16 @@ class Editor {
           },
           body: JSON.stringify({ name: name.value, author: author.value, image: canvasBase64, path: JSON.stringify(this.map) })
         }).then(res => {
-          this.infoModal('Votre carte a été soumise avec succès !', 'success');
-          localStorage.setItem('submittedAt', new Date());
+          if (res.status === 201) {
+            this.infoModal('Votre carte a été soumise avec succès !', 'success');
+            localStorage.setItem('submittedAt', new Date());
+          }
+
+          if (res.status === 409) {
+            res.json().then(res => {
+              this.infoModal(res.message, 'error');
+            });
+          }
         });
       } else {
         this.infoModal('L\'auteur et le titre de votre carte doit contenir au moins 3 caractères.', 'error');
