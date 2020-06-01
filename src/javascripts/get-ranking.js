@@ -122,7 +122,6 @@ export const getAaaahRanking = (date, isPrevButtonAvailable = true, isNextButton
           const tr = table.insertRow();
           tr.classList.add('shadow-xs');
           tr.classList.add('bg-extinction-dark');
-          console.log(row)
           row = { id: i + 1, player: row.player.name, win: row.win, total: row.total, guiding: row.guiding, guiding_ratio: row.guiding_ratio, kill: row.kill} ;
 
           Object.values(row).forEach((column, i) => {

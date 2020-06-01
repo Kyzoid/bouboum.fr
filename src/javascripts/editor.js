@@ -81,18 +81,22 @@ class Editor {
 
   importMap() {
     const file = document.getElementById('import-map').files[0];
-    console.log(file)
-    if (file.type === "text/plain") {
+
+    if (file.type === "text/plain" && file.size === 1102) {
       const reader = new FileReader();
       reader.onload = () => {
-        const mapFormatted = this.convertToNewFormat(reader.result);
-        localStorage.setItem('map', `[${mapFormatted}]`);
-        this.map = JSON.parse(localStorage.getItem('map'));
-        this.drawMap();
+        if (reader.result.indexOf('#') > -1) {
+          const mapFormatted = this.convertToNewFormat(reader.result);
+          localStorage.setItem('map', `[${mapFormatted}]`);
+          this.map = JSON.parse(localStorage.getItem('map'));
+          this.drawMap();
+        } else {
+          this.infoModal('Le fichier que vous essayez d\'importer n\'est pas au format Extinction.', 'error');
+        }
       };
       reader.readAsText(file);
     } else {
-      console.log("Le fichier que vous avez importé n'est pas au format text/plain ou est trop volumineux (max. 1103 bytes).");
+      this.infoModal('Le fichier que vous avez importé n\'est pas au format texte ou est trop volumineux (max. 1102 octets).', 'error');
     }
   }
 
