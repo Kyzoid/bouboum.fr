@@ -18,8 +18,8 @@ class Editor {
 
     this.map = JSON.parse(localStorage.getItem('map')) || new Array(this.width * this.height).fill(0);
 
-    this.showGrid = true;
-    this.showSpawns = true;
+    this.showGrid = false;
+    this.showSpawns = false;
     this.spawnPositions = [
       [2, 0], [3, 0], [6, 0], [7, 0], [10, 0], [11, 0], [14, 0], [15, 0], [18, 0], [19, 0], [22, 0], [23, 0], [26, 0], [27, 0],
       [2, 1], [6, 1], [10, 1], [14, 1], [18, 1], [22, 1], [26, 1],
@@ -39,9 +39,9 @@ class Editor {
     // listeners
     this.isDrawing = false;
     this.rightClick = false;
-    window.addEventListener('mousedown', (event) => { 
+    window.addEventListener('mousedown', (event) => {
       if (event.which === 3) this.rightClick = true;
-      this.isDrawing = true; 
+      this.isDrawing = true;
     });
     window.addEventListener('mouseup', () => { this.isDrawing = false; this.rightClick = false; });
     this.canvas.addEventListener('mousemove', () => this.drawSquare(event, false));
@@ -231,13 +231,21 @@ class Editor {
 
   drawSquare(event, simpleClick) {
     if (this.isDrawing || simpleClick) {
-
       const { x, y } = this.getMousePos(event);
       const squareX = this.toFixed(x / this.squareSize);
       const squareY = this.toFixed(y / this.squareSize);
-      this.map[this.toIndex(squareX, squareY)] = this.rightClick ? 0 : this.getSquareType();
-      localStorage.setItem('map', JSON.stringify(this.map));
-      this.drawMap();
+      let cannotDraw = 0;
+      this.spawnPositions.forEach(spawn => {
+        if (spawn[0] === squareX && spawn[1] === squareY) {
+          cannotDraw = 1;
+        }
+      }); ""
+
+      if (!cannotDraw) {
+        this.map[this.toIndex(squareX, squareY)] = this.rightClick ? 0 : this.getSquareType();
+        localStorage.setItem('map', JSON.stringify(this.map));
+        this.drawMap();
+      }
     }
   }
 
@@ -310,25 +318,35 @@ class Editor {
 
     if (timeDiff >= 120) {
       if (name.value && author.value && name.value.length >= 3 && author.value.length >= 3) {
-        const canvasBase64 = this.canvas.toDataURL();
-        fetch('/editeur/map', {
+        fetch('/editeur/download', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ name: name.value, author: author.value, image: canvasBase64, path: JSON.stringify(this.map) })
-        }).then(res => {
-          if (res.status === 201) {
-            this.infoModal('Votre carte a été soumise avec succès !', 'success');
-            localStorage.setItem('submittedAt', new Date());
-          }
+          body: JSON.stringify({ map: JSON.stringify(this.map), name: name.value })
+        }).then(res => res.json())
+          .then(response => {
+            const path = `/temp/${response.filename}_${response.timestamp}.txt`;
+            const canvasBase64 = this.canvas.toDataURL();
+            fetch('/editeur/map', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ name: name.value, author: author.value, image: canvasBase64, map: JSON.stringify(this.map), path: path })
+            }).then(res => {
+              if (res.status === 201) {
+                this.infoModal('Votre carte a été soumise avec succès !', 'success');
+                localStorage.setItem('submittedAt', new Date());
+              }
 
-          if (res.status === 409) {
-            res.json().then(res => {
-              this.infoModal(res.message, 'error');
+              if (res.status === 409) {
+                res.json().then(res => {
+                  this.infoModal(res.message, 'error');
+                });
+              }
             });
-          }
-        });
+          });
       } else {
         this.infoModal('L\'auteur et le titre de votre carte doit contenir au moins 3 caractères.', 'error');
       }

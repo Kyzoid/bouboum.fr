@@ -217,3 +217,21 @@ input::placeholder {
   color: #54545e;
   text-shadow: none;
 }
+
+.download-container {
+  position: relative;
+  text-align: center;
+}
+
+.download-container:hover .download-top-right {
+  display: block;
+  transition: all .2s;
+}
+
+.download-top-right {
+  display: none;
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background-color: rgba(0,0,0, 0.5);
+}

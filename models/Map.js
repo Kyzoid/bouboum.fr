@@ -24,8 +24,12 @@ Map.init(
       type: DataTypes.TEXT,
       allowNull: false
     },
-    path: {
+    map: {
       type: DataTypes.TEXT,
+      allowNull: false
+    },
+    path: {
+      type: DataTypes.STRING,
       allowNull: false
     },
   },
