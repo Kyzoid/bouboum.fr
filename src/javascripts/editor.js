@@ -323,7 +323,7 @@ class Editor {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ map: JSON.stringify(this.map), name: name.value })
+          body: JSON.stringify({ map: this.convertToOldFormat(), name: name.value })
         }).then(res => res.json())
           .then(response => {
             const path = `/temp/${response.filename}_${response.timestamp}.txt`;
