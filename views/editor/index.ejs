@@ -2,7 +2,12 @@
 
 <div class="container mx-auto px-4 text-center flex flex-col items-center">
 
-    <h1 class="text-4xl text-red-extinction mb-10">Editeur Bouboum</h1>
+    <div class="mb-10">
+        <h1 class="text-4xl text-red-extinction mb-1">Editeur Bouboum</h1>
+        <label class="flex flex-col">
+            <span>Une fois votre carte créée, vous pouvez la télécharger puis la charger sur <a href="https://extinction-minijeux.fr/" class="text-green-extinction underline"> Extinction</a> avec la commande <span class="text-red-extinction">/load</span>.</span>
+        </label>
+    </div>
 
     <%- include('./_info') %>
 
@@ -50,11 +55,12 @@
             </div>
 
             <div class="flex flex-col">
-                <label class="custom-file-upload text-menu-extinction mb-2" for="import-map" >
+                <label class="custom-file-upload text-menu-extinction mb-2" for="import-map">
                     <input id="import-map" type="file" accept=".txt">
                     Importer une carte
                 </label>
-                <label class="text-yellow-extinction text-menu-extinction text-shadow mb-2" id="download">Télécharger la carte</label>
+                <label class="text-yellow-extinction text-menu-extinction text-shadow mb-2" id="download">Télécharger la
+                    carte</label>
                 <span id="reset" class="text-menu-extinction text-red-extinction mb-6">Réinitialiser</span>
                 <span class="text-menu-extinction text-darkblue-extinction" id="submit">Soumettre la carte</span>
                 <a href="" download id="download-map" class="hidden"></a>
@@ -65,22 +71,24 @@
             <div class="flex justify-between">
                 <div class="mb-2 flex items-center">
                     <span class="text-shadow">Titre :</span>
-                    <input type="text" id="title" maxlength="37" minlength="4" class="overflow-hidden input-text ml-2 bg-extinction text-left flex items-center"
+                    <input type="text" id="title" maxlength="37" minlength="4"
+                        class="overflow-hidden input-text ml-2 bg-extinction text-left flex items-center"
                         style="width: 20rem;"></span>
                 </div>
                 <div class="mb-2 flex items-center">
                     <span class="text-shadow">Auteur :</span>
-                    <input type="text" id="author" maxlength="12" minlength="3" class="overflow-hidden input-text ml-2 bg-extinction text-left flex items-center"
+                    <input type="text" id="author" maxlength="12" minlength="3"
+                        class="overflow-hidden input-text ml-2 bg-extinction text-left flex items-center"
                         style="width: 10rem;"></span>
                 </div>
             </div>
-            
+
             <canvas id="editor-area" oncontextmenu="return false" height="456" width="696"
                 class="bg-empty-square-extinction">
             </canvas>
         </div>
+
     </div>
-    
 </div>
 
 <script src="/javascripts/editor.min.js"></script>
