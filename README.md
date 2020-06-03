@@ -14,14 +14,14 @@ Lancer Webpack
 $ docker-compose exec app npm run webpack:dev
 ```
 
-##### Production
+## Production
 Pour configurer la production :
 - Renommer la config ssl en nginx.conf.
 - Modifier les variables d'environnements dans le .env et celles dans le docker-compose.yml.
 - Modifier le Dockerfile pour que ça lance start:prod.
 - Lancer webpack:prod si ça n'a pas déjà été fait.
 
-###### Docker
+#### Docker
 Démarrer un service
 ```sh
 $ docker-compose up -d --force-recreate --no-deps <service>
@@ -40,7 +40,7 @@ $ docker volume rm <name>
 ```
 
 ## Collaborer
-Si vous avez envie de corriger le code, ouvrez une issue.
+Si vous avez envie de coder, faites des PR.
 
 ## Licence
 [MIT](https://choosealicense.com/licenses/mit/)
