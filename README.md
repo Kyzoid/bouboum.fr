@@ -7,6 +7,7 @@ Statistiques du classement Bouboum.
 ```bash
 docker-compose up -d nodejs redis db
 ```
+Certbot et Webserver sont des services utilisés pour le déploiement en production.
 
 ## Utilisation
 ```bash

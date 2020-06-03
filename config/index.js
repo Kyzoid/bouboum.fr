@@ -20,7 +20,7 @@ config.REDIS_OPTIONS = {
 const ONE_HOUR = 1000 * 60 * 60;
 const THIRTY_MINUTES = ONE_HOUR/2;
 
-config.SESSION_SECRET = process.env.SESSION_SECRET || 'very secret';
+config.SESSION_SECRET = process.env.SESSION_SECRET || 'secret';
 config.SESSION_NAME = process.env.SESSION_NAME || 'sid';
 config.SESSION_IDLE_TIMEOUT = process.env.SESSION_IDLE_TIMEOUT || THIRTY_MINUTES;
 
@@ -36,5 +36,8 @@ config.SESSION_OPTIONS = {
   resave: false,
   saveUninitialized: false
 };
+
+// db
+config.DATABASE_URL = process.env.DATABASE_URL;
 
 module.exports = config;

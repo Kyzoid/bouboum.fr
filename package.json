@@ -11,7 +11,7 @@
   "scripts": {
     "sync": "node ./scripts/dataSynchronizer.js",
     "start": "nodemon app.js",
-    "start:prod": "NODE_ENV=production node app.js",
+    "start:prod": "node app.js",
     "createAdmin": "node ./scripts/createAdmin.js",
     "createDatabase": "node ./scripts/createDatabase.js",
     "webpack:dev": "webpack --mode=development",
