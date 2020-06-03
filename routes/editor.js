@@ -34,7 +34,7 @@ router.post('/map', (req, res) => {
 
     if (response.length === 0) {
       Map.create(req.body)
-        .then(response => console.log('create map', response) || res.sendStatus(201))
+        .then(response => res.sendStatus(201))
         .catch((error) => {
           if (error instanceof ValidationError) {
             const errors = error.errors.reduce((acc, item) => {
