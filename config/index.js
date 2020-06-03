@@ -27,6 +27,7 @@ config.SESSION_IDLE_TIMEOUT = process.env.SESSION_IDLE_TIMEOUT || THIRTY_MINUTES
 config.SESSION_OPTIONS = {
   secret: config.SESSION_SECRET,
   name: config.SESSION_NAME,
+  proxy: config.IN_PROD,
   cookie: {
     maxAge: parseInt(config.SESSION_IDLE_TIMEOUT, 10),
     secure: config.IN_PROD,
