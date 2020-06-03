@@ -44,6 +44,6 @@ ScoreAaaah.init(
 Player.hasOne(ScoreAaaah, { foreignKey: 'player_id'});
 ScoreAaaah.belongsTo(Player, { foreignKey: 'player_id'});
 
-//ScoreAaaah.sync({ force: true });
+ScoreAaaah.sync();
 
 module.exports = ScoreAaaah;

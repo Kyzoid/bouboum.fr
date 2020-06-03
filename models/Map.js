@@ -40,5 +40,6 @@ Map.init(
   }
 );
 
-//Map.sync({ force : true })
+Map.sync();
+
 module.exports = Map;

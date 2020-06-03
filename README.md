@@ -5,11 +5,10 @@ Statistiques du classement Bouboum.
 ## Installation
 
 ```bash
-docker-compose up -d
+docker-compose up -d nodejs redis db
 ```
 
 ## Utilisation
-
 ```bash
 docker-compose exec app npm run webpack:dev
 ```

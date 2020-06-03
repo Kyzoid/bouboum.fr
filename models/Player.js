@@ -20,6 +20,6 @@ Player.init(
   }
 );
 
-//Player.sync({ force: true });
+Player.sync();
 
 module.exports = Player;

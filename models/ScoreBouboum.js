@@ -32,6 +32,6 @@ ScoreBouboum.init(
 Player.hasOne(ScoreBouboum, { foreignKey: 'player_id'} );
 ScoreBouboum.belongsTo(Player, { foreignKey: 'player_id'});
 
-//ScoreBouboum.sync({ force: true });
+ScoreBouboum.sync();
 
 module.exports = ScoreBouboum;
