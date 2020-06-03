@@ -1,7 +1,7 @@
+require('dotenv').config();
+
 const Sequelize = require("sequelize");
 const { DATABASE_URL } = require('../config')
-
-console.log(DATABASE_URL)
 
 const connection = new Sequelize(DATABASE_URL);
 connection
