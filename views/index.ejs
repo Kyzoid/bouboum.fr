@@ -1,45 +1,60 @@
 <%- include('templates/header') %>
-
-<div class="container mx-auto px-4 text-center">
-
-    <div>
-        <h1 class="text-3xl text-green-extinction">Classements</h1>
-        <p>Cliquez sur un jeu pour afficher le classement</p>
-        <div class="menu mt-6 flex flex-wrap items-center justify-center">
-            <a class="menu-choice flex items-center justify-center mb-4" href="/aaaah">
-                <div class="flex flex-col">
-                    <img alt="aaaah" src="/images/menu_aaaah.png">
-                    <span class="text-shadow text-xs">Aaaah !</span>
+    <div class="overflow-hidden flex justify-center items-center mx-auto relative" style="height: 400px">
+        <video autoplay muted loop class="absolute">
+            <source src="/images/gif_bouboum_menu2.mp4" type="video/mp4">
+        </video>
+        <div class="flex flex-col text-center mb-4" style="width: 800px;">
+            <h1 class="text-3xl text-green-extinction mb-1">Consulter les différentes fonctionnalités du site avec cette
+                interface du XXI<sup>e</sup> siècle</h1>
+            <div class="mt-4 menu flex flex-wrap justify-center items-center justify-center">
+                <div class="p-4">
+                    <a class="bg-opacity-25 bg-black menu-choice flex items-center justify-center" href="/aaaah">
+                        <div class="flex flex-col">
+                            <img alt="aaaah" src="/images/menu_aaaah.png">
+                            <span class="text-shadow text-xs">Aaaah !</span>
+                        </div>
+                    </a>
                 </div>
-            </a>
-            <a class="menu-choice ml-6 flex items-center justify-center mb-4" href="/bouboum">
-                <div class="flex flex-col">
-                    <img alt="bouboum" src="/images/menu_bouboum.png">
-                    <span class="text-shadow text-xs">Bouboum</span>
+                <div class="p-4">
+                    <a class="bg-opacity-25 bg-black menu-choice flex items-center justify-center" href="/bouboum">
+                        <div class="flex flex-col">
+                            <img alt="bouboum" src="/images/menu_bouboum.png">
+                            <span class="text-shadow text-xs">Bouboum</span>
+                        </div>
+                    </a>
                 </div>
-            </a>
-            <a class="menu-choice ml-6 flex items-center justify-center mb-4" href="/editeur">
-                <div class="flex flex-col">
-                    <img alt="editeur" src="/images/editor_bouboum.png">
-                    <span class="text-shadow text-xs">Editeur</span>
+                <div class="p-4">
+                    <a class="bg-opacity-25 bg-black menu-choice flex items-center justify-center" href="/editeur">
+                        <div class="flex flex-col">
+                            <img alt="editeur" src="/images/editor_bouboum.png">
+                            <span class="text-shadow text-xs">Editeur</span>
+                        </div>
+                    </a>
                 </div>
-            </a>
-            <a class="menu-choice ml-6 flex items-center justify-center mb-4" href="/editeur/map">
-                <div class="flex flex-col">
-                    <img alt="editeur" src="/images/editor_bouboum.png">
-                    <span class="text-shadow text-xs">Cartes</span>
+                <div class="p-4">
+                    <a class="bg-opacity-25 bg-black menu-choice flex items-center justify-center" href="/editeur/map">
+                        <div class="flex flex-col">
+                            <img alt="editeur" src="/images/editor_bouboum.png">
+                            <span class="text-shadow text-xs">Cartes</span>
+                        </div>
+                    </a>
                 </div>
-            </a>
-            <a id="match-overlay" style="position: relative;" class="mb-4 bg-empty-square-extinction menu-choice ml-6 break-words flex items-center justify-center text-shadow text-xs"
-                href="/match">
-                <span style="z-index: 10; position: absolute">Match<br>overlay</span>
-                <video class="mt-6 ml-10 pl-3" autoplay muted loop id="myVideo">
-                    <source src="/images/gif_bouboum_menu2.mp4" type="video/mp4">
-                </video>
-            </a>
+                <div class="p-4">
+                    <a id="match-overlay"
+                        class="bg-opacity-25 bg-black menu-choice break-words flex items-center justify-center text-shadow text-xs"
+                        href="/match">
+                        <span style="z-index: 10; position: absolute">Match<br>overlay</span>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
+</div>
+<div class="flex flex-col container p-4 mx-auto items-center">
+    <h2 class="text-xl">Extinction-minijeux.fr Statut</h2>
+    <span>Statut : <span id="status"></span></span>
 
+    <div class="m-2">courbe de fou sur 24h</div>
 </div>
 
 <%- include('templates/footer') %>
