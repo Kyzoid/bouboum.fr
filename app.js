@@ -19,6 +19,8 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+//app.set('trust proxy', 1);
+
 app.use(
   session({
     ...SESSION_OPTIONS,
