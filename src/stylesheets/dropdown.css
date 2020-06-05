@@ -18,9 +18,9 @@
     z-index: 10;
 }
 
-.dropdown-content a:hover {background-color: #25252b}
+.dropdown-content a:hover {background-color: #222227}
   
-.dropdown-content a {
+.dropdown-content > a {
     padding: 10px 10px;
     text-decoration: none;
     display: block;
