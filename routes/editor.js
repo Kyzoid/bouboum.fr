@@ -51,7 +51,11 @@ router.post('/map', (req, res) => {
 });
 
 router.get('/map', (req, res) => {
-  Map.findAll().then((data) => {
+  Map.findAll({
+    order: [
+      ['createdAt', 'DESC']
+    ]
+  }).then((data) => {
     data.forEach(map => {
       map.dataValues.createdAt = dayjs(map.dataValues.createdAt).locale('fr').format('DD MMMM YYYY');
     });
