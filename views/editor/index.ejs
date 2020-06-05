@@ -5,7 +5,9 @@
     <div class="mb-10">
         <h1 class="text-4xl text-red-extinction mb-1">Editeur Bouboum</h1>
         <label class="flex flex-col">
-            <span>Une fois votre carte créée, vous pouvez la télécharger puis la charger sur <a href="https://extinction-minijeux.fr/" class="text-green-extinction underline"> Extinction</a> avec la commande <span class="text-red-extinction">/load</span>.</span>
+            <span>Une fois votre carte créée, vous pouvez la télécharger puis la charger sur <a
+                    href="https://extinction-minijeux.fr/" class="text-green-extinction underline"> Extinction</a> avec
+                la commande <span class="text-red-extinction">/load</span>.</span>
         </label>
     </div>
 
@@ -83,9 +85,13 @@
                 </div>
             </div>
 
-            <canvas id="editor-area" oncontextmenu="return false" height="456" width="696"
-                class="bg-empty-square-extinction">
-            </canvas>
+            <div id="all-canvas" class="relative bg-empty-square-extinction" style="height:456px; width:696px;" >
+                <canvas id="grid-area" class="absolute z-30 pointer-events-none hidden" oncontextmenu="return false" height="456" width="696"></canvas>
+                <canvas id="spawn-area" class="absolute z-20 pointer-events-none hidden" oncontextmenu="return false" height="456" width="696"></canvas>
+                <canvas id="editor-area" class="absolute z-10" height="456" width="696"
+                    class="absolute">
+                </canvas>
+            </div>
         </div>
     </div>
 </div>

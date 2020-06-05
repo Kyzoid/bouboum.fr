@@ -1,3 +1,6 @@
+import Grid from './grid.js';
+import Spawn from './spawn.js';
+
 const infoModal = document.getElementById('info');
 
 class Editor {
@@ -5,6 +8,11 @@ class Editor {
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
     this.ctx.imageSmoothingEnabled = false;
+
+    this.grid = document.getElementById('grid-area');
+    this.spawn = document.getElementById('spawn-area');
+    (new Grid(this.grid)).draw();
+    (new Spawn(this.spawn)).draw();
 
     this.orangeSquare = document.getElementById('orange-square');
     this.blackSquare = document.getElementById('black-square');
@@ -18,8 +26,6 @@ class Editor {
 
     this.map = JSON.parse(localStorage.getItem('map')) || new Array(this.width * this.height).fill(0);
 
-    this.showGrid = false;
-    this.showSpawns = false;
     this.spawnPositions = [
       [2, 0], [3, 0], [6, 0], [7, 0], [10, 0], [11, 0], [14, 0], [15, 0], [18, 0], [19, 0], [22, 0], [23, 0], [26, 0], [27, 0],
       [2, 1], [6, 1], [10, 1], [14, 1], [18, 1], [22, 1], [26, 1],
@@ -35,7 +41,6 @@ class Editor {
       [1, 18], [2, 18], [5, 18], [6, 18], [9, 18], [10, 18], [13, 18], [14, 18], [17, 18], [18, 18], [21, 18], [22, 18], [25, 18], [26, 18],
     ];
 
-
     // listeners
     this.isDrawing = false;
     this.rightClick = false;
@@ -46,10 +51,16 @@ class Editor {
     window.addEventListener('mouseup', () => { this.isDrawing = false; this.rightClick = false; });
     this.canvas.addEventListener('mousemove', () => this.drawSquare(event, false));
     this.canvas.addEventListener('click', (event) => this.drawSquare(event, true));
+    this.canvas.addEventListener('contextmenu', (event) =>  {
+      event.preventDefault(); 
+      this.rightClick = true;
+      this.drawSquare(event, true);
+      return false;
+    }, false);
 
     document.getElementById('reset').addEventListener('click', () => this.reset());
-    document.getElementById('grid').addEventListener('click', (event) => this.gridHandler(event));
-    document.getElementById('spawns').addEventListener('click', (event) => this.spawnsHandler(event));
+    document.getElementById('grid').addEventListener('click', () => this.grid.classList.toggle('hidden'));
+    document.getElementById('spawns').addEventListener('click', () => this.spawn.classList.toggle('hidden'));
     document.getElementById('download').addEventListener('click', () => this.downloadMap());
     document.getElementById('submit').addEventListener('click', () => this.submit());
     document.getElementById('import-map').addEventListener('change', () => this.importMap());
@@ -100,11 +111,6 @@ class Editor {
     }
   }
 
-  spawnsHandler() {
-    this.showSpawns = event.target.checked;
-    this.drawMap();
-  }
-
   infoModal(content, type) {
     infoModal.textContent = content;
     infoModal.classList.remove('border-red-700');
@@ -150,37 +156,6 @@ class Editor {
     }
   }
 
-  drawSpawns() {
-    this.spawnPositions.forEach((positions) => {
-      this.ctx.fillStyle = '#903636';
-      this.ctx.fillRect(positions[0] * this.squareSize, positions[1] * this.squareSize, this.squareSize, this.squareSize);
-    })
-  }
-
-  gridHandler(event) {
-    this.showGrid = event.target.checked;
-    this.drawMap();
-  }
-
-  drawGrid() {
-    this.ctx.beginPath();
-
-    for (let x = this.squareSize; x < this.canvas.width; x += this.squareSize) {
-      this.ctx.moveTo(x, 0);
-      this.ctx.lineTo(x, this.canvas.height);
-    }
-
-    for (let y = this.squareSize; y < this.canvas.height; y += this.squareSize) {
-      this.ctx.moveTo(0, y);
-      this.ctx.lineTo(this.canvas.width, y);
-    }
-
-    this.ctx.strokeStyle = "#BD2424";
-    this.ctx.lineWidth = 2;
-    this.ctx.stroke();
-
-  }
-
   toIndex(x, y) {
     return ((y * this.width) + x);
   }
@@ -218,15 +193,6 @@ class Editor {
         }
       }
     }
-
-    if (this.showGrid) {
-      this.drawGrid();
-    }
-
-    if (this.showSpawns) {
-      this.drawSpawns();
-    }
-
   }
 
   toFixed(float) {
