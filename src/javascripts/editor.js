@@ -51,8 +51,8 @@ class Editor {
     window.addEventListener('mouseup', () => { this.isDrawing = false; this.rightClick = false; });
     this.canvas.addEventListener('mousemove', () => this.drawSquare(event, false));
     this.canvas.addEventListener('click', (event) => this.drawSquare(event, true));
-    this.canvas.addEventListener('contextmenu', (event) =>  {
-      event.preventDefault(); 
+    this.canvas.addEventListener('contextmenu', (event) => {
+      event.preventDefault();
       this.rightClick = true;
       this.drawSquare(event, true);
       return false;
@@ -91,7 +91,6 @@ class Editor {
   }
 
   importMap() {
-    console.log('trigger')
     const file = document.getElementById('import-map').files[0];
 
     if (file.type === "text/plain" && file.size === 1102) {
@@ -290,35 +289,40 @@ class Editor {
 
     if (timeDiff >= 120) {
       if (name.value && author.value && name.value.length >= 3 && author.value.length >= 3) {
-        fetch('/editeur/download', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ map: this.convertToOldFormat(), name: name.value })
-        }).then(res => res.json())
-          .then(response => {
-            const path = `/temp/${response.filename}_${response.timestamp}.txt`;
-            const canvasBase64 = this.canvas.toDataURL();
-            fetch('/editeur/map', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ name: name.value, author: author.value, image: canvasBase64, map: JSON.stringify(this.map), path: path })
-            }).then(res => {
-              if (res.status === 201) {
-                this.infoModal('Votre carte a été soumise avec succès !', 'success');
-                localStorage.setItem('submittedAt', new Date());
-              }
+        const regex = new RegExp(/^[\wàâçéèêëîïôûùüÿ:=&"'.()\[\]\- ]+$/, 'gi');
+        if (regex.test(name.value)) {
+          fetch('/editeur/download', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ map: this.convertToOldFormat(), name: name.value })
+          }).then(res => res.json())
+            .then(response => {
+              const path = `/temp/${response.filename}_${response.timestamp}.txt`;
+              const canvasBase64 = this.canvas.toDataURL();
+              fetch('/editeur/map', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name: name.value, author: author.value, image: canvasBase64, map: JSON.stringify(this.map), path: path })
+              }).then(res => {
+                if (res.status === 201) {
+                  this.infoModal('Votre carte a été soumise avec succès !', 'success');
+                  localStorage.setItem('submittedAt', new Date());
+                }
 
-              if (res.status === 409) {
-                res.json().then(res => {
-                  this.infoModal(res.message, 'error');
-                });
-              }
+                if (res.status === 409) {
+                  res.json().then(res => {
+                    this.infoModal(res.message, 'error');
+                  });
+                }
+              });
             });
-          });
+        } else {
+          this.infoModal('Le titre de votre carte ne doit pas contenir de caractères spéciaux.', 'error');
+        }
       } else {
         this.infoModal('L\'auteur et le titre de votre carte doit contenir au moins 3 caractères.', 'error');
       }
