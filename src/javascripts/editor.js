@@ -91,6 +91,7 @@ class Editor {
   }
 
   importMap() {
+    console.log('trigger')
     const file = document.getElementById('import-map').files[0];
 
     if (file.type === "text/plain" && file.size === 1102) {
@@ -101,6 +102,7 @@ class Editor {
           localStorage.setItem('map', `[${mapFormatted}]`);
           this.map = JSON.parse(localStorage.getItem('map'));
           this.drawMap();
+          document.getElementById('import-map').value = '';
         } else {
           this.infoModal('Le fichier que vous essayez d\'importer n\'est pas au format Extinction.', 'error');
         }
