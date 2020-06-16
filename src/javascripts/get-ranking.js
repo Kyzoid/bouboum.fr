@@ -14,7 +14,7 @@ const currentDate = document.getElementById('current-date');
 export const getBouboumRanking = (date, isPrevButtonAvailable = true, isNextButtonAvailable = true) => {
   const htmlDate = date ? date : dayjs().format('YYYY-MM-DD');
   currentDate.dataset.date = htmlDate;
-  const link = `/ranking?date=${htmlDate}&game=${game}`;
+  const link = `/classement?date=${htmlDate}&game=${game}`;
   const table = document.getElementById('tbody');
 
   fetch(link, { headers: { "Content-Type": "application/json; charset=utf-8" } })
@@ -96,7 +96,7 @@ export const getBouboumRanking = (date, isPrevButtonAvailable = true, isNextButt
 export const getAaaahRanking = (date, isPrevButtonAvailable = true, isNextButtonAvailable = true) => {
   const htmlDate = date ? date : dayjs().format('YYYY-MM-DD');
   currentDate.dataset.date = htmlDate;
-  const link = `/ranking?date=${htmlDate}&game=${game}`;
+  const link = `/classement?date=${htmlDate}&game=${game}`;
   const table = document.getElementById('tbody');
 
   fetch(link, { headers: { "Content-Type": "application/json; charset=utf-8" } })

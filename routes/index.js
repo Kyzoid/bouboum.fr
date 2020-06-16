@@ -15,11 +15,11 @@ router.get('/', (req, res, next) => {
   res.render('index');
 });
 
-router.get('/bouboum', (req, res, next) => {
+router.get('/classements/bouboum', (req, res, next) => {
   Index.ranking(req, res, next);
 });
 
-router.get('/aaaah', (req, res, next) => {
+router.get('/classements/aaaah', (req, res, next) => {
   Index.ranking(req, res, next);
 });
 
@@ -27,7 +27,7 @@ router.get('/match', (req, res, next) => {
   res.render('match');
 });
 
-router.get('/ranking', async (req, res, next) => {
+router.get('/classement', async (req, res, next) => {
   const date = (req.query.date) ? req.query.date : dayjs().format('YYYY-MM-DD');
   const game = req.query.game;
 

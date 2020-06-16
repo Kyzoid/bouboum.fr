@@ -138,7 +138,7 @@ class Editor {
     const mapValue = this.convertToOldFormat();
     const mapName = document.getElementById('title').value;
     if (mapName) {
-      fetch('/editeur/download', {
+      fetch('/editeur/telechargement', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -291,7 +291,7 @@ class Editor {
       if (name.value && author.value && name.value.length >= 3 && author.value.length >= 3) {
         const regex = new RegExp(/^[\wàâçéèêëîïôûùüÿ:=&"'.()\[\]\- ]+$/, 'gi');
         if (regex.test(name.value)) {
-          fetch('/editeur/download', {
+          fetch('/editeur/telechargement', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -301,7 +301,7 @@ class Editor {
             .then(response => {
               const path = `/temp/${response.filename}_${response.timestamp}.txt`;
               const canvasBase64 = this.canvas.toDataURL();
-              fetch('/editeur/map', {
+              fetch('/editeur/soumettre', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',

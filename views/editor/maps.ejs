@@ -22,7 +22,7 @@
                 <a class="rounded p-1 download-top-right" href="<%= map.path %>" download="<%= map.name %>"><img src="/images/download-24px.svg" alt="download"></a>
             </div>
             
-            <label class="uppercase mt-1 truncate text-base"><%= map.name %></label>
+            <label class="uppercase mt-1 truncate text-base"><a href="/cartes/<%= map.id %>" class="text-menu-extinction"><%= map.name %></a></label>
             <label class="truncate text-xs">Créé par <span class="text-green-extinction"><%= map.author %></span> •
                 <%= map.createdAt %></label>
             <label class="truncate text-xs"></label>

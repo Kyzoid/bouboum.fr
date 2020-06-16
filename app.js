@@ -34,6 +34,7 @@ const limiter = rateLimit({
 const indexRouter = require('./routes/index');
 const adminRouter = require('./routes/admin');
 const editorRouter = require('./routes/editor');
+const mapRouter = require('./routes/map');
 
 app.use(logger('dev'));
 
@@ -48,6 +49,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/', indexRouter);
 app.use('/admin/', adminRouter);
 app.use('/editeur/', editorRouter);
+app.use('/', mapRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

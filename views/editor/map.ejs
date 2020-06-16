@@ -1,0 +1,23 @@
+<%- include('../templates/header') %>
+
+<div class="mt-8 container mx-auto px-4 items-center text-center">
+
+    <h1 class="text-4xl text-red-extinction mb-10"><%= map.name %></h1>
+
+    <div class="flex flex-col justify-center">
+        <span class="text-lg mb-2">Créé par 
+            <span class="text-green-extinction"><%= map.author %></span> le 
+            <span class="text-green-extinction"><%= map.createdAt %></span>
+        </span>
+        <div class="flex justify-center">
+            <img class="bg-empty-square-extinction" src="<%= map.image %>" alt="<%= map.name %>">
+        </div>
+        <div class="flex items-center justify-center">
+            <a class="rounded cursor-pointer text-menu-extinction mt-2 justify-center" href="<%= map.path %>" download="<%= map.name %>">
+                Télécharger la carte
+            </a>
+        </div>
+    </div>
+
+</div>
+<%- include('../templates/footer') %>
