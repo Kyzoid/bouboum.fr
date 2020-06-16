@@ -18,7 +18,7 @@
         <div class="map flex flex-col text-left mb-6 m-2" data-name="<%= map.name %>" data-author="<%= map.author %>"
             data-created-at="<%= map.createdAt %>">
             <div class="download-container">
-                <img class="bg-empty-square-extinction" src="<%= map.image %>" alt="<%= map.name %>">
+                <a href="/cartes/<%= map.id %>"><img class="bg-empty-square-extinction" src="<%= map.image %>" alt="<%= map.name %>"></a>
                 <a class="rounded p-1 download-top-right" href="<%= map.path %>" download="<%= map.name %>"><img src="/images/download-24px.svg" alt="download"></a>
             </div>
             
