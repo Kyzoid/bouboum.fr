@@ -49,7 +49,7 @@ $ docker exec -i db pg_dump -U dbuser --format=tar database | gzip > ~/backups/d
 ```
 Récupérer le dump sur sa machine : rsync
 ```sh
-$ rsync --archive user@ip:~/backups/ .
+$ rsync -aP --delete user@ip:~/backups/ ./backups
 ```
 Restaurer les données : pg_restore
 ```sh
