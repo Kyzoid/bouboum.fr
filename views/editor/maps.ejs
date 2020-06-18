@@ -4,7 +4,7 @@
     <h1 class="text-4xl text-red-extinction mb-10">Liste des cartes</h1>
     <div class="mb-2 flex flex-col items-center">
         <%  if (admin) { %>
-            <%- include('./_info') %>
+        <%- include('./_info') %>
         <% } %>
         <span>Rechercher</span>
         <div class="flex mt-2">
@@ -24,7 +24,8 @@
                 <a class="rounded p-1 download-top-right" href="<%= map.path %>" download="<%= map.name %>"><img
                         src="/images/download-24px.svg" alt="download"></a>
                 <%  if (admin) { %>
-                    <img class="rounded p-1 delete-bottom-right" data-id="<%= map.id %>" src="/images/delete.svg" alt="delete">
+                <img class="rounded p-1 delete-bottom-right" data-id="<%= map.id %>" src="/images/delete.svg"
+                    alt="delete">
                 <% } %>
             </div>
 
@@ -34,6 +35,13 @@
 
             <label class="truncate text-xs">Créé par <span class="text-green-extinction"><%= map.author %></span> •
                 <%= map.createdAt %></label>
+            <div class="map-tags flex-wrap flex items-center">
+                <% map.tags.forEach(mapTag => { %>
+                <div class="tag rounded-full bg-extinction mt-1 mr-1 text-xs px-2 py-1">
+                    <span><%= mapTag.name.charAt(0).toUpperCase() + mapTag.name.slice(1) %></span>
+                </div>
+                <% }); %>
+            </div>
         </div>
         <% }); %>
     </div>
@@ -42,7 +50,7 @@
 </div>
 <script src="/javascripts/search.min.js"></script>
 <% if (admin) { %>
-    <script src="/javascripts/admin-map.min.js"></script>
+<script src="/javascripts/admin-map.min.js"></script>
 <% } %>
 
 <%- include('../templates/footer') %>

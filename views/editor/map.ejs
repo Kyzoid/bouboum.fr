@@ -2,22 +2,47 @@
 
 <div class="mt-8 container mx-auto px-4 items-center text-center">
 
-    <h1 class="text-4xl text-red-extinction mb-10"><%= map.name %></h1>
+    <h1 class="text-4xl text-red-extinction mb-4" id="map-name" data-id="<%= map.id %>"><%= map.name %></h1>
 
     <div class="flex flex-col justify-center">
-        <span class="text-lg mb-2">Créé par 
-            <span class="text-green-extinction"><%= map.author %></span> le 
-            <span class="text-green-extinction"><%= map.createdAt %></span>
-        </span>
         <div class="flex justify-center">
             <img class="bg-empty-square-extinction" src="<%= map.image %>" alt="<%= map.name %>">
         </div>
-        <div class="flex items-center justify-center">
-            <a class="rounded cursor-pointer text-menu-extinction mt-2 justify-center" href="<%= map.path %>" download="<%= map.name %>">
+        <span class="text-lg mt-2">Créé par
+            <span class="text-green-extinction"><%= map.author %></span> le
+            <span class="text-green-extinction"><%= map.createdAt %></span>
+        </span>
+        <div class="map-tags mt-2 flex items-center justify-center">
+            <% map.tags.forEach(mapTag => { %>
+                <div class="tag rounded-full flex-wrap bg-extinction mt-1 mr-1 px-3 py-1 relative">
+                    <span><%= mapTag.name.charAt(0).toUpperCase() + mapTag.name.slice(1) %></span>
+                    <% if (admin) { %>
+                        <img class="cursor-pointer ml-1 float-right delete-tag" data-tag-id="<%= mapTag.id %>" src="/images/cross.svg" width="16">
+                    <% } %>
+                </div>
+            <% }); %>
+        </div>
+        <% if (admin) { %>
+            <form class="tags mt-2 flex items-center justify-center">
+                <select class="rounded p-1 bg-extinction w-40" name="ranking" id="ranking">
+                    <option value="">-</option>
+                    <% tags.forEach(tag => { %>
+                        <option value="<%= tag.id %>"><%= tag.name.charAt(0).toUpperCase() + tag.name.slice(1) %></option>
+                    <% }); %>
+                </select>
+                <input type="submit" value="Ajouter" class="ml-2 bg-extinction hover:bg-gray-800 text-white font-bold py-2 px-3 rounded">
+            </form>
+        <% } %>
+        <div class="flex items-center mt-2 justify-center">
+            <a class="rounded cursor-pointer text-menu-extinction justify-center" href="<%= map.path %>"
+                download="<%= map.name %>">
                 Télécharger la carte
             </a>
         </div>
     </div>
 
 </div>
+<% if (admin) { %>
+    <script src="/javascripts/tag.min.js"></script>
+<% } %>
 <%- include('../templates/footer') %>
