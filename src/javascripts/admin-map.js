@@ -25,7 +25,7 @@ const infoModal = (content, type) => {
 
 const handleDelete = (event) => {
   const id = event.target.dataset.id;
-  fetch(`/admin/cartes/${id}`, {
+  fetch(`/cartes/${id}`, {
     method: 'DELETE'
   }).then((res) => {
     infoModal(`[${res.status}] ${res.statusText}`, (res.status === 204) ? 'success' : 'error');

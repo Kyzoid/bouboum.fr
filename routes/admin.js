@@ -42,26 +42,6 @@ router.post('/synchronization', redirectLogin, (req, res, next) => {
   });
 });
 
-router.delete('/cartes/:id', redirectLogin, (req, res) => {
-  Map.destroy({
-    where: {
-      id: req.params.id
-    }
-  })
-  .then((response) => {
-    if (response) {
-      res.sendStatus(204)
-    } else {
-      res.sendStatus(404);
-    }
-  })
-  .catch(err => console.log(err));
-});
-
-router.get('/cartes/:id/tag', redirectLogin, (req, res) => {
-  res.status(200).send(req.body.game);
-});
-
 router.get('/data', redirectLogin, (req, res, next) => {
   const game = req.query.game || 'bouboum';
   const file = `./data/${game}.txt`;

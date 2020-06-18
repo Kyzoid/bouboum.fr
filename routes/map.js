@@ -4,6 +4,14 @@ const Map = require('../models/Map');
 const Tag = require('../models/Tag');
 const dayjs = require('dayjs');
 
+const isAdmin = (req, res, next) => {
+  if (!req.session.userId) {
+    res.sendStatus(401);
+  } else {
+    next();
+  }
+};
+
 router.get('/cartes', (req, res) => {
   Map.findAll({
     order: [
@@ -11,7 +19,7 @@ router.get('/cartes', (req, res) => {
     ],
     include: [{
       model: Tag,
-        attributes: ['name'],
+      attributes: ['name'],
 
     }]
   }).then((data) => {
@@ -33,6 +41,26 @@ router.get('/cartes/:id', (req, res) => {
       res.sendStatus(404);
     }
   }).catch(err => res.sendStatus(500));
+});
+
+router.delete('/cartes/:id', isAdmin, (req, res) => {
+  Map.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+    .then((response) => {
+      if (response) {
+        res.sendStatus(204)
+      } else {
+        res.sendStatus(404);
+      }
+    })
+    .catch(err => console.log(err));
+});
+
+router.get('/cartes/:id/tag', isAdmin, (req, res) => {
+  res.status(200).send(req.body.game);
 });
 
 /*
