@@ -38,6 +38,21 @@ span:focus {
     padding: 2px 6px;
 }
 
+.input-text-reverse {
+    color: #C2C2DA;
+    text-shadow: #C2C2DA 0px 0px 0.5px;
+    border-radius: 6px;
+    background-color: #1E1E24;
+    height: 24px;
+    border-style: solid;
+    border-width: 1px;
+    border-top-color: #686875;
+    border-left-color: #686875;
+    border-right-color: black;
+    border-bottom-color: black;
+    padding: 2px 6px;
+}
+
 .input-number {
     color: #C2C2DA;
     text-shadow: #C2C2DA 0px 0px 0.5px;

@@ -72,30 +72,49 @@
         <div class="ml-6">
             <div class="flex justify-between">
                 <div class="mb-2 flex items-center">
-                    <span class="text-shadow">Titre :</span>
+                    <span>Titre :</span>
                     <input type="text" id="title" maxlength="37" minlength="4"
                         class="overflow-hidden input-text ml-2 bg-extinction text-left flex items-center"
                         style="width: 20rem;"></span>
                 </div>
                 <div class="mb-2 flex items-center">
-                    <span class="text-shadow">Auteur :</span>
+                    <span>Auteur :</span>
                     <input type="text" id="author" maxlength="12" minlength="3"
                         class="overflow-hidden input-text ml-2 bg-extinction text-left flex items-center"
                         style="width: 10rem;"></span>
                 </div>
             </div>
 
-            <div id="all-canvas" class="relative bg-empty-square-extinction" style="height:456px; width:696px;" >
-                <canvas id="grid-area" class="absolute z-30 pointer-events-none hidden" oncontextmenu="return false" height="456" width="696"></canvas>
-                <canvas id="spawn-area" class="absolute z-20 pointer-events-none hidden" oncontextmenu="return false" height="456" width="696"></canvas>
-                <canvas id="editor-area" class="absolute z-10" height="456" width="696"
-                    class="absolute">
+            <div id="form-tag" class="mb-2 flex items-center">
+                <div class="flex items-center flex-wrap">
+                    <span class="mt-1">Tags : </span>
+                    <input type="text" class="hidden" id="tags-to-send">
+                    <div class="ml-2 flex items-center flex-wrap">
+                        <div id="tags" class="flex items-center flex-wrap"></div>
+
+                        <select class="mt-1 input-text-reverse" name="select-tags" id="select-tags">
+                            <option value="">-</option>
+                            <% tags.forEach(tag => { %>
+                            <option data-tag-name="<%= tag.name %>" value="<%= tag.id %>"><%= tag.name.charAt(0).toUpperCase() + tag.name.slice(1) %>
+                            </option>
+                            <% }); %>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div id="all-canvas" class="relative bg-empty-square-extinction" style="height:456px; width:696px;">
+                <canvas id="grid-area" class="absolute z-30 pointer-events-none hidden" oncontextmenu="return false"
+                    height="456" width="696"></canvas>
+                <canvas id="spawn-area" class="absolute z-20 pointer-events-none hidden" oncontextmenu="return false"
+                    height="456" width="696"></canvas>
+                <canvas id="editor-area" class="absolute z-10" height="456" width="696" class="absolute">
                 </canvas>
             </div>
         </div>
     </div>
-</div>
 
-<script src="/javascripts/editor.min.js"></script>
+    <script src="/javascripts/editor.min.js"></script>
+    <script src="/javascripts/editor-tag.min.js"></script>
 
-<%- include('../templates/footer') %>
+    <%- include('../templates/footer') %>

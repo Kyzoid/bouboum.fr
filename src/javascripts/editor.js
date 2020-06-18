@@ -306,7 +306,14 @@ class Editor {
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ name: name.value, author: author.value, image: canvasBase64, map: JSON.stringify(this.map), path: path })
+                body: JSON.stringify({
+                  name: name.value,
+                  author: author.value,
+                  image: canvasBase64,
+                  map: JSON.stringify(this.map),
+                  path: path,
+                  tags: document.getElementById('tags-to-send').value,
+                })
               }).then(res => {
                 if (res.status === 201) {
                   this.infoModal('Votre carte a été soumise avec succès !', 'success');

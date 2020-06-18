@@ -33,7 +33,7 @@
                 <a href="/cartes/<%= map.id %>" class="text-menu-extinction"><%= map.name %></a>
             </label>
 
-            <label class="truncate text-xs">Créé par <span class="text-green-extinction"><%= map.author %></span> •
+            <label class="truncate text-xs">Créée par <span class="text-green-extinction"><%= map.author %></span> •
                 <%= map.createdAt %></label>
             <div class="map-tags flex-wrap flex items-center">
                 <% map.tags.forEach(mapTag => { %>
@@ -50,7 +50,7 @@
 </div>
 <script src="/javascripts/search.min.js"></script>
 <% if (admin) { %>
-<script src="/javascripts/admin-map.min.js"></script>
+    <script src="/javascripts/admin-map.min.js"></script>
 <% } %>
 
 <%- include('../templates/footer') %>

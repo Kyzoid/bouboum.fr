@@ -137,7 +137,6 @@ video  {
   min-height: 24px;
 }
 
-
 /* INPUT RADIO AND CHECKBOX STYLE */
 .radio-container {
   position: relative;
@@ -266,6 +265,10 @@ video {
   opacity: 1;
   width: 1280px;
   margin-top: 24px;
+}
+
+#form-tag {
+  width: 696px;
 }
 
 @media (max-width: 800px) {

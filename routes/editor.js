@@ -6,8 +6,9 @@ const Tag = require('../models/Tag');
 const { ValidationError } = require('sequelize');
 const { Op } = require("sequelize");
 
-router.get('/', (req, res, next) => {
-  res.render('editor/index');
+router.get('/', async (req, res, next) => {
+  const tags = await Tag.findAll();
+  res.render('editor/index', { tags: tags });
 });
 
 router.post('/telechargement', (req, res) => {
@@ -24,17 +25,20 @@ router.post('/soumettre', (req, res) => {
   Map.findAll(
     {
       where: {
-        [Op.or]: [{ name: req.body.name }, { path: req.body.path }]
+        [Op.or]: [{ name: req.body.name }, { map: req.body.map }]
       }
     }
   ).then(response => {
     if (response.length >= 1) {
-      res.status(409).json({ message: 'La carte que vous essayez de soumettre existe déjà. Essayez de changer le titre de la carte sinon ça veut dire que votre carte existe déjà.' });
+      res.status(409).json({ message: 'Ce titre ou cette carte existe déjà ! Essayez de changer votre titre.' });
     }
 
     if (response.length === 0) {
       Map.create(req.body)
-        .then(response => res.sendStatus(201))
+        .then(map => {
+          map.addTag(JSON.parse(req.body.tags));
+          res.sendStatus(201)
+        })
         .catch((error) => {
           if (error instanceof ValidationError) {
             const errors = error.errors.reduce((acc, item) => {
