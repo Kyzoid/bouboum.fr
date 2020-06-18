@@ -30,6 +30,4 @@ Admin.addHook('beforeCreate', async (admin, options) => {
   admin.password = await bcrypt.hash(admin.password, salt);
 });
 
-Admin.sync();
-
 module.exports = Admin;

@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
 const rateLimit = require("express-rate-limit");
 const Redis = require('ioredis');
 const RedisStore = require('connect-redis')(session);
+const { sequelize } = require('./models/index');
 const { REDIS_OPTIONS, SESSION_OPTIONS, APP_PORT } = require('./config');
 
 const client = new Redis(REDIS_OPTIONS);

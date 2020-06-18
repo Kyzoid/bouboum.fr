@@ -14,6 +14,7 @@
     "start:prod": "node app.js",
     "createAdmin": "node ./scripts/createAdmin.js",
     "createDatabase": "node ./scripts/createDatabase.js",
+    "createTags": "node ./scripts/createTags.js",
     "webpack:dev": "webpack --mode=development",
     "webpack:prod": "webpack --mode=production"
   },

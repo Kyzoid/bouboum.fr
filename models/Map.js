@@ -40,6 +40,7 @@ Map.init(
   }
 );
 
-Map.sync();
+Map.belongsToMany(Tag, { through: 'map_tags' });
+Tag.belongsToMany(Map, { through: 'map_tags' });
 
 module.exports = Map;

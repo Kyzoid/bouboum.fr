@@ -241,6 +241,23 @@ input::placeholder {
   background-color: rgba(33,33,39, 0.5);
 }
 
+.download-container:hover .delete-bottom-right {
+  display: block;
+  transition: all .2s;
+}
+
+.delete-bottom-right {
+  display: none;
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  background-color: rgba(33,33,39, 0.5);
+}
+
+.delete-bottom-right:hover {
+  cursor: pointer;
+}
+
 video {
   left: 50%;
   top: 50%;

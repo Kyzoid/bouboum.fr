@@ -3,7 +3,8 @@ const bcrypt = require('bcrypt');
 const router = express.Router();
 const fs = require('fs');
 const { exec } = require('child_process');
-const Admin = require('../models/Admin');
+const { Admin, Map, Tag } = require('../models/index');
+const dayjs = require('dayjs');
 
 const {
   SESS_NAME = 'sid',
@@ -39,6 +40,26 @@ router.post('/synchronization', redirectLogin, (req, res, next) => {
       res.status(200).send(stdout);
     }
   });
+});
+
+router.delete('/cartes/:id', redirectLogin, (req, res) => {
+  Map.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+  .then((response) => {
+    if (response) {
+      res.sendStatus(204)
+    } else {
+      res.sendStatus(404);
+    }
+  })
+  .catch(err => console.log(err));
+});
+
+router.get('/cartes/:id/tag', redirectLogin, (req, res) => {
+  res.status(200).send(req.body.game);
 });
 
 router.get('/data', redirectLogin, (req, res, next) => {
