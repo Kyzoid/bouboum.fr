@@ -1,4 +1,7 @@
-<%- include('templates/header') %>
+<%- include('templates/header', {
+    metaTitle: 'Accueil | Bouboum.fr',
+    metaDescription: 'Editeur de cartes Bouboum, classements par nombre de victoires et autres outils hors du commun pour extinction-minijeux.fr.',
+}) %>
 <div class="overflow-hidden flex justify-center items-center mx-auto relative"
     style="background-color: #2c2c42; height: 100%; margin-top: -64px;">
 
@@ -10,50 +13,7 @@
 
     <div class="flex flex-col text-center mb-4" style="z-index: 3; width: 800px;">
         <h1 class="text-4xl text-white-extinction mb-1 text-shadow">Bouboum</h1>
-        <div class="mt-4 menu flex flex-wrap justify-center items-center justify-center">
-            <div class="p-4">
-                <a class="bg-extinction-dark menu-choice flex items-center justify-center" href="/classements/aaaah">
-                    <div class="flex flex-col">
-                        <img alt="aaaah" src="/images/menu_aaaah.png">
-                        <span class="text-shadow text-xs">Aaaah !</span>
-                    </div>
-                </a>
-            </div>
-            <div class="p-4">
-                <a class="bg-extinction-dark menu-choice flex items-center justify-center" href="/classements/bouboum">
-                    <div class="flex flex-col">
-                        <img alt="bouboum" src="/images/menu_bouboum.png">
-                        <span class="text-shadow text-xs">Bouboum</span>
-                    </div>
-                </a>
-            </div>
-            <div class="p-4">
-                <a class="bg-extinction-dark menu-choice flex items-center justify-center" href="/editeur">
-                    <div class="flex flex-col">
-                        <img alt="editeur" height="40" src="/images/peinture.png" style="height: 40px;">
-                        <span class="text-shadow text-xs">Editeur</span>
-                    </div>
-                </a>
-            </div>
-            <div class="p-4">
-                <a class="bg-extinction-dark menu-choice flex items-center justify-center" href="/cartes">
-                    <div class="flex flex-col">
-                        <img alt="editeur" src="/images/editor_bouboum.png">
-                        <span class="text-shadow text-xs">Cartes</span>
-                    </div>
-                </a>
-            </div>
-            <div class="p-4">
-                <a id="match-overlay"
-                    class="bg-extinction-dark menu-choice break-words flex items-center justify-center text-shadow text-xs"
-                    href="/match">
-                    <div class="flex flex-col items-center">
-                        <img alt="editeur" src="/images/obs.png" width="30">
-                        <span class="text-shadow text-xs mt-1">Match overlay</span>
-                    </div>
-                </a>
-            </div>
-        </div>
+        <span class="text-xl text-shadow">Editeur de cartes Bouboum, classements par nombre de victoires et autres outils hors du commun pour <a href="https://www.extinction-minijeux.fr" class="text-red-extinction underline">extinction-minijeux.fr</a>.</span>
     </div>
 </div>
 

@@ -1,14 +1,10 @@
 const express = require('express');
-const IndexController = require('../controllers/IndexController');
-const Index = new IndexController();
-const router = express.Router();
+const dayjs = require('dayjs');
 
+const router = express.Router();
 const Player = require('../models/Player');
 const ScoreBouboum = require('../models/ScoreBouboum');
 const ScoreAaaah = require('../models/ScoreAaaah');
-
-
-const dayjs = require('dayjs');
 require('dayjs/locale/fr');
 
 router.get('/', (req, res, next) => {
@@ -16,11 +12,17 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/classements/bouboum', (req, res, next) => {
-  Index.ranking(req, res, next);
+  res.render('ranking', {
+    date: dayjs().locale('fr').format('DD/MM/YYYY'),
+    game: 'Bouboum'
+  });
 });
 
 router.get('/classements/aaaah', (req, res, next) => {
-  Index.ranking(req, res, next);
+  res.render('ranking', {
+    date: dayjs().locale('fr').format('DD/MM/YYYY'),
+    game: 'Aaaah !'
+  });
 });
 
 router.get('/match', (req, res, next) => {

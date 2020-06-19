@@ -1,4 +1,7 @@
-<%- include('templates/header') %>
+<%- include('templates/header', {
+        metaTitle: 'Erreur | Bouboum.fr',
+        metaDescription: 'Une erreur est survenue, désolé mon pote.',
+}) %>
 
 <div class="mt-8 container mx-auto px-4 text-center">
     <h1 class="text-5xl text-red-extinction">Error <%= error.status %></h1>

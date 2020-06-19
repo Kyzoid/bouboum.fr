@@ -1,4 +1,7 @@
-<%- include('templates/header') %>
+<%- include('templates/header', {
+      metaTitle: `Classement ${game} | Bouboum.fr`,
+      metaDescription: `Classement ${game} par nombre de victoires de extinction-minijeux.fr.`,
+}) %>
 
 <div class="mt-8 flex flex-col container mx-auto items-center">
   <h1 id="title" class="text-4xl mb-4 text-red-extinction" data-game="<%= game.toLowerCase() %>">Classement <%= (game === 'Aaaah') ? 'Aaaah !' : game %></h1>

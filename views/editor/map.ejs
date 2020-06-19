@@ -1,4 +1,7 @@
-<%- include('../templates/header') %>
+<%- include('../templates/header', {
+        metaTitle: `${map.name} | Bouboum.fr`,
+        metaDescription: `Carte ${map.name} créée par ${map.author}.`,
+}) %>
 
 <div class="mt-8 container mx-auto px-4 items-center text-center">
     <h1 class="text-4xl text-red-extinction mb-1" id="map-name" data-id="<%= map.id %>"><%= map.name %></h1>
