@@ -1,10 +1,8 @@
 const express = require('express');
 const dayjs = require('dayjs');
-
 const router = express.Router();
 const Player = require('../models/Player');
-const ScoreBouboum = require('../models/ScoreBouboum');
-const ScoreAaaah = require('../models/ScoreAaaah');
+const { ScoreBouboum, ScoreAaaah } = require('../models/index');
 require('dayjs/locale/fr');
 
 router.get('/', (req, res, next) => {

@@ -1,4 +1,4 @@
-const sequelize = require("../controllers/Sequelize.js");
+const sequelize = require("../lib/Sequelize.js");
 const { DataTypes, Model } = require("sequelize");
 const bcrypt = require('bcrypt');
 

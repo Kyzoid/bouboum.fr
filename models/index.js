@@ -1,4 +1,4 @@
-const sequelize = require("../controllers/Sequelize");
+const sequelize = require("../lib/Sequelize");
 const Admin = require("./Admin");
 const Map = require("./Map");
 const Player = require("./Player");

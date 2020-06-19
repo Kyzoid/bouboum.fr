@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Map = require('../models/Map');
-const Tag = require('../models/Tag');
+const { Tag, Map } = require('../models/index');
 const dayjs = require('dayjs');
 
 const isAdmin = (req, res, next) => {

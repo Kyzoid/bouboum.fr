@@ -1,4 +1,4 @@
-const sequelize = require("../controllers/Sequelize");
+const sequelize = require("../lib/Sequelize");
 const { DataTypes, Model } = require("sequelize");
 const Tag = require('./Tag');
 

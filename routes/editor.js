@@ -1,8 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const router = express.Router();
-const Map = require('../models/Map');
-const Tag = require('../models/Tag');
+const { Map, Tag } = require('../models/index');
 const { ValidationError } = require('sequelize');
 const { Op } = require("sequelize");
 
