@@ -24,6 +24,7 @@
     "@fullhuman/postcss-purgecss": "^2.2.0",
     "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
+    "canvas": "^2.6.1",
     "connect-redis": "^4.0.4",
     "cookie-parser": "~1.4.4",
     "dayjs": "^1.8.27",

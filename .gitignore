@@ -8,3 +8,4 @@ docker
 rest.http
 dist/temp
 .idea
+scripts/mondes

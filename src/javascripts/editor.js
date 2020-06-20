@@ -93,7 +93,7 @@ class Editor {
   importMap() {
     const file = document.getElementById('import-map').files[0];
 
-    if (file.type === "text/plain" && file.size === 1102) {
+    if (file.type === "text/plain") {
       const reader = new FileReader();
       reader.onload = () => {
         if (reader.result.indexOf('#') > -1) {
@@ -108,7 +108,7 @@ class Editor {
       };
       reader.readAsText(file);
     } else {
-      this.infoModal('Le fichier que vous avez importé n\'est pas au format texte ou est trop volumineux (max. 1102 octets).', 'error');
+      this.infoModal('Le fichier que vous avez importé n\'est pas au format texte ou est trop volumineux.', 'error');
     }
   }
 
