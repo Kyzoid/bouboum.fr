@@ -98,8 +98,10 @@
                         <select class="mt-1 input-text-reverse" name="select-tags" id="select-tags">
                             <option value="">-</option>
                             <% tags.forEach(tag => { %>
-                            <option data-tag-name="<%= tag.name %>" value="<%= tag.id %>"><%= tag.name.charAt(0).toUpperCase() + tag.name.slice(1) %>
-                            </option>
+                                <% if (tag.id !== 1) { %>
+                                    <option data-tag-name="<%= tag.name %>" value="<%= tag.id %>"><%= tag.name.charAt(0).toUpperCase() + tag.name.slice(1) %>
+                                    </option>
+                                <% } %>
                             <% }); %>
                         </select>
                     </div>

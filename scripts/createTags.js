@@ -1,6 +1,6 @@
 const {sequelize, Tag, Map} = require('../models/index.js');
 
-const tags = ['officielle', 'injouable', 'épervier', 'artistique', 'fun'];
+const tags = ['officielle', 'classique', 'injouable', 'epervier', 'artistique', 'creuse', 'battle royal', 'autre'];
 
 tags.forEach((tag, index) => {
     Tag.create({ name: tag })
