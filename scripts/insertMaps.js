@@ -104,7 +104,8 @@ fs.readdir(directoryPath, (err, files) => {
         author: 'Extinction',
         image: fakeCanvas.getImage(),
         map: data,
-        path: `/temp/mondes/monde_${mapId}.txt`
+        path: `/temp/mondes/monde_${mapId}.txt`,
+        createdAt: new Date(1970-01-01)
       })
         .then(async (map) => {
           console.log(`La map ${map.name} a bien été créé.`);
