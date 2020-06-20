@@ -7,7 +7,7 @@
     <h1 class="text-4xl text-red-extinction mb-10">Liste des cartes</h1>
     <div class="mb-2 flex flex-col items-center">
         <%  if (admin) { %>
-            <%- include('./_info') %>
+        <%- include('./_info') %>
         <% } %>
         <span>Rechercher</span>
         <div class="flex mt-2">
@@ -17,15 +17,33 @@
         </div>
     </div>
 
-    <div class="maps mb-6 mt-6 flex flex-wrap">
+    <div class="flex justify-center mt-6">
+        <nav class="noselect flex items-center justify-between date-pagination m-4 text-green-extinction" style="width: 20rem;">
+            <button title="Précédent"
+                class="prev uppercase text-2xs text-green-extinction bg-extinction font-bold py-2 px-4 rounded-full inline-flex items-center">
+                <img src="/images/left_arrow.svg" alt="left" width="8">
+                <span class="ml-1">Précédent</span>
+            </button>
+
+            <div class="text-xl ml-5 mr-5"><span class="current-page">1</span><span class="pages-total text-sm">/ 1</span></div>
+
+            <button title="Suivant"
+                class="next uppercase text-2xs text-green-extinction bg-extinction font-bold py-2 px-4 rounded-full inline-flex items-center">
+                <span class="mr-1">Suivant</span>
+                <img src="/images/right_arrow.svg" alt="right" width="8">
+            </button>
+        </nav>
+    </div>
+
+    <div id="maps" class="flex flex-wrap">
         <% maps.forEach(map => { %>
         <div class="map flex flex-col text-left mb-6 m-2" data-name="<%= map.name %>" data-author="<%= map.author %>"
-            data-created-at="<%= map.createdAt %>">
+            data-created-at="<%= map.createdAt %>" style="display: none;">
             <div class="download-container">
                 <a href="/cartes/<%= map.id %>"><img class="bg-empty-square-extinction" src="<%= map.image %>"
                         alt="<%= map.name %>"></a>
-                <a class="rounded p-1 download-top-right" href="<%= map.path %>" rel="nofollow" download="<%= map.name %>"><img
-                        src="/images/download-24px.svg" alt="download"></a>
+                <a class="rounded p-1 download-top-right" href="<%= map.path %>" rel="nofollow"
+                    download="<%= map.name %>"><img src="/images/download-24px.svg" alt="download"></a>
                 <%  if (admin) { %>
                 <img class="rounded p-1 delete-bottom-right" data-id="<%= map.id %>" src="/images/delete.svg"
                     alt="delete">
@@ -49,11 +67,29 @@
         <% }); %>
     </div>
 
+    <div class="flex justify-center mb-6">
+        <nav class="noselect flex items-center justify-between date-pagination m-4 text-green-extinction" style="width: 20rem;">
+            <button title="Précédent"
+                class="prev uppercase text-2xs text-green-extinction bg-extinction font-bold py-2 px-4 rounded-full inline-flex items-center">
+                <img src="/images/left_arrow.svg" alt="left" width="8">
+                <span class="ml-1">Précédent</span>
+            </button>
+
+            <div class="text-xl ml-5 mr-5"><span class="current-page">1</span><span class="pages-total text-sm">/ 1</span></div>
+
+            <button title="Suivant"
+                class="next uppercase text-2xs text-green-extinction bg-extinction font-bold py-2 px-4 rounded-full inline-flex items-center">
+                <span class="mr-1">Suivant</span>
+                <img src="/images/right_arrow.svg" alt="right" width="8">
+            </button>
+        </nav>
+    </div>
 
 </div>
 <script src="/javascripts/search.min.js"></script>
+<script src="/javascripts/pagination.min.js"></script>
 <% if (admin) { %>
-    <script src="/javascripts/admin-map.min.js"></script>
+<script src="/javascripts/admin-map.min.js"></script>
 <% } %>
 
 <%- include('../templates/footer') %>

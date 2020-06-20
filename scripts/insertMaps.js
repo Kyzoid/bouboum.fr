@@ -120,5 +120,3 @@ fs.readdir(directoryPath, (err, files) => {
     });
   });
 });
-
-

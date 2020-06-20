@@ -1,4 +1,4 @@
-const mapsDOM = document.querySelectorAll('.maps > div');
+const mapsDOM = document.querySelectorAll('#maps > .map');
 
 const maps = Object.values(mapsDOM).map((map, index) => {
     return {
