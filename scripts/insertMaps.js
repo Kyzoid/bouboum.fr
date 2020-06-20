@@ -113,9 +113,9 @@ fs.readdir(directoryPath, (err, files) => {
           map.addTag(tag);
         }).catch(error => {
           if (error.name === 'SequelizeUniqueConstraintError') {
-            console.log(`La map ${map.name} existe déjà.`);
+            console.log(`La map ${mapId} existe déjà.`);
           } else {
-            console.log(`Une erreur est survenue pour la map ${map.name}`);
+            console.log(`Une erreur est survenue pour la map ${mapId}`);
           }
         });
     });
