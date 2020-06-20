@@ -1,12 +1,19 @@
 const mapsDOM = document.querySelectorAll('#maps > .map');
 
 const maps = Object.values(mapsDOM).map((map, index) => {
-    return {
+    const mapInfos = {
         index: index,
         author: map.dataset.author,
         name: map.dataset.name,
         createdAt: map.dataset.createdAt
     };
+
+    Object.values(mapsDOM[index].querySelectorAll('.map-tags > .tag')).forEach((tag, index) => {
+        const tagValue = tag.querySelector('span').textContent;
+        mapInfos[`tag${index}`] = tagValue;
+    });
+
+    return mapInfos;
 });
 
 const searchMap = () => {
