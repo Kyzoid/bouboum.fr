@@ -24,7 +24,7 @@ const renderPageIndicator = () => {
 };
 
 const nextPage = () => {
-    if (currentPage <= numberOfPages()) {
+    if (currentPage < numberOfPages() -1) {
         currentPage += 1;
         renderMaps(currentPage);
         renderPageIndicator();
