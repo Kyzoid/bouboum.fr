@@ -1,11 +1,6 @@
-const fs = require('fs');
-const path = require('path');
-const { createCanvas, loadImage } = require('canvas');
-const { sequelize, Tag, Map } = require('../models/index.js');
-
 class FakeCanvas {
   constructor() {
-    this.canvas = createCanvas(696, 456);
+    this.canvas = document.querySelector('canvas');
     this.ctx = this.canvas.getContext('2d');
 
     this.map = null;
@@ -77,47 +72,46 @@ class FakeCanvas {
 
 const fakeCanvas = new FakeCanvas();
 
-const directoryPath = path.join(__dirname, 'mondes');
-//passsing directoryPath and callback function
-fs.readdir(directoryPath, (err, files) => {
-  //handling error
-  if (err) {
-    return console.log('Unable to scan directory: ' + err);
-  }
-  //listing all files using forEach
-  files.forEach((file) => {
-    // Do whatever you want to do with the file
-    fs.readFile(`${directoryPath}/${file}`, 'utf8', (err, data) => {
-      if (err) {
-        return console.log(err);
+const handleChange = (event) => {
+  const files = event.target.files;
+  Object.values(files).forEach(file => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.result.indexOf('#') > -1) {
+
+        if (!reader.result.endsWith('#')) {
+          reader.result += '#';
+        }
+
+        const mapId = file.name.match(/(\d+)/g)[0];
+
+        fakeCanvas.setMap(reader.result);
+
+        const map = {
+          name: `Carte ${mapId}`,
+          author: 'Extinction',
+          image: fakeCanvas.getImage(),
+          map: reader.result,
+          path: `/temp/mondes/monde_${mapId}.txt`,
+          createdAt: new Date('1970-01-01'),
+        };
+
+        fetch('/admin/insert-maps/create', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(map)
+        })
+        .then(res => res.json())
+        .then(res => console.log(res));
+
+      } else {
+        console.log('Le fichier que vous essayez d\'importer n\'est pas au format Extinction.');
       }
-      const mapId = file.match(/(\d+)/g)[0];
-
-      if (!data.endsWith('#')) {
-        data += '#';
-      }
-
-      fakeCanvas.setMap(data);
-
-      Map.create({
-        name: `Carte ${mapId}`,
-        author: 'Extinction',
-        image: fakeCanvas.getImage(),
-        map: data,
-        path: `/temp/mondes/monde_${mapId}.txt`,
-        createdAt: new Date('1970-01-01')
-      })
-        .then(async (map) => {
-          console.log(`La map ${map.name} a bien été créé.`);
-          const tag = await Tag.findByPk(1);
-          map.addTag(tag);
-        }).catch(error => {
-          if (error.name === 'SequelizeUniqueConstraintError') {
-            console.log(`La map ${mapId} existe déjà.`);
-          } else {
-            console.log(`Une erreur est survenue pour la map ${mapId}`);
-          }
-        });
-    });
+    };
+    reader.readAsText(file);
   });
-});
+};
+
+document.getElementById('import-maps').addEventListener('change', handleChange);

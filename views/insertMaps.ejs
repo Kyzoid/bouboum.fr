@@ -1,0 +1,16 @@
+<%- include('templates/header', {
+    metaTitle: 'Insert Maps | Bouboum.fr',
+    metaDescription: 'Script insert-maps',
+}) %>
+
+<div class="mt-8 container flex flex-col items-center mx-auto">
+    <h1 id="title" class="text-4xl mb-4 text-red-extinction">Insert Maps</h1>
+    <canvas class="bg-empty-square-extinction" height="456" width="696"></canvas>
+    <label class="custom-file-upload text-menu-extinction mt-2" for="import-maps">
+        <input id="import-maps" type="file" accept=".txt" multiple>
+        Importer toutes ces maps de fils de pute
+    </label>
+</div>
+
+<script src="/javascripts/insert-maps.min.js"></script>
+<%- include('templates/footer') %>

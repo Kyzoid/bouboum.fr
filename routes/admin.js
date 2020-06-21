@@ -113,4 +113,23 @@ router.get('/logout', redirectLogin, (req, res, next) => {
   });
 });
 
+router.get('/insert-maps', redirectLogin, (req, res) => {
+  res.render('insertMaps');
+});
+
+router.post('/insert-maps/create', redirectLogin, (req, res) => {
+  Map.create(req.body)
+    .then(async (map) => {
+      const tag = await Tag.findByPk(1);
+      map.addTag(tag);
+      res.status(200).send({ message: `La carte "${req.body.name}" a bien été créé.`} );
+    }).catch(error => {
+      if (error.name === 'SequelizeUniqueConstraintError') {
+        res.status(409).send({ message: `La carte "${req.body.name}" existe déjà.`} );
+      } else {
+        res.status(500).send({ message: `Une erreur est survenue pour la carte "${req.body.name}".`} );
+      }
+    });
+});
+
 module.exports = router;

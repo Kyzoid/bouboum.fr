@@ -339,7 +339,7 @@ class Editor {
       this.infoModal(`Vous avez déjà soumis une carte il y a ${infoTimeDiff} secondes. Merci de bien vouloir patienter encore ${infoTimeRemaining} secondes avant d'en soumettre une autre.`, 'error');
     }
   }
-}
+};
 
 const canvas = document.getElementById('editor-area')
 const editor = new Editor(canvas);
