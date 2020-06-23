@@ -29,6 +29,26 @@ router.get('/cartes', (req, res) => {
   });
 });
 
+router.get('/cartes/officielles', (req, res) => {
+  Map.findAll({
+    order: [
+      ['id', 'DESC']
+    ],
+    include: [{
+      model: Tag,
+      where: {
+        id: 1
+      }
+    }]
+  }).then((data) => {
+    data.forEach(map => {
+      map.dataValues.createdAt = dayjs(map.dataValues.createdAt).locale('fr').format('DD MMMM YYYY');
+    });
+
+    res.render('editor/officials', { maps: data, admin: !!req.session.userId });
+  });
+});
+
 router.get('/cartes/:id', (req, res) => {
   Map.findByPk(
     req.params.id, 
