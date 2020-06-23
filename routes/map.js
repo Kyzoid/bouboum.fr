@@ -29,6 +29,7 @@ router.get('/cartes', (req, res) => {
   });
 });
 
+/*
 router.get('/cartes/officielles', (req, res) => {
   Map.findAll({
     order: [
@@ -48,6 +49,7 @@ router.get('/cartes/officielles', (req, res) => {
     res.render('editor/officials', { maps: data, admin: !!req.session.userId });
   });
 });
+*/
 
 router.get('/cartes/:id', (req, res) => {
   Map.findByPk(
