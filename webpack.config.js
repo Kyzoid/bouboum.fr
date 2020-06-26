@@ -1,3 +1,4 @@
+require('dotenv').config();
 const TerserJSPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -102,7 +103,7 @@ const config = {
       filename: '../dist/stylesheets/[name].min.css'
     }),
   ],
-  watch: true,
+  watch: process.env.NODE_ENV !== 'production',
 };
 
 module.exports = config;
