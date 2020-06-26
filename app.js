@@ -36,6 +36,7 @@ const indexRouter = require('./routes/index');
 const adminRouter = require('./routes/admin');
 const editorRouter = require('./routes/editor');
 const mapRouter = require('./routes/map');
+const rankingsRouter = require('./routes/rankings');
 
 app.use(logger('dev'));
 
@@ -51,6 +52,7 @@ app.use('/', indexRouter);
 app.use('/admin/', adminRouter);
 app.use('/editeur/', editorRouter);
 app.use('/', mapRouter);
+app.use('/classements', rankingsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

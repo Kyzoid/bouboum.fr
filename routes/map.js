@@ -25,31 +25,9 @@ router.get('/cartes', (req, res) => {
       map.dataValues.createdAt = dayjs(map.dataValues.createdAt).locale('fr').format('DD MMMM YYYY');
     });
 
-    res.render('editor/maps', { maps: data, admin: !!req.session.userId });
+    res.render('maps/index', { maps: data, admin: !!req.session.userId });
   });
 });
-
-/*
-router.get('/cartes/officielles', (req, res) => {
-  Map.findAll({
-    order: [
-      ['id', 'DESC']
-    ],
-    include: [{
-      model: Tag,
-      where: {
-        id: 1
-      }
-    }]
-  }).then((data) => {
-    data.forEach(map => {
-      map.dataValues.createdAt = dayjs(map.dataValues.createdAt).locale('fr').format('DD MMMM YYYY');
-    });
-
-    res.render('editor/officials', { maps: data, admin: !!req.session.userId });
-  });
-});
-*/
 
 router.get('/cartes/:id', (req, res) => {
   Map.findByPk(
@@ -68,7 +46,7 @@ router.get('/cartes/:id', (req, res) => {
         tags = await Tag.findAll();
       }
 
-      res.render('editor/map', { map: data, tags: tags, admin: !!req.session.userId });
+      res.render('maps/map', { map: data, tags: tags, admin: !!req.session.userId });
 
     } else {
       res.sendStatus(404);

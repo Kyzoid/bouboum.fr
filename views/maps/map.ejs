@@ -1,4 +1,4 @@
-<%- include('../templates/header', {
+<%- include('../partials/header', {
         metaTitle: `${map.name} | Bouboum.fr`,
         metaDescription: `Carte ${map.name} créée par ${map.author}.`,
 }) %>
@@ -46,4 +46,4 @@
 <% if (admin) { %>
     <script src="/javascripts/admin-tag.min.js"></script>
 <% } %>
-<%- include('../templates/footer') %>
+<%- include('../partials/footer') %>
