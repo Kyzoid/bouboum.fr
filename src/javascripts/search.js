@@ -16,9 +16,21 @@ const maps = Object.values(mapsDOM).map((map, index) => {
     return mapInfos;
 });
 
+const displayPagination = (display) => {
+    const paginations = document.getElementsByClassName('pagination');
+    Object.values(paginations).forEach(pagination => { 
+        pagination.style.display = display;
+    });
+};
+
 const searchMap = () => {
+    let resultsCount = 0;
+    const resultsDOM = document.getElementById('results');
+    const resultsInfo = document.getElementById('results-info');
     const searchValues = document.getElementById('search').value.split(',');
     const mapsToShow = new Array(maps.length).fill(0);
+
+    displayPagination('none');
 
     if (searchValues.length && searchValues[0].length) {
         maps.forEach(map => {
@@ -32,12 +44,18 @@ const searchMap = () => {
             });
         });
         mapsToShow.forEach((value, index) => {
+            if (value) resultsCount++;
+            resultsDOM.textContent = resultsCount;
+            resultsInfo.style.display = 'flex';
             mapsDOM[index].style.display = value ? 'flex' : 'none';
         });
     } else {
+        resultsInfo.style.display = 'none';
+        displayPagination('flex');
         mapsDOM.forEach(mapDOM => mapDOM.style.display = 'flex');
     }
-
 };
+
+document.getElementById('remove-filter').addEventListener('click', () => { document.getElementById('search').value = ''; searchMap(); });
 
 document.getElementById('search').addEventListener('keyup', searchMap);

@@ -3,6 +3,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const path = require('path');
 
+const purgecss = require('@fullhuman/postcss-purgecss')({
+  content: [
+    './views/**/*.ejs',
+    './src/javascripts/*.js',
+  ],
+  defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || []
+});
+
 const dist = path.resolve(__dirname, 'dist');
 
 const _getAllFilesFromFolder = (dir) => {
@@ -76,13 +84,9 @@ const config = {
               plugins: [
                 require('tailwindcss'),
                 require('autoprefixer'),
-                require('@fullhuman/postcss-purgecss')({
-                  content: [
-                    './views/**/*.ejs',
-                    './src/javascripts/*.js',
-                  ],
-                  defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || []
-                })
+                ...process.env.NODE_ENV === 'production'
+                ? [purgecss]
+                : []
               ]
             }
           },
