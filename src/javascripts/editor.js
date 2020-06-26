@@ -168,28 +168,20 @@ class Editor {
       for (let x = 0; x < this.width; x++) {
         switch (this.map[this.toIndex(x, y)]) {
           case 1:
-            this.ctx.fillStyle = 'black';
-            this.ctx.fillRect(x * this.squareSize, y * this.squareSize, this.squareSize, this.squareSize);
-            //const blackSquare = this.blackSquare.cloneNode();
-            //this.ctx.drawImage(blackSquare, x*this.squareSize, y*this.squareSize);
+            const blackSquare = this.blackSquare.cloneNode();
+            this.ctx.drawImage(blackSquare, x*this.squareSize, y*this.squareSize);
             break;
           case 2:
-            this.ctx.fillStyle = '#15737C';
-            this.ctx.fillRect(x * this.squareSize, y * this.squareSize, this.squareSize, this.squareSize);
-            //const blueSquare = this.blueSquare.cloneNode();
-            //this.ctx.drawImage(blueSquare, x*this.squareSize, y*this.squareSize);
+            const blueSquare = this.blueSquare.cloneNode();
+            this.ctx.drawImage(blueSquare, x*this.squareSize, y*this.squareSize);
             break;
           case 3:
-            this.ctx.fillStyle = '#B4770E';
-            this.ctx.fillRect(x * this.squareSize, y * this.squareSize, this.squareSize, this.squareSize);
-            //const orangeSquare = this.orangeSquare.cloneNode();
-            //this.ctx.drawImage(orangeSquare, x*this.squareSize, y*this.squareSize);
+            const orangeSquare = this.orangeSquare.cloneNode();
+            this.ctx.drawImage(orangeSquare, x*this.squareSize, y*this.squareSize);
             break;
           case 4:
-            this.ctx.fillStyle = '#BBEBF7';
-            this.ctx.fillRect(x * this.squareSize, y * this.squareSize, this.squareSize, this.squareSize);
-            //const iceSquare = this.iceSquare.cloneNode();
-            //this.ctx.drawImage(iceSquare, x*this.squareSize, y*this.squareSize);
+            const iceSquare = this.iceSquare.cloneNode();
+            this.ctx.drawImage(iceSquare, x*this.squareSize, y*this.squareSize);
             break;
         }
       }
@@ -341,6 +333,19 @@ class Editor {
   }
 };
 
-const canvas = document.getElementById('editor-area')
-const editor = new Editor(canvas);
-editor.drawMap();
+let loadedImagesCounter = 0;
+
+const handleImageLoaded = () => {
+  loadedImagesCounter++;
+
+  if (loadedImagesCounter === 4) {
+    const canvas = document.getElementById('editor-area');
+    const editor = new Editor(canvas);
+    editor.drawMap();
+  }
+};
+
+document.getElementById('orange-square').addEventListener('load', handleImageLoaded);
+document.getElementById('black-square').addEventListener('load', handleImageLoaded);
+document.getElementById('blue-square').addEventListener('load', handleImageLoaded);
+document.getElementById('ice-square').addEventListener('load', handleImageLoaded);
