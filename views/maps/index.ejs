@@ -7,6 +7,9 @@
     <h1 class="text-4xl text-red-extinction mb-10">Liste des cartes</h1>
     <div class="mb-2 flex flex-col items-center">
         <div class="flex flex-col">
+            <%  if (admin) { %>
+                <%- include('../partials/info') %>
+            <% } %>
             <div class="mb-2 text-left">
                 <span>Rechercher</span>
             </div>
