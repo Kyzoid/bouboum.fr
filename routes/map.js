@@ -11,6 +11,26 @@ const isAdmin = (req, res, next) => {
   }
 };
 
+router.get('/maps', isAdmin, (req, res) => {
+  Map.findAll({
+    attributes: ['id', 'map'],
+    order: [
+      ['id', 'ASC']
+    ],
+  }).then((data) => {
+    res.status(200).send(data);
+  });
+});
+
+router.post('/maps/:id', isAdmin, (req, res) => {
+  Map.update(req.body, {
+    where: {
+      id: req.params.id
+    }
+  })
+  .then(() => res.sendStatus(200));
+});
+
 router.get('/cartes', (req, res) => {
   Map.findAll({
     order: [
@@ -31,27 +51,27 @@ router.get('/cartes', (req, res) => {
 
 router.get('/cartes/:id', (req, res) => {
   Map.findByPk(
-    req.params.id, 
+    req.params.id,
     {
-    include: [{
-      model: Tag,
-      attributes: ['id', 'name'],
-    }]
-  }).then(async (data) => {
-    if (data) {
-      data.dataValues.createdAt = dayjs(data.dataValues.createdAt).locale('fr').format('DD MMMM YYYY à HH:mm:ss');
+      include: [{
+        model: Tag,
+        attributes: ['id', 'name'],
+      }]
+    }).then(async (data) => {
+      if (data) {
+        data.dataValues.createdAt = dayjs(data.dataValues.createdAt).locale('fr').format('DD MMMM YYYY à HH:mm:ss');
 
-      let tags = [];
-      if (req.session.userId) {
-        tags = await Tag.findAll();
+        let tags = [];
+        if (req.session.userId) {
+          tags = await Tag.findAll();
+        }
+
+        res.render('maps/map', { map: data, tags: tags, admin: !!req.session.userId });
+
+      } else {
+        res.sendStatus(404);
       }
-
-      res.render('maps/map', { map: data, tags: tags, admin: !!req.session.userId });
-
-    } else {
-      res.sendStatus(404);
-    }
-  }).catch(err => res.sendStatus(500));
+    }).catch(err => res.sendStatus(500));
 });
 
 router.post('/cartes/:id/tag', isAdmin, async (req, res) => {

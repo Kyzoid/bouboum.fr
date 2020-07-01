@@ -1,16 +1,24 @@
 <%- include('../partials/header', {
-    metaTitle: 'Insert Maps | Bouboum.fr',
-    metaDescription: 'Script insert-maps',
+    metaTitle: 'Fake Canvas | Bouboum.fr',
+    metaDescription: 'Fake canvas pour importer plusieurs cartes d\'un coup ou actualiser les images.',
 }) %>
 
 <div class="mt-8 container flex flex-col items-center mx-auto">
-    <h1 id="title" class="text-4xl mb-4 text-red-extinction">Insert Maps</h1>
+    <h1 id="title" class="text-4xl mb-4 text-red-extinction">Fake Canvas</h1>
+    <div class="flex mb-4">
+        <img class="mr-3" id="black-square" src="/images/black_square.png">
+        <img class="mr-3" id="blue-square" src="/images/blue_square.png">
+        <img class="mr-3" id="orange-square" src="/images/orange_square.png">
+        <img class="mr-3" id="ice-square" src="/images/ice_square.png">
+    </div>
     <canvas class="bg-empty-square-extinction" height="456" width="696"></canvas>
     <label class="custom-file-upload text-menu-extinction mt-2" for="import-maps">
         <input id="import-maps" type="file" accept=".txt" multiple>
         Importer toutes ces maps de fils de pute
     </label>
+    <span class="text-menu-extinction mt-2" id="repare-maps">Réparer la colonne map des cartes officielles</span>
+    <span class="text-menu-extinction mt-2" id="refresh-maps-image">Actualiser toutes les images</span>
 </div>
 
-<script src="/javascripts/insert-maps.min.js"></script>
+<script src="/javascripts/fake-canvas.min.js"></script>
 <%- include('../partials/footer') %>
