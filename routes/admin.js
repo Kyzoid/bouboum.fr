@@ -89,7 +89,7 @@ router.post('/login', redirectHome, async (req, res, next) => {
     if (password && adminUser.length) {
       if ( await bcrypt.compare(password, adminUser[0].password) ) {
         req.session.userId = adminUser[0].id;
-        res.redirect('/admin/');
+        res.redirect('/admin');
       } else {
         res.render('admin/auth', { err: 'Tu crois aller où comme ça ?!' });
       }

@@ -33,7 +33,7 @@
         <div class="map flex flex-col text-left mb-6 m-2" data-name="<%= map.name %>" data-author="<%= map.author %>"
             data-created-at="<%= map.createdAt %>" style="display: none;">
             <div class="download-container">
-                <a href="/cartes/<%= map.id %>"><img class="bg-empty-square-extinction" src="<%= map.image %>"
+                <a href="/cartes/<%= map.id %>"><img class="lazy bg-empty-square-extinction" src="/images/default-map-image.png" data-src="<%= map.image %>"
                         alt="<%= map.name %>"></a>
                 <a class="rounded p-1 download-top-right" href="<%= map.path %>" rel="nofollow"
                     download="<%= map.name %>"><img src="/images/download-24px.svg" alt="download"></a>
@@ -63,6 +63,8 @@
     <%- include('./_pagination.ejs', { margin: 'mb-10' }) %>
 
 </div>
+<script src="/javascripts/yall.min.js"></script>
+<script>console.log(yall); document.addEventListener("DOMContentLoaded", yall);</script>
 <script src="/javascripts/search.min.js"></script>
 <script src="/javascripts/pagination.min.js"></script>
 <% if (admin) { %>
