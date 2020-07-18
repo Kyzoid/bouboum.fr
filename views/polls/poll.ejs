@@ -1,0 +1,58 @@
+<%- include('../partials/header', {
+    metaTitle: 'Liste des cartes | Bouboum.fr',
+    metaDescription: 'Liste des cartes Bouboum élaborées par un éditeur surpuissant.',
+}) %>
+
+<div class="mt-8 container mx-auto px-4 text-center">
+
+    <h1 class="text-4xl text-red-extinction mb-8">Sondage</h1>
+
+    <div class="mt-4 mr-0 mb-4 flex flex-col items-start bg-extinction px-6 py-5 rounded">
+        <h2 class="w-full text-3xl text-center"><%= poll.title %></h2>
+
+        <% if (admin) { %>
+        <span class="my-6">if (admin) afficher le nombre de votes total + le nombre de votes pour chaque maps</span>
+        <% } %>
+
+        <div class="text-base mb-6">
+            <p class="text-left pb-4">
+                Votez pour vos cartes <span
+                    class="text-green-extinction"><%= poll.tag.name.charAt(0).toUpperCase() + poll.tag.name.slice(1) %></span>
+                préférées.
+            </p>
+            <p class="text-left pb-4">Vous avez <span class="text-green-extinction">x</span> votes à exprimer sur <span class="text-green-extinction"><%= maps.length %></span> cartes pour déterminer celle qui seront officialisées.</p>
+            <p class="pb-4 text-left">
+                <span class="underline">Remarque :</span><br>
+                <%= poll.description %>
+            </p>
+            <p class="text-left">Bonne chance.</p>
+        </div>
+        <%- include('./_clock') %>
+        <div id="maps" class="flex flex-wrap my-2 bg-extinction-dark">
+            <% maps.forEach(map => { %>
+            <div class="map flex flex-col text-left mb-6 m-2">
+                <div class="download-container">
+                    <a href="/cartes/<%= map.id %>"><img class="lazy bg-empty-square-extinction"
+                            src="/images/default-map-image.png" data-src="<%= map.image %>" alt="<%= map.name %>"></a>
+                    <a class="rounded p-1 download-top-right" href="<%= map.path %>" rel="nofollow"
+                        download="<%= map.name %>"><img src="/images/download-24px.svg" alt="download"></a>
+                </div>
+
+                <label class="mt-1 uppercase truncate text-base">
+                    <a href="/cartes/<%= map.id %>" class="text-menu-extinction"><%= map.name %></a>
+                </label>
+
+                <label class="truncate text-xs">Créée par <span class="text-green-extinction"><%= map.author %></span> •
+                    <%= map.createdAt %></label>
+            </div>
+            <% }); %>
+        </div>
+    </div>
+
+</div>
+
+<script src="/javascripts/yall.min.js"></script>
+<script>console.log(yall); document.addEventListener("DOMContentLoaded", yall);</script>
+<script src="/javascripts/clock.min.js"></script>
+
+<%- include('../partials/footer') %>

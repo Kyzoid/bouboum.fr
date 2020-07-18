@@ -1,0 +1,28 @@
+<div class="flex flex-col items-center self-center mb-4">
+    <% if (poll.status === 'ongoing') { %>
+    <div id="clock" class="flex" data-end-at="<%= poll.endAtTS %>">
+        <div class="flex flex-col w-16 mr-2 p-1 rounded bg-extinction-darkless shadow">
+            <span id="days" class="text-lg bg-extinction-dark p-2">00</span>
+            <span class="text-xs mt-1">jours</span>
+        </div>
+        <div class="flex flex-col w-16 mr-2 p-1 rounded bg-extinction-darkless shadow">
+            <span id="hours" class="text-lg bg-extinction-dark p-2">00</span>
+            <span class="text-xs mt-1">heures</span>
+        </div>
+        <div class="flex flex-col w-16 mr-2 p-1 rounded bg-extinction-darkless shadow">
+            <span id="minutes" class="text-lg bg-extinction-dark p-2">00</span>
+            <span class="text-xs mt-1">minutes</span>
+        </div>
+        <div class="flex flex-col w-16 p-1 rounded bg-extinction-darkless shadow">
+            <span id="seconds" class="text-lg bg-extinction-dark p-2">00</span>
+            <span class="text-xs mt-1">secondes</span>
+        </div>
+    </div>
+    <% } %>
+    <% if (poll.status === 'ended') { %>
+    <span class="text-lg">Les votes pour ce sondage sont terminés.</span>
+    <% } %>
+    <% if (poll.status === 'soon') { %>
+    <span class="text-lg">Les votes pour ce sondage vont bientôt commencés.</span>
+    <% } %>
+</div>

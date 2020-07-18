@@ -1,0 +1,45 @@
+<%- include('../partials/header', {
+    metaTitle: 'Liste des cartes | Bouboum.fr',
+    metaDescription: 'Liste des cartes Bouboum élaborées par un éditeur surpuissant.',
+}) %>
+
+<div class="mt-8 mb-4 flex flex-col container mx-auto items-center">
+
+    <h1 class="text-4xl text-red-extinction mb-10">Liste des sondages</h1>
+
+    <% if(admin) { %>
+        <%- include('./_create-poll') %>
+    <% } %>
+    
+    <div id="polls" class="flex flex-col bg-extinction lg:w-3/4 w-full px-4 py-2 rounded">
+        <div class="flex mb-2 mt-1 justify-end">
+            <div class="border-green-800 border-r-4 bg-extinction-dark p-2 mr-2">En cours</div>
+            <div class="border-orange-600 border-r-4 bg-extinction-dark p-2 mr-2">Prochainement</div>
+            <div class="border-red-800 border-r-4 bg-extinction-dark p-2">Terminé</div>
+        </div>
+        <% if (polls.length) { %>
+            <% polls.forEach(poll => { 
+                let borderColor = 'border-orange-600';
+                if (poll.status === 'ongoing') borderColor = 'border-green-800';
+                if (poll.status === 'ended') borderColor = 'border-red-800';
+            %>
+                <a class="poll flex bg-extinction-dark my-1 shadow h-18 border-r-4 <%= borderColor %>" href="/sondages/<%= poll.id %>">
+                    <div class="poll-img bg-empty-square-extinction w-32 h-18 bg-cover bg-center" style="background-image: url('/images/default-map-image.png')"></div>
+                    <div class="flex justify-between w-full items-center">
+                        <div class="flex flex-col justify-center px-4 py-5">
+                            <span class="text-lg"><%= poll.title %></span>
+                            <span class="text-green-extinction text-xs"><%= poll.startAt %> - <%= poll.endAt %></span>
+                        </div>
+                        <div class="self-start px-4 py-5 h-full"><%= poll.tag.name.charAt(0).toUpperCase() + poll.tag.name.slice(1)  %></div>
+                    </div>
+                </a>
+            <% }); %>
+        <% } else { %>
+        <h2 class="text-center py-2">Il n'y a aucun sondage pour le moment...</h2>
+        <% } %>
+
+    </div>
+</div>
+
+
+<%- include('../partials/footer') %>

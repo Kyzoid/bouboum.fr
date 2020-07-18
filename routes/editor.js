@@ -35,7 +35,7 @@ router.post('/soumettre', (req, res) => {
     if (response.length === 0) {
       Map.create(req.body)
         .then(map => {
-          map.addTag(JSON.parse(req.body.tags));
+          map.createTag(JSON.parse(req.body.tags));
           res.sendStatus(201)
         })
         .catch((error) => {

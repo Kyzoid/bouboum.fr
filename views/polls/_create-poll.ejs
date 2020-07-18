@@ -1,0 +1,43 @@
+<div class="flex flex-col items-center w-full mb-6">
+    <form class="flex flex-col bg-extinction lg:w-1/2 w-full py-4 px-10 rounded" action="/sondages" method="POST">
+        <h2 class="font-bold text-lg text-left mb-4 text-center">Créer un sondage</h2>
+        <div class="flex flex-col text-left mb-2">
+            <label for="title">Titre</label>
+            <input class="mt-1 overflow-hidden input-text bg-extinction text-left flex items-center" type="text"
+                id="title" name="title">
+        </div>
+        <div class="flex flex-col text-left mb-2">
+            <label for="title">Description</label>
+            <textarea class="mt-1 overflow-hidden input-text bg-extinction text-left flex items-center" style="height: 3.5rem;" name="description" id="description"></textarea>
+        </div>
+        <div class="mb-2 flex items-center">
+            <div class="w-full flex flex-col flex-wrap">
+                <span >Tags</span>
+                <div class="w-full flex items-center flex-wrap">
+                    <select class="w-full mt-1 input-text-reverse" name="tag" id="tag">
+                        <option class="w-full" value="">-</option>
+                        
+                        <% tags.forEach(tag => { %>
+                            <% if (tag.id !== 1) { %>
+                                <option data-tag-name="<%= tag.name %>" value="<%= tag.id %>"><%= tag.name.charAt(0).toUpperCase() + tag.name.slice(1) %>
+                                </option>
+                            <% } %>
+                        <% }); %>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col text-left mb-2">
+            <label for="start-at">Date de début</label>
+            <input class="mt-1 overflow-hidden input-text bg-extinction text-left flex items-center" type="datetime-local"
+                id="startAt" name="startAt">
+        </div>
+        <div class="flex flex-col text-left mb-2">
+            <label for="end-at">Date de fin</label>
+            <input class="mt-1 overflow-hidden input-text bg-extinction text-left flex items-center" type="datetime-local"
+                id="endAt" name="endAt">
+        </div>
+        <input class="text-menu-extinction text-darkblue-extinction bg-extinction mt-2 p-1" type="submit"
+            value="Créer le sondage">
+    </form>
+</div>

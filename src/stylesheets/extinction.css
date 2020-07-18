@@ -11,6 +11,10 @@ html, body {
   background-color: #303036;
 }
 
+.bg-extinction-darkless {
+  background-color: #28282d;
+}
+
 .bg-extinction-dark {
   background-color: #212127;
 }
@@ -217,6 +221,7 @@ video  {
   }
 }
 
+
 input::placeholder {
   color: #54545e;
   text-shadow: none;
@@ -287,4 +292,17 @@ video {
   video {
     width: 600px;
   }
+}
+
+.poll .poll-img {
+  transition: width .3s;
+}
+
+.poll:hover {
+  background-color: #24242b;
+}
+
+.poll:hover .poll-img {
+  width: 12rem;
+  transition: width .3s;
 }

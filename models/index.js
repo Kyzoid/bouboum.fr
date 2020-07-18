@@ -5,6 +5,7 @@ const Player = require("./Player");
 const ScoreAaaah = require("./ScoreAaaah");
 const ScoreBouboum = require("./ScoreBouboum");
 const Tag = require("./Tag");
+const Poll = require("./Poll");
 
 sequelize
     .sync({ alter: true })
@@ -18,5 +19,6 @@ module.exports = {
     Player,
     ScoreAaaah,
     ScoreBouboum,
-    Tag
+    Tag,
+    Poll,
 };

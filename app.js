@@ -37,6 +37,7 @@ const adminRouter = require('./routes/admin');
 const editorRouter = require('./routes/editor');
 const mapRouter = require('./routes/map');
 const rankingsRouter = require('./routes/rankings');
+const pollsRouter = require('./routes/polls');
 
 app.use(logger('dev'));
 
@@ -53,6 +54,7 @@ app.use('/admin/', adminRouter);
 app.use('/editeur/', editorRouter);
 app.use('/', mapRouter);
 app.use('/classements', rankingsRouter);
+app.use('/sondages', pollsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
