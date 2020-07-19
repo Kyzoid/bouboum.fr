@@ -1,0 +1,42 @@
+Résultats, il faudra GET avec un order by rank
+<div id="maps" class="flex flex-wrap my-2 bg-extinction-dark">
+
+    <!-- PODIUM -->
+    <div class="flex flex-wrap items-end justify-around mt-6">
+        <% for (let i = 0 ; i < 3 ; i++) { %>
+            <div class="result-top3 flex flex-col text-left mb-6 m-2">
+                <img class="lazy bg-empty-square-extinction" src="/images/default-map-image.png" data-src="<%= maps[i].image %>"
+                    alt="<%= maps[i].name %>">
+        
+                <label class="mt-1 uppercase truncate text-base">
+                    <a href="/cartes/<%= maps[i].id %>" class="hover:underline" title="<%= maps[i].name %>">#<%= i+1 %> <%= maps[i].name %></a>
+                </label>
+        
+                <label class="truncate text-xs">
+                    Créée par
+                    <span class="text-green-extinction"><%= maps[i].author %></span>
+                     •
+                    <span class="text-red-extinction"><%= 30-i %> votes</span>
+                </label>
+            </div>
+        <% } %>
+    </div>
+
+    <% for (let i = 3 ; i <= maps.length-1 ; i++) { %>
+    <div class="result flex flex-col text-left mb-6 m-2">
+        <img class="lazy bg-empty-square-extinction" src="/images/default-map-image.png" data-src="<%= maps[i].image %>"
+            alt="<%= maps[i].name %>">
+
+        <label class="mt-1 uppercase truncate text-sm">
+            <a href="/cartes/<%= maps[i].id %>" class="hover:underline" title="<%= maps[i].name %>">#<%= i+1 %> <%= maps[i].name %></a>
+        </label>
+
+        <label class="truncate text-xs">
+            Créée par
+            <span class="text-green-extinction"><%= maps[i].author %></span>
+             •
+            <span class="text-red-extinction"><%= 30-i %> votes</span>
+        </label>
+    </div>
+    <% } %>
+</div>

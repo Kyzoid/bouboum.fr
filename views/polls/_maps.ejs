@@ -1,0 +1,15 @@
+<div id="maps" class="flex flex-wrap my-2 bg-extinction-dark">
+    <% maps.forEach(map => { %>
+    <div class="map flex flex-col text-left mb-6 m-2">
+        <img class="lazy bg-empty-square-extinction" src="/images/default-map-image.png" data-src="<%= map.image %>"
+            alt="<%= map.name %>">
+
+        <label class="mt-1 uppercase truncate text-base">
+            <a href="/cartes/<%= map.id %>" class="text-menu-extinction"><%= map.name %></a>
+        </label>
+
+        <label class="truncate text-xs">Créée par <span class="text-green-extinction"><%= map.author %></span> •
+            <%= map.createdAt %></label>
+    </div>
+    <% }); %>
+</div>
