@@ -1,10 +1,9 @@
 html, body {
   height: 100%;
-
 }
 
 .bg-empty-square-extinction {
-  background-color:	#36364B;
+  background-color: #36364B;
 }
 
 .bg-extinction {
@@ -65,9 +64,9 @@ tbody tr:hover {
 }
 
 table {
-    border-collapse: separate;
-    border-spacing: 0 .20rem;
-    border-collapse: none;
+  border-collapse: separate;
+  border-spacing: 0 .20rem;
+  border-collapse: none;
 }
 
 table td {
@@ -130,7 +129,7 @@ nav a:hover {
   text-shadow: 2px 1px 2px black;
 }
 
-video  {
+video {
   max-width: none;
 }
 
@@ -142,6 +141,7 @@ video  {
 }
 
 /* INPUT RADIO AND CHECKBOX STYLE */
+
 .radio-container {
   position: relative;
   padding-left: 35px;
@@ -173,11 +173,13 @@ video  {
 }
 
 /* When the checkbox is checked, add background */
-.radio-container input:checked ~ .checkmark {
+
+.radio-container input:checked~.checkmark {
   background-color: #1E1E24;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
+
 .checkmark:after, .checkmark:before {
   content: "";
   position: absolute;
@@ -185,11 +187,13 @@ video  {
 }
 
 /* Show the checkmark when checked */
-.radio-container input:checked ~ .checkmark:after {
+
+.radio-container input:checked~.checkmark:after {
   display: block;
 }
 
 /* Style the checkmark/indicator */
+
 .radio-container .checkmark:after {
   left: 9px;
   top: 5px;
@@ -241,12 +245,10 @@ video  {
     width: 32%;
     order: 2;
   }
-  
   .result-top3:nth-child(2) {
     width: 26.2%;
     order: 1;
   }
-  
   .result-top3:nth-child(3) {
     width: 23.2%;
     order: 3;
@@ -258,12 +260,10 @@ video  {
     width: 70%;
     order: 1;
   }
-  
   .result-top3:nth-child(2) {
     width: 47.3%;
     order: 2;
   }
-  
   .result-top3:nth-child(3) {
     width: 47.3%;
     order: 3;
@@ -275,12 +275,10 @@ video  {
     width: 100%;
     order: 1;
   }
-  
   .result-top3:nth-child(2) {
     width: 100%;
     order: 2;
   }
-  
   .result-top3:nth-child(3) {
     width: 100%;
     order: 3;
@@ -292,12 +290,10 @@ video  {
     width: 100%;
     order: 1;
   }
-  
   .result-top3:nth-child(2) {
     width: 100%;
     order: 2;
   }
-  
   .result-top3:nth-child(3) {
     width: 100%;
     order: 3;
@@ -333,7 +329,6 @@ video  {
   }
 }
 
-
 input::placeholder {
   color: #54545e;
   text-shadow: none;
@@ -354,7 +349,7 @@ input::placeholder {
   position: absolute;
   top: 6px;
   right: 6px;
-  background-color: rgba(33,33,39, 0.5);
+  background-color: rgba(33, 33, 39, 0.5);
 }
 
 .download-container:hover .delete-bottom-right {
@@ -362,15 +357,34 @@ input::placeholder {
   transition: all .2s;
 }
 
+.vote-bottom-right {
+  display: block;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  border-style: solid;
+  border-width: 0 0 64px 64px;
+  border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;
+}
+
+.vote-bottom-right img {
+  width: 24px !important;
+  height: 24px !important;
+  max-width: inherit;
+  top: 34px;
+  bottom: 0;
+  right: 6px;
+}
+
 .delete-bottom-right {
   display: none;
   position: absolute;
   bottom: 6px;
   right: 6px;
-  background-color: rgba(33,33,39, 0.5);
+  background-color: rgba(33, 33, 39, 0.5);
 }
 
-.delete-bottom-right:hover {
+.delete-bottom-right:hover, .vote-bottom-right:hover {
   cursor: pointer;
 }
 
@@ -378,7 +392,7 @@ video {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1; 
+  z-index: 1;
   opacity: 1;
   width: 1280px;
   margin-top: 24px;
@@ -417,4 +431,18 @@ video {
 .poll:hover .poll-img {
   width: 12rem;
   transition: width .3s;
+}
+
+.rotating {
+  animation: rotation 2s infinite linear;
+  -webkit-animation: rotation 2s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(-359deg);
+  }
 }

@@ -8,7 +8,7 @@
     <h1 class="text-4xl text-red-extinction mb-8">Sondage</h1>
 
     <div class="mt-4 mr-0 mb-4 flex flex-col items-start bg-extinction px-6 py-5 rounded">
-        <h2 class="w-full text-3xl text-center"><%= poll.title %></h2>
+        <h2 class="w-full text-3xl text-center" id="poll-title" data-poll-id="<%= poll.id %>"><%= poll.title %></h2>
 
         <% if (admin) { %>
         <span class="my-6">if (admin) afficher le nombre de votes total + le nombre de votes pour chaque maps</span>
@@ -20,7 +20,7 @@
                     class="text-green-extinction"><%= poll.tag.name.charAt(0).toUpperCase() + poll.tag.name.slice(1) %></span>
                 préférées.
             </p>
-            <p class="text-left pb-4">Vous avez <span class="text-green-extinction"><%= maps.length/5 %></span> votes à exprimer sur <span class="text-green-extinction"><%= maps.length %></span> cartes pour déterminer celles qui seront officialisées.</p>
+            <p class="text-left pb-4">Vous avez encore <span class="text-green-extinction"><%= (maps.length*0.3).toFixed() %></span> votes sur <%= (maps.length*0.3).toFixed() %> à exprimer sur <span class="text-green-extinction"><%= maps.length %></span> cartes pour déterminer celles qui seront officialisées.</p>
             <p class="pb-4 text-left">
                 <span class="underline">Remarque :</span><br>
                 <%= poll.description %>
@@ -28,17 +28,19 @@
             <p class="text-left">Bonne chance.</p>
         </div>
         <%- include('./_clock') %>
-        <% if (poll.status === 'ended') { %>
+        <% if (poll.status !== 'ended') { %>
             <%- include('./_maps') %>
         <% } else { %>
             <%- include('./_results') %>
         <% } %>
     </div>
-
+    <img class="hidden" src="/images/sync.svg">
+    <img class="hidden" src="/images/star-checked.svg">
 </div>
 
 <script src="/javascripts/yall.min.js"></script>
-<script>console.log(yall); document.addEventListener("DOMContentLoaded", yall);</script>
+<script>document.addEventListener("DOMContentLoaded", yall);</script>
 <script src="/javascripts/clock.min.js"></script>
+<script src="/javascripts/vote.min.js"></script>
 
 <%- include('../partials/footer') %>

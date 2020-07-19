@@ -125,4 +125,12 @@ router.get('/:id', (req, res) => {
     }).catch(err => res.sendStatus(500));
 });
 
+router.post('/:pollId/vote/:mapId', (req, res) => {
+  res.sendStatus(200);
+});
+
+router.delete('/:pollId/vote/:mapId', (req, res) => {
+  res.sendStatus(200);
+});
+
 module.exports = router;
