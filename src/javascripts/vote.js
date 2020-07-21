@@ -10,7 +10,8 @@ const handleVote = async (event) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            body: JSON.stringify({ ip: '127.0.0.1' })
         }).then(response => {
             event.target.dataset.status = 'true';
             event.target.src = '/images/star-checked.svg';

@@ -3,7 +3,7 @@ const dayjs = require('dayjs');
 const { ValidationError } = require('sequelize');
 
 const router = express.Router();
-const { Tag, Poll, Map } = require('../models/index');
+const { Tag, Poll, Map, Vote } = require('../models/index');
 
 router.get('/', (req, res) => {
   let tags = {};
@@ -70,6 +70,7 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
+  const votesStatus = [];
   Poll.findByPk(
     req.params.id,
     {
@@ -81,21 +82,10 @@ router.get('/:id', (req, res) => {
       if (data) {
         data.startAtTS = data.dataValues.startAt.getTime();
         data.endAtTS = data.dataValues.endAt.getTime();
-
         const now = Date.now();
-
-        if (now >= data.startAtTS && now <= data.endAtTS) {
-          data.status = 'ongoing';
-        }
-
-        if (now < data.startAtTS) {
-          data.status = 'soon';
-        }
-
-        if (now > data.endAtTS) {
-          data.status = 'ended';
-        }
-
+        if (now >= data.startAtTS && now <= data.endAtTS) { data.status = 'ongoing' }
+        if (now < data.startAtTS) { data.status = 'soon' }
+        if (now > data.endAtTS) { data.status = 'ended' }
         data.dataValues.startAt = dayjs(data.dataValues.startAt).locale('fr').format('DD MMMM YYYY');
         data.dataValues.endAt = dayjs(data.dataValues.endAt).locale('fr').format('DD MMMM YYYY');
 
@@ -110,14 +100,24 @@ router.get('/:id', (req, res) => {
             },
             attributes: ['name'],
           }]
-        }).then((data) => {
-          data.forEach(map => {
+        }).then(async (data) => {
+          data.forEach(async map => {
             map.dataValues.createdAt = dayjs(map.dataValues.createdAt).locale('fr').format('DD MMMM YYYY');
+
+            const vote = await Vote.findAll({
+              where: {
+                ip: '127.0.0.1',
+                map_id: map.dataValues.id,
+                poll_id: req.params.id
+              }
+            });
+
+            votesStatus[map.dataValues.id] = vote.length ? true : false;
           });
           return data;
         });
-
-        res.render('polls/poll', { poll: data, maps: maps, admin: !!req.session.userId });
+        
+        res.render('polls/poll', { poll: data, votesStatus: votesStatus, maps: maps, admin: !!req.session.userId });
 
       } else {
         res.sendStatus(404);
@@ -126,11 +126,28 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/:pollId/vote/:mapId', (req, res) => {
-  res.sendStatus(200);
+  console.log(req.body)
+  Vote.create(req.body).then(async (vote) => {
+    const poll = await Poll.findByPk(req.params.pollId);
+    await poll.addVote(vote);
+    const map = await Map.findByPk(req.params.mapId);
+    await map.addVote(vote);
+    res.sendStatus(200);
+  }).catch((err) => {
+    res.status(500).send(err);
+  });
 });
 
 router.delete('/:pollId/vote/:mapId', (req, res) => {
-  res.sendStatus(200);
+  Vote.destroy({
+    where: {
+      ip: '127.0.0.1',
+      map_id: req.params.mapId,
+      poll_id: req.params.pollId
+    }
+  }).then(() => {
+    res.sendStatus(204);
+  });
 });
 
 module.exports = router;

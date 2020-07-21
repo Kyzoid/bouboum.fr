@@ -34,7 +34,9 @@ Poll.init(
   }
 );
 
-Tag.hasOne(Poll, { foreignKey: 'tag_id'});
+Tag.hasMany(Poll, { foreignKey: 'tag_id'});
 Poll.belongsTo(Tag, { foreignKey: 'tag_id'});
+
+//Poll.sync({ force: true });
 
 module.exports = Poll;

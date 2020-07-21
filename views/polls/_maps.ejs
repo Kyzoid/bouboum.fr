@@ -5,10 +5,10 @@
         <div class="download-container">
             <img class="lazy bg-empty-square-extinction" src="/images/default-map-image.png" data-src="<%= map.image %>"
                 alt="<%= map.name %>">
-
             <% if (poll.status === 'ongoing') { %>
             <div class="vote-bottom-right">
-                <img class="vote-button absolute" data-status="false" data-map-id="<%= map.id %>" src="/images/star.svg"
+                
+                <img class="vote-button absolute" data-status="false" data-map-id="<%= map.id %>" src="<%= votesStatus[map.id] ? '/images/star-checked.svg' : '/images/star.svg' %>"
                     alt="Voter" title="Voter">
             </div>
             <% } %>
