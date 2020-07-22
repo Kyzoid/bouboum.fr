@@ -5,6 +5,40 @@ const { ValidationError } = require('sequelize');
 const router = express.Router();
 const { Tag, Poll, Map, Vote } = require('../models/index');
 
+const checkVotePermission = async (req, res, next) => {
+  const poll = await Poll.findByPk(
+    req.params.pollId,
+    {
+      include: [{
+        model: Tag,
+        attributes: ['name'],
+      }]
+    });
+
+  const maps = await Map.findAll({
+    include: [{
+      model: Tag,
+      where: {
+        name: poll.dataValues.tag.name
+      },
+      attributes: ['name'],
+    }]
+  });
+
+  const votes = await Vote.findAll({
+    where: {
+      ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+      poll_id: req.params.pollId
+    }
+  });
+
+  if (votes.length < (maps.length*0.1).toFixed()) {
+    next();
+  } else {
+    res.status(403).send({ error: 'Vous avez utilisé tous vos votes.' })
+  }
+};
+
 router.get('/', (req, res) => {
   let tags = {};
   Poll.findAll({
@@ -54,7 +88,6 @@ router.post('/', async (req, res) => {
       res.redirect('/sondages');
     })
     .catch((error) => {
-      console.log(error)
       if (error instanceof ValidationError) {
         const errors = error.errors.reduce((acc, item) => {
           acc[item.path] = [...(acc[item.path] || []), item.message];
@@ -106,7 +139,7 @@ router.get('/:id', (req, res) => {
 
             const vote = await Vote.findAll({
               where: {
-                ip: '127.0.0.1',
+                ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
                 map_id: map.dataValues.id,
                 poll_id: req.params.id
               }
@@ -116,7 +149,7 @@ router.get('/:id', (req, res) => {
           });
           return data;
         });
-        
+
         res.render('polls/poll', { poll: data, votesStatus: votesStatus, maps: maps, admin: !!req.session.userId });
 
       } else {
@@ -125,23 +158,32 @@ router.get('/:id', (req, res) => {
     }).catch(err => res.sendStatus(500));
 });
 
-router.post('/:pollId/vote/:mapId', (req, res) => {
-  console.log(req.body)
-  Vote.create(req.body).then(async (vote) => {
-    const poll = await Poll.findByPk(req.params.pollId);
-    await poll.addVote(vote);
-    const map = await Map.findByPk(req.params.mapId);
-    await map.addVote(vote);
-    res.sendStatus(200);
+router.post('/:pollId/vote/:mapId', checkVotePermission, (req, res) => {
+  Vote.findOrCreate({
+    where: {
+      ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+      poll_id: req.params.pollId,
+      map_id: req.params.mapId
+    }
+  }).then(async (vote) => {
+    if (vote[1]) {
+      const poll = await Poll.findByPk(req.params.pollId);
+      await poll.addVote(vote[0]);
+      const map = await Map.findByPk(req.params.mapId);
+      await map.addVote(vote[0]);
+      res.status(200).send({});
+    } else {
+      res.status(409).send({ error: 'Vous avez déjà voté pour cette carte.' })
+    }
   }).catch((err) => {
-    res.status(500).send(err);
+    res.status(500).send({ error: err });
   });
 });
 
 router.delete('/:pollId/vote/:mapId', (req, res) => {
   Vote.destroy({
     where: {
-      ip: '127.0.0.1',
+      ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       map_id: req.params.mapId,
       poll_id: req.params.pollId
     }
