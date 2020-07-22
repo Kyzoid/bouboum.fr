@@ -15,12 +15,13 @@
         <% } %>
 
         <div class="text-base my-6 w-full">
-            <p class="text-left pb-4">
+            <p class="text-left pb-2">
                 Votez pour vos cartes <span
-                    class="text-green-extinction"><%= poll.tag.name.charAt(0).toUpperCase() + poll.tag.name.slice(1) %></span>
+                    class="text-blue-extinction"><%= poll.tag.name.charAt(0).toUpperCase() + poll.tag.name.slice(1) %></span>
                 préférées.
             </p>
-            <p class="text-left pb-4">Vous avez encore <span class="text-green-extinction" id="vote-remaining"><%= (maps.length*0.1).toFixed() %></span> votes sur <%= (maps.length*0.1).toFixed() %> à exprimer sur <span class="text-green-extinction"><%= maps.length %></span> cartes pour déterminer celles qui seront officialisées.</p>
+            <% let maxVotesNumber = (maps.length*0.1).toFixed() %>
+            <p class="text-left pb-4">Vous avez encore <span class="text-green-extinction text-2xl font-bold px-1" id="remaining-votes"><%= maxVotesNumber-votesNumber %></span>/<span class="pl-1" id="max-votes-number"><%= maxVotesNumber %></span> votes à exprimer sur <span class="text-green-extinction"><%= maps.length %></span> cartes pour déterminer celles qui seront officialisées.</p>
             <p class="pb-4 text-left">
                 <span class="underline">Remarque :</span><br>
                 <%= poll.description %>

@@ -8,7 +8,7 @@
             <% if (poll.status === 'ongoing') { %>
             <div class="vote-bottom-right">
                 
-                <img class="vote-button absolute" data-status="false" data-map-id="<%= map.id %>" src="<%= votesStatus[map.id] ? '/images/star-checked.svg' : '/images/star.svg' %>"
+                <img class="vote-button absolute" data-status="<%= votesStatus[map.id] %>" data-map-id="<%= map.id %>" src="<%= votesStatus[map.id] ? '/images/star-checked.svg' : '/images/star.svg' %>"
                     alt="Voter" title="Voter">
             </div>
             <% } %>

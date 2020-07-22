@@ -32,16 +32,15 @@ const checkVotePermission = async (req, res, next) => {
     }
   });
 
-  if (votes.length < (maps.length*0.1).toFixed()) {
+  if (votes.length < (maps.length * 0.1).toFixed()) {
     next();
   } else {
     res.status(403).send({ error: 'Vous avez utilisé tous vos votes.' })
   }
 };
 
-router.get('/', (req, res) => {
-  let tags = {};
-  Poll.findAll({
+router.get('/', async (req, res) => {
+  const polls = await Poll.findAll({
     order: [
       ['createdAt', 'DESC']
     ],
@@ -49,38 +48,36 @@ router.get('/', (req, res) => {
       model: Tag,
       attributes: ['name'],
     }]
-  }).then((data) => {
-    if (data) {
-      data.forEach(poll => {
-        const startAtTS = poll.dataValues.startAt.getTime();
-        const endAtTS = poll.dataValues.endAt.getTime();
-
-        const now = Date.now();
-
-        if (now >= startAtTS && now <= endAtTS) {
-          poll.status = 'ongoing';
-        }
-
-        if (now < startAtTS) {
-          poll.status = 'soon';
-        }
-
-        if (now > endAtTS) {
-          poll.status = 'ended';
-        }
-
-        poll.dataValues.startAt = dayjs(poll.dataValues.startAt).locale('fr').format('DD MMMM YYYY');
-        poll.dataValues.endAt = dayjs(poll.dataValues.endAt).locale('fr').format('DD MMMM YYYY');
-      });
-    }
-    Tag.findAll().then(tags => res.render('polls/index', { polls: data, tags: tags, admin: !!req.session.userId }));
-
   });
 
+  if (polls) {
+    polls.forEach(poll => {
+      const startAtTS = poll.dataValues.startAt.getTime();
+      const endAtTS = poll.dataValues.endAt.getTime();
+
+      const now = Date.now();
+
+      if (now >= startAtTS && now <= endAtTS) {
+        poll.status = 'ongoing';
+      }
+
+      if (now < startAtTS) {
+        poll.status = 'soon';
+      }
+
+      if (now > endAtTS) {
+        poll.status = 'ended';
+      }
+
+      poll.dataValues.startAt = dayjs(poll.dataValues.startAt).locale('fr').format('DD MMMM YYYY');
+      poll.dataValues.endAt = dayjs(poll.dataValues.endAt).locale('fr').format('DD MMMM YYYY');
+    });
+  }
+
+  Tag.findAll().then(tags => res.render('polls/index', { polls: polls, tags: tags, admin: !!req.session.userId }));
 });
 
 router.post('/', async (req, res) => {
-
   Poll.create(req.body)
     .then(async (poll) => {
       const tag = await Tag.findByPk(req.body.tag);
@@ -99,63 +96,72 @@ router.post('/', async (req, res) => {
         res.sendStatus(500);
       }
     });
-
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   const votesStatus = [];
-  Poll.findByPk(
-    req.params.id,
+
+  const poll = await Poll.findByPk(req.params.id,
     {
       include: [{
         model: Tag,
         attributes: ['name'],
       }]
-    }).then(async (data) => {
-      if (data) {
-        data.startAtTS = data.dataValues.startAt.getTime();
-        data.endAtTS = data.dataValues.endAt.getTime();
-        const now = Date.now();
-        if (now >= data.startAtTS && now <= data.endAtTS) { data.status = 'ongoing' }
-        if (now < data.startAtTS) { data.status = 'soon' }
-        if (now > data.endAtTS) { data.status = 'ended' }
-        data.dataValues.startAt = dayjs(data.dataValues.startAt).locale('fr').format('DD MMMM YYYY');
-        data.dataValues.endAt = dayjs(data.dataValues.endAt).locale('fr').format('DD MMMM YYYY');
+    });
 
-        const maps = await Map.findAll({
-          order: [
-            ['createdAt', 'DESC']
-          ],
-          include: [{
-            model: Tag,
-            where: {
-              name: data.dataValues.tag.name
-            },
-            attributes: ['name'],
-          }]
-        }).then(async (data) => {
-          data.forEach(async map => {
-            map.dataValues.createdAt = dayjs(map.dataValues.createdAt).locale('fr').format('DD MMMM YYYY');
+  if (poll) {
+    poll.startAtTS = poll.dataValues.startAt.getTime();
+    poll.endAtTS = poll.dataValues.endAt.getTime();
+    const now = Date.now();
+    if (now >= poll.startAtTS && now <= poll.endAtTS) { poll.status = 'ongoing' }
+    if (now < poll.startAtTS) { poll.status = 'soon' }
+    if (now > poll.endAtTS) { poll.status = 'ended' }
+    poll.dataValues.startAt = dayjs(poll.dataValues.startAt).locale('fr').format('DD MMMM YYYY');
+    poll.dataValues.endAt = dayjs(poll.dataValues.endAt).locale('fr').format('DD MMMM YYYY');
 
-            const vote = await Vote.findAll({
-              where: {
-                ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
-                map_id: map.dataValues.id,
-                poll_id: req.params.id
-              }
-            });
+    const votesCount = await Vote.count({
+      where: {
+        poll_id: req.params.id,
+        ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress
+      }
+    });
 
-            votesStatus[map.dataValues.id] = vote.length ? true : false;
-          });
-          return data;
+    const maps = await Map.findAll({
+      order: [
+        ['createdAt', 'DESC']
+      ],
+      include: [{
+        model: Tag,
+        where: {
+          name: poll.dataValues.tag.name
+        },
+        attributes: ['name'],
+      }]
+    });
+
+    const votesStatusPromise = new Promise((resolve, reject) => {
+      maps.forEach(async (map, index) => {
+        map.dataValues.createdAt = dayjs(map.dataValues.createdAt).locale('fr').format('DD MMMM YYYY');
+
+        const vote = await Vote.findAll({
+          where: {
+            ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+            map_id: map.dataValues.id,
+            poll_id: req.params.id
+          }
         });
 
-        res.render('polls/poll', { poll: data, votesStatus: votesStatus, maps: maps, admin: !!req.session.userId });
+        votesStatus[map.dataValues.id] = vote.length ? true : false;
 
-      } else {
-        res.sendStatus(404);
-      }
-    }).catch(err => res.sendStatus(500));
+        if (index === maps.length - 1) resolve();
+      });
+    });
+
+    votesStatusPromise.then(() => res.render('polls/poll', { poll: poll, votesNumber: votesCount, votesStatus: votesStatus, maps: maps, admin: !!req.session.userId }));
+
+  } else {
+    res.sendStatus(404);
+  }
 });
 
 router.post('/:pollId/vote/:mapId', checkVotePermission, (req, res) => {

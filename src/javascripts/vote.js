@@ -1,3 +1,14 @@
+const remainingVotes = document.getElementById('remaining-votes');
+const maxVotesNumberDOM = document.getElementById('max-votes-number');
+
+const updateRemainingVotes = (value) => {
+    const currentRemainingVotes = parseInt(remainingVotes.textContent, 10);
+    const maxVotesNumber = parseInt(maxVotesNumberDOM.textContent, 10);
+    if (currentRemainingVotes > 0 && currentRemainingVotes < maxVotesNumber) {
+        remainingVotes.textContent = currentRemainingVotes + value;
+    }
+};
+
 const handleVote = async (event) => {
     event.target.src = '/images/sync.svg';
     event.target.classList.add('rotating');
@@ -18,6 +29,7 @@ const handleVote = async (event) => {
                 event.target.dataset.status = 'true';
                 event.target.src = '/images/star-checked.svg';
                 event.target.classList.remove('rotating');
+                updateRemainingVotes(-1);
             } else {
                 event.target.src = '/images/star.svg';
                 event.target.classList.remove('rotating');
@@ -33,6 +45,7 @@ const handleVote = async (event) => {
             event.target.dataset.status = 'false';
             event.target.src = '/images/star.svg';
             event.target.classList.remove('rotating');
+            updateRemainingVotes(1);
         });
     }
 };
