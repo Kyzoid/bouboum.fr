@@ -1,9 +1,18 @@
+import miniToastr from 'mini-toastr';
+miniToastr.init();
+miniToastr.setIcon('error', 'img', {src: '/images/error.png'});
+miniToastr.setIcon('warn', 'img', {src: '/images/warn.png'});
+miniToastr.setIcon('info', 'img', {src: '/images/info.png'});
+miniToastr.setIcon('success', 'img', {src: '/images/success.png'});
+
+
 const remainingVotes = document.getElementById('remaining-votes');
 const maxVotesNumberDOM = document.getElementById('max-votes-number');
 
 const updateRemainingVotes = (value) => {
     const currentRemainingVotes = parseInt(remainingVotes.textContent, 10);
     const maxVotesNumber = parseInt(maxVotesNumberDOM.textContent, 10);
+    console.log(maxVotesNumber, currentRemainingVotes)
     if (currentRemainingVotes > 0 && currentRemainingVotes < maxVotesNumber) {
         remainingVotes.textContent = currentRemainingVotes + value;
     }
@@ -33,6 +42,7 @@ const handleVote = async (event) => {
             } else {
                 event.target.src = '/images/star.svg';
                 event.target.classList.remove('rotating');
+                miniToastr.warn(response.error);
             }
         });
     } else {

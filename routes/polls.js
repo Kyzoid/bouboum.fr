@@ -32,10 +32,10 @@ const checkVotePermission = async (req, res, next) => {
     }
   });
 
-  if (votes.length < (maps.length * 0.1).toFixed()) {
+  if (votes.length < Math.ceil(maps.length * 0.1)) {
     next();
   } else {
-    res.status(403).send({ error: 'Vous avez utilisé tous vos votes.' })
+    res.status(403).send({ error: "Vous n'avez plus de votes à attribuer." })
   }
 };
 

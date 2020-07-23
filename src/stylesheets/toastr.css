@@ -1,0 +1,10 @@
+
+.mini-toastr__notification {
+    display: flex;
+    align-items: center;
+    border-radius: 3px !important;
+}
+
+.-error {
+    background-color: #cf3c5a !important;
+}

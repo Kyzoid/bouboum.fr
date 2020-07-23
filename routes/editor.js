@@ -2,7 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const router = express.Router();
 const { Map, Tag } = require('../models/index');
-const { ValidationError } = require('sequelize');
+const { ValidationError, json } = require('sequelize');
 const { Op } = require("sequelize");
 
 router.get('/', async (req, res, next) => {
@@ -46,7 +46,7 @@ router.post('/soumettre', (req, res) => {
             }, {});
             res.status(400).json(errors);
           } else {
-            res.sendStatus(500);
+            res.status(500).send(error);
           }
         });
     }

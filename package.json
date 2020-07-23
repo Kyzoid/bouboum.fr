@@ -36,6 +36,7 @@
     "express-session": "^1.17.1",
     "http-errors": "~1.6.3",
     "ioredis": "^4.17.0",
+    "mini-toastr": "^0.8.1",
     "morgan": "~1.9.1",
     "pg": "^8.2.1",
     "postcss-cli": "^7.1.1",
