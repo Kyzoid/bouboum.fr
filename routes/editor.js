@@ -25,7 +25,8 @@ router.post('/soumettre', (req, res) => {
     {
       where: {
         [Op.or]: [{ name: req.body.name }, { map: req.body.map }]
-      }
+      },
+      paranoid: false
     }
   ).then(response => {
     if (response.length >= 1) {
@@ -35,8 +36,8 @@ router.post('/soumettre', (req, res) => {
     if (response.length === 0) {
       Map.create(req.body)
         .then(map => {
-          map.createTag(JSON.parse(req.body.tags));
-          res.sendStatus(201)
+          map.addTags(JSON.parse(req.body.tags));
+          res.sendStatus(201);
         })
         .catch((error) => {
           if (error instanceof ValidationError) {
@@ -44,7 +45,7 @@ router.post('/soumettre', (req, res) => {
               acc[item.path] = [...(acc[item.path] || []), item.message];
               return acc;
             }, {});
-            res.status(400).json(errors);
+            res.status(400).send(errors);
           } else {
             res.status(500).send(error);
           }

@@ -294,7 +294,7 @@ class Editor {
                   localStorage.setItem('submittedAt', new Date());
                 }
 
-                if (res.status === 409) {
+                if (res.status === 409 || res.status === 400) {
                   res.json().then(res => {
                     miniToastr.error(res.message);
                   });
