@@ -22,11 +22,11 @@
             <%= map.createdAt %></label>
 
         <% if (admin) { %>
-            <span class="text-xs">Admin : <%= mapVotes[map.id] %> <%= (mapVotes[map.id] === 1) ? 'vote' : 'votes' %>
+            <span class="text-xs">Admin : <%= map.votes %> <%= (map.votes === 1) ? 'vote' : 'votes' %>
                 (<%= 
-                    (mapVotes[map.id])
+                    (map.votes)
                     ?
-                    (mapVotes[map.id]/totalVotesNumber)*100 
+                    ((map.votes/totalVotesNumber)*100).toFixed(2)
                     :
                     0
                 %>%)

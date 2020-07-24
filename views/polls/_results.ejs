@@ -15,11 +15,11 @@
                     Créée par
                     <span class="text-green-extinction"><%= maps[i].author %></span>
                      •
-                    <span class="text-red-extinction"><%= mapVotes[maps[i].id] %> <%= (mapVotes[maps[i].id] === 1) ? 'vote' : 'votes' %> 
+                    <span class="text-red-extinction"><%= maps[i].votes %> <%= (maps[i].votes === 1) ? 'vote' : 'votes' %> 
                         (<%= 
-                            (mapVotes[maps[i].id])
+                            (maps[i].votes)
                             ?
-                            (mapVotes[maps[i].id]/totalVotesNumber)*100 
+                            ((maps[i].votes/totalVotesNumber)*100).toFixed(2)
                             :
                             0
                         %>%)
@@ -42,11 +42,11 @@
             Créée par
             <span class="text-green-extinction"><%= maps[i].author %></span>
              •
-            <span class="text-red-extinction"><%= mapVotes[maps[i].id] %> <%= (mapVotes[maps[i].id] === 1) ? 'vote' : 'votes' %> 
+            <span class="text-red-extinction"><%= maps[i].votes %> <%= (maps[i].votes === 1) ? 'vote' : 'votes' %> 
                 (<%= 
-                    (mapVotes[maps[i].id])
+                    (maps[i].votes)
                     ?
-                    (mapVotes[maps[i].id]/totalVotesNumber)*100 
+                    ((maps[i].votes/totalVotesNumber)*100).toFixed(2)
                     :
                     0
                 %>%)

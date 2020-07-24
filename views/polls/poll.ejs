@@ -26,9 +26,12 @@
         </div>
         <%- include('./_clock') %>
         <% if (poll.status !== 'ended') { %>
+            <% if(admin) { %>
+                <div class="self-center flex flex-col mt-2"><span>Nombre total de votes</span><span class="text-red-extinction font-bold text-xl pt-1"><%= totalVotesNumber %></span></div>
+            <% } %>
             <%- include('./_maps') %>
         <% } else { %>
-            <div class="self-center">Nombre total de votes <span><%= totalVotesNumber %></span></div>
+            <div class="self-center flex flex-col mt-2"><span>Nombre total de votes</span><span class="text-red-extinction font-bold text-xl pt-1"><%= totalVotesNumber %></span></div>
             <%- include('./_results') %>
         <% } %>
     </div>

@@ -1,5 +1,6 @@
 const express = require('express');
 const dayjs = require('dayjs');
+const sort = require('fast-sort');
 const { ValidationError } = require('sequelize');
 
 const router = express.Router();
@@ -42,7 +43,7 @@ const checkVotePermission = async (req, res, next) => {
 router.get('/', async (req, res) => {
   const polls = await Poll.findAll({
     order: [
-      ['createdAt', 'DESC']
+      ['endAt', 'DESC']
     ],
     include: [{
       model: Tag,
@@ -133,6 +134,7 @@ router.get('/:id', async (req, res) => {
     });
 
     const maps = await Map.findAll({
+      order: [['createdAt', 'DESC']],
       include: [{
         model: Tag,
         where: {
@@ -142,12 +144,10 @@ router.get('/:id', async (req, res) => {
       }]
     });
 
-    const mapVotes = [];
-    
     const votesStatusPromise = new Promise((resolve, reject) => {
       maps.forEach(async (map, index) => {
         map.dataValues.createdAt = dayjs(map.dataValues.createdAt).locale('fr').format('DD MMMM YYYY');
-        mapVotes[map.id] = await Vote.count({
+        map.votes = await Vote.count({
           where: {
             poll_id: req.params.id,
             map_id: map.id
@@ -168,15 +168,20 @@ router.get('/:id', async (req, res) => {
       });
     });
 
-    votesStatusPromise.then(() => res.render('polls/poll', {
-      poll: poll,
-      votesNumber: votesCount,
-      mapVotes : mapVotes,
-      votesStatus: votesStatus,
-      totalVotesNumber: totalVotesNumber,
-      maps: maps,
-      admin: !!req.session.userId
-    }));
+    votesStatusPromise.then(() => {
+      if (poll.status === 'ended' || !!req.session.userId) {
+        sort(maps).desc(map => map.votes);
+      }
+
+      res.render('polls/poll', {
+        poll: poll,
+        votesNumber: votesCount,
+        votesStatus: votesStatus,
+        totalVotesNumber: totalVotesNumber,
+        maps: maps,
+        admin: !!req.session.userId
+      })
+    });
 
   } else {
     res.sendStatus(404);
