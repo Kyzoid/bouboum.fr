@@ -20,6 +20,18 @@
 
         <label class="truncate text-xs">Créée par <span class="text-green-extinction"><%= map.author %></span> •
             <%= map.createdAt %></label>
+
+        <% if (admin) { %>
+            <span class="text-xs">Admin : <%= mapVotes[map.id] %> <%= (mapVotes[map.id] === 1) ? 'vote' : 'votes' %>
+                (<%= 
+                    (mapVotes[map.id])
+                    ?
+                    (mapVotes[map.id]/totalVotesNumber)*100 
+                    :
+                    0
+                %>%)
+            </span>
+        <% } %>
     </div>
     <% }); %>
 </div>

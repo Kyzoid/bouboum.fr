@@ -10,10 +10,6 @@
     <div class="mt-4 mr-0 mb-4 flex flex-col items-start bg-extinction px-6 py-5 rounded">
         <h2 class="w-full text-3xl text-center" id="poll-title" data-poll-id="<%= poll.id %>"><%= poll.title %></h2>
 
-        <% if (admin) { %>
-        <span class="my-6">if (admin) afficher le nombre de votes total + le nombre de votes pour chaque maps</span>
-        <% } %>
-
         <div class="text-base my-6 w-full">
             <p class="text-left pb-2">
                 Votez pour vos cartes <span
@@ -32,6 +28,7 @@
         <% if (poll.status !== 'ended') { %>
             <%- include('./_maps') %>
         <% } else { %>
+            <div class="self-center">Nombre total de votes <span><%= totalVotesNumber %></span></div>
             <%- include('./_results') %>
         <% } %>
     </div>

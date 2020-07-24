@@ -126,10 +126,13 @@ router.get('/:id', async (req, res) => {
       }
     });
 
+    const totalVotesNumber = await Vote.count({
+      where: {
+        poll_id: req.params.id
+      }
+    });
+
     const maps = await Map.findAll({
-      order: [
-        ['createdAt', 'DESC']
-      ],
       include: [{
         model: Tag,
         where: {
@@ -139,9 +142,17 @@ router.get('/:id', async (req, res) => {
       }]
     });
 
+    const mapVotes = [];
+    
     const votesStatusPromise = new Promise((resolve, reject) => {
       maps.forEach(async (map, index) => {
         map.dataValues.createdAt = dayjs(map.dataValues.createdAt).locale('fr').format('DD MMMM YYYY');
+        mapVotes[map.id] = await Vote.count({
+          where: {
+            poll_id: req.params.id,
+            map_id: map.id
+          }
+        });
 
         const vote = await Vote.findAll({
           where: {
@@ -157,7 +168,15 @@ router.get('/:id', async (req, res) => {
       });
     });
 
-    votesStatusPromise.then(() => res.render('polls/poll', { poll: poll, votesNumber: votesCount, votesStatus: votesStatus, maps: maps, admin: !!req.session.userId }));
+    votesStatusPromise.then(() => res.render('polls/poll', {
+      poll: poll,
+      votesNumber: votesCount,
+      mapVotes : mapVotes,
+      votesStatus: votesStatus,
+      totalVotesNumber: totalVotesNumber,
+      maps: maps,
+      admin: !!req.session.userId
+    }));
 
   } else {
     res.sendStatus(404);

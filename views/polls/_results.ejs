@@ -1,4 +1,3 @@
-Résultats, il faudra GET avec un order by rank
 <div id="maps" class="flex flex-wrap my-2 bg-extinction-dark">
 
     <!-- PODIUM -->
@@ -16,7 +15,15 @@ Résultats, il faudra GET avec un order by rank
                     Créée par
                     <span class="text-green-extinction"><%= maps[i].author %></span>
                      •
-                    <span class="text-red-extinction"><%= 30-i %> votes</span>
+                    <span class="text-red-extinction"><%= mapVotes[maps[i].id] %> <%= (mapVotes[maps[i].id] === 1) ? 'vote' : 'votes' %> 
+                        (<%= 
+                            (mapVotes[maps[i].id])
+                            ?
+                            (mapVotes[maps[i].id]/totalVotesNumber)*100 
+                            :
+                            0
+                        %>%)
+                    </span>
                 </label>
             </div>
         <% } %>
@@ -35,7 +42,15 @@ Résultats, il faudra GET avec un order by rank
             Créée par
             <span class="text-green-extinction"><%= maps[i].author %></span>
              •
-            <span class="text-red-extinction"><%= 30-i %> votes</span>
+            <span class="text-red-extinction"><%= mapVotes[maps[i].id] %> <%= (mapVotes[maps[i].id] === 1) ? 'vote' : 'votes' %> 
+                (<%= 
+                    (mapVotes[maps[i].id])
+                    ?
+                    (mapVotes[maps[i].id]/totalVotesNumber)*100 
+                    :
+                    0
+                %>%)
+            </span>
         </label>
     </div>
     <% } %>
