@@ -1,7 +1,11 @@
 import Grid from './grid.js';
 import Spawn from './spawn.js';
-
-const infoModal = document.getElementById('info');
+import miniToastr from 'mini-toastr';
+miniToastr.init();
+miniToastr.setIcon('error', 'img', {src: '/images/error.png'});
+miniToastr.setIcon('warn', 'img', {src: '/images/warn.png'});
+miniToastr.setIcon('info', 'img', {src: '/images/info.png'});
+miniToastr.setIcon('success', 'img', {src: '/images/success.png'});
 
 class Editor {
   constructor(canvas) {
@@ -103,34 +107,12 @@ class Editor {
           this.drawMap();
           document.getElementById('import-map').value = '';
         } else {
-          this.infoModal('Le fichier que vous essayez d\'importer n\'est pas au format Extinction.', 'error');
+          miniToastr.error('Le fichier que vous essayez d\'importer n\'est pas au format Extinction.');
         }
       };
       reader.readAsText(file);
     } else {
-      this.infoModal('Le fichier que vous avez importé n\'est pas au format texte ou est trop volumineux.', 'error');
-    }
-  }
-
-  infoModal(content, type) {
-    infoModal.textContent = content;
-    infoModal.classList.remove('border-red-700');
-    infoModal.classList.remove('text-red-extinction');
-    infoModal.classList.remove('border-green-700');
-    infoModal.classList.remove('text-green-extinction');
-
-    if (type === 'error') {
-      infoModal.classList.add('border-red-700');
-      infoModal.classList.add('text-red-extinction');
-    }
-
-    if (type === 'success') {
-      infoModal.classList.add('border-green-700');
-      infoModal.classList.add('text-green-extinction');
-    }
-
-    if (infoModal.classList.contains('hidden')) {
-      infoModal.classList.remove('hidden');
+      miniToastr.error('Le fichier que vous avez importé n\'est pas au format texte ou est trop volumineux.');
     }
   }
 
@@ -153,7 +135,7 @@ class Editor {
           downloadMapElement.click();
         });
     } else {
-      this.infoModal('Vous devez mettre un titre à votre carte pour pouvoir la télécharger.', 'error');
+      miniToastr.error('Vous devez mettre un titre à votre carte pour pouvoir la télécharger.');
     }
   }
 
@@ -308,27 +290,27 @@ class Editor {
                 })
               }).then(res => {
                 if (res.status === 201) {
-                  this.infoModal('Votre carte a été soumise avec succès !', 'success');
+                  miniToastr.success('Votre carte a été soumise avec succès !');
                   localStorage.setItem('submittedAt', new Date());
                 }
 
                 if (res.status === 409) {
                   res.json().then(res => {
-                    this.infoModal(res.message, 'error');
+                    miniToastr.error(res.message);
                   });
                 }
               });
             });
         } else {
-          this.infoModal('Le titre de votre carte ne doit pas contenir de caractères spéciaux.', 'error');
+          miniToastr.error('Le titre de votre carte ne doit pas contenir de caractères spéciaux.');
         }
       } else {
-        this.infoModal('L\'auteur et le titre de votre carte doit contenir au moins 3 caractères.', 'error');
+        miniToastr.error('L\'auteur et le titre de votre carte doit contenir au moins 3 caractères.');
       }
     } else {
       const infoTimeDiff = timeDiff.toFixed(0);
       const infoTimeRemaining = (120 - timeDiff).toFixed(0);
-      this.infoModal(`Vous avez déjà soumis une carte il y a ${infoTimeDiff} secondes. Merci de bien vouloir patienter encore ${infoTimeRemaining} secondes avant d'en soumettre une autre.`, 'error');
+      miniToastr.error(`Vous avez déjà soumis une carte il y a ${infoTimeDiff} secondes. Merci de bien vouloir patienter encore ${infoTimeRemaining} secondes avant d'en soumettre une autre.`);
     }
   }
 };
