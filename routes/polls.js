@@ -101,7 +101,6 @@ router.post('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   const votesStatus = [];
-
   const poll = await Poll.findByPk(req.params.id,
     {
       include: [{
