@@ -1,6 +1,6 @@
 <%- include('../partials/header', {
-    metaTitle: 'Liste des cartes | Bouboum.fr',
-    metaDescription: 'Liste des cartes Bouboum élaborées par un éditeur surpuissant.',
+    metaTitle: `${poll.title} | Bouboum.fr`,
+    metaDescription: `Sondage ${poll.title} pour élire les meilleures cartes de la catégorie ${poll.tag.name.charAt(0).toUpperCase() + poll.tag.name.slice(1)}.`,
 }) %>
 
 <div class="mt-8 container mx-auto px-4 text-center">
