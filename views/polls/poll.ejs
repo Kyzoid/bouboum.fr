@@ -7,8 +7,9 @@
 
     <h1 class="text-4xl text-red-extinction mb-8">Sondage</h1>
 
-    <div class="mt-4 mr-0 mb-4 flex flex-col items-start bg-extinction px-6 py-5">
-        <h2 class="w-full text-3xl text-center" id="poll-title" data-poll-id="<%= poll.id %>"><%= poll.title %></h2>
+    <div class="mt-4 mr-0 mb-4 flex flex-col items-start bg-extinction px-6 py-6">
+        <div class="w-full h-64 rounded bg-cover bg-center bg-empty-square-extinction" style="background-image: url('<%= poll.banner %>')"></div>
+        <h2 class="w-full text-3xl text-center mt-6" id="poll-title" data-poll-id="<%= poll.id %>"><%= poll.title %></h2>
 
         <div class="text-base my-6 w-full">
             <p class="text-left pb-2">
@@ -27,7 +28,14 @@
         <%- include('./_clock') %>
         <% if (poll.status !== 'ended') { %>
             <% if(admin) { %>
-                <div class="self-center flex flex-col mt-2"><span>Nombre total de votes</span><span class="text-red-extinction font-bold text-xl pt-1"><%= totalVotesNumber %></span></div>
+                <div class="self-center items-center flex flex-col mt-2">
+                    <span class="mb-2 text-base">Nombre total de votes</span>
+                    <span class=""></span>
+                    <div class="flex flex-col w-16 p-1 rounded bg-extinction-darkless shadow">
+                        <span class="text-red-extinction bg-extinction-dark font-bold text-xl p-2"><%= totalVotesNumber %></span>
+                        <span class="text-xs mt-1">votes</span>
+                    </div>
+                </div>
             <% } %>
             <%- include('./_maps') %>
         <% } else { %>

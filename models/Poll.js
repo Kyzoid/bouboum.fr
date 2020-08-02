@@ -18,6 +18,11 @@ Poll.init(
       unique: false,
       allowNull: true
     },
+    banner: {
+      type: DataTypes.STRING,
+      unique: false,
+      allowNull: true
+    },
     startAt: {
       type: DataTypes.DATE,
       allowNull: false
