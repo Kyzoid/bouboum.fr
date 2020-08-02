@@ -78,6 +78,14 @@ router.get('/', async (req, res) => {
   Tag.findAll().then(tags => res.render('polls/index', { polls: polls, tags: tags, admin: !!req.session.userId }));
 });
 
+const isAdmin = (req, res, next) => {
+  if (!req.session.userId) {
+    res.sendStatus(401);
+  } else {
+    next();
+  }
+};
+
 router.post('/', async (req, res) => {
   Poll.create(req.body)
     .then(async (poll) => {
@@ -219,6 +227,22 @@ router.delete('/:pollId/vote/:mapId', (req, res) => {
   }).then(() => {
     res.sendStatus(204);
   });
+});
+
+router.delete('/:id', isAdmin, (req, res) => {
+  Poll.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+    .then((response) => {
+      if (response) {
+        res.sendStatus(204)
+      } else {
+        res.sendStatus(404);
+      }
+    })
+    .catch(err => console.log(err));
 });
 
 module.exports = router;
