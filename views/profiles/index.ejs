@@ -1,0 +1,93 @@
+<%- include('../partials/header', {
+    metaTitle: 'Liste des sondages | Bouboum.fr',
+    metaDescription: 'Liste des sondages permettant d\'élire les meilleurs cartes créées par l\'éditeur Bouboum.fr.',
+    chartist: true 
+}) %>
+
+<div class="mt-8 mb-4 flex flex-col container mx-auto items-center">
+    <h1 class="text-4xl text-red-extinction mb-10">Profil</h1>
+    <div class="mr-0 mb-4 flex flex-col items-start bg-extinction px-4 py-4">
+        <div class="w-full">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h2 class="text-2xl text-shadow" id="player" data-player-id="<%= player.id %>">
+                        <%= player.name.charAt(0).toUpperCase() + player.name.slice(1) %>
+                    </h2>
+                    <div class="text-xs mt-1">Dans le classement depuis le <span class="font-bold"><%= player.createdAt %></span></div>
+                </div>
+                <div class="flex">
+                    <img src="/images/medal-1.png" title="Vainqueur de la DuoCup avec Blond">
+                    <img src="/images/medal-3.png" title="Vainqueur de la DuoCup avec Blond">
+                    <img src="/images/medal-2.png" title="Vainqueur de la DuoCup avec Blond">
+                    <img src="/images/medal-1.png" title="Vainqueur de la DuoCup avec Blond">
+                </div>
+            </div>
+            <div class="flex items-stretch justify-between mt-4 h-full">
+                <div class="flex flex-col p-4 bg-extinction-dark rounded w-full mr-4">
+                    <div class="flex justify-between mb-3">
+                        <h3 class="text-green-extinction text-lg">Bouboum</h3>
+                        <span class="font-bold text-lg">N/A<sup class="font-normal text-xs">ème</sup></span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="mr-12">TPS</span>
+                        <span class="font-bold text-red-extinction"><%= (bouboumScores !== null) ? bouboumScores.ratio/100 : 0 %></span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="mr-12">Victoires</span>
+                        <span class="font-bold text-yellow-extinction"><%= (bouboumScores !== null) ? bouboumScores.win : 0 %></span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="mr-12">Pourcentage de victoires</span>
+                        <span class="font-bold"><%= (bouboumScores !== null) ? ((bouboumScores.win/bouboumScores.total)*100).toFixed(2) : 0 %>%</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="mr-12">Parties jouées</span>
+                        <span class="font-bold"><%= (bouboumScores !== null) ? bouboumScores.total : 0%></span>
+                    </div>
+                </div>
+                <div class="flex flex-col p-4 bg-extinction-dark rounded h-full w-full">
+                    <div class="flex justify-between mb-3">
+                        <h3 class="text-green-extinction text-lg">Aaaah !</h3>
+                        <span class="font-bold text-lg">N/A<sup class="font-normal text-xs">ème</sup></span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="mr-12">Tués</span>
+                        
+                        <span class="font-bold text-red-extinction"><%= (aaaahScores !== null) ? aaaahScores.kill : 0 %></span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="mr-12">Victoires</span>
+                        <span class="font-bold text-yellow-extinction"><%= (aaaahScores !== null) ? aaaahScores.win : 0 %></span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="mr-12">Pourcentage de victoires</span>
+                        <span class="font-bold"><%= (aaaahScores !== null) ? ((aaaahScores.win/aaaahScores.total)*100).toFixed(2) : 0 %>%</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="mr-12">Guidages</span>
+                        <span class="font-bold text-yellow-extinction"><%= (aaaahScores !== null) ? aaaahScores.guiding : 0 %></span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="mr-12">Pourcentage de guidage</span>
+                        <span class="font-bold"><%= (aaaahScores !== null) ? aaaahScores.guiding_ratio/100 : 0 %>%</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="mr-12">Parties jouées</span>
+                        <span class="font-bold"><%= (aaaahScores !== null) ? aaaahScores.total : 0 %></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4" style="width: 700px; height: 300px">
+            <div class="bg-extinction-dark rounded h-full pt-4">
+                <div class="ct-chart ct-perfect-fourth"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="/javascripts/profile.min.js"></script>
+
+<%- include('../partials/footer') %>
