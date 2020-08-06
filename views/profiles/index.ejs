@@ -1,6 +1,6 @@
 <%- include('../partials/header', {
-    metaTitle: 'Liste des sondages | Bouboum.fr',
-    metaDescription: 'Liste des sondages permettant d\'élire les meilleurs cartes créées par l\'éditeur Bouboum.fr.',
+    metaTitle: `Profil de ${player.name.charAt(0).toUpperCase() + player.name.slice(1)} | Bouboum.fr`,
+    metaDescription: `Profil de ${player.name.charAt(0).toUpperCase() + player.name.slice(1)}.`,
     chartist: true 
 }) %>
 
@@ -29,19 +29,19 @@
                         <span class="font-bold text-lg">N/A<sup class="font-normal text-xs">ème</sup></span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="mr-12">TPS</span>
+                        <span class="mr-12 chartist-button hover:underline cursor-pointer" data-key="ratio">TPS</span>
                         <span class="font-bold text-red-extinction"><%= (bouboumScores !== null) ? bouboumScores.ratio/100 : 0 %></span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="mr-12">Victoires</span>
+                        <span class="mr-12 chartist-button hover:underline cursor-pointer" data-key="win">Victoires</span>
                         <span class="font-bold text-yellow-extinction"><%= (bouboumScores !== null) ? bouboumScores.win : 0 %></span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="mr-12">Pourcentage de victoires</span>
+                        <span class="mr-12 chartist-button hover:underline cursor-pointer" data-key="ratio">Pourcentage de victoires</span>
                         <span class="font-bold"><%= (bouboumScores !== null) ? ((bouboumScores.win/bouboumScores.total)*100).toFixed(2) : 0 %>%</span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="mr-12">Parties jouées</span>
+                        <span class="mr-12 chartist-button hover:underline cursor-pointer" data-key="total">Parties jouées</span>
                         <span class="font-bold"><%= (bouboumScores !== null) ? bouboumScores.total : 0%></span>
                     </div>
                 </div>
@@ -51,34 +51,34 @@
                         <span class="font-bold text-lg">N/A<sup class="font-normal text-xs">ème</sup></span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="mr-12">Tués</span>
+                        <span class="mr-12 chartist-button hover:underline cursor-pointer">Tués</span>
                         
                         <span class="font-bold text-red-extinction"><%= (aaaahScores !== null) ? aaaahScores.kill : 0 %></span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="mr-12">Victoires</span>
+                        <span class="mr-12 chartist-button hover:underline cursor-pointer">Victoires</span>
                         <span class="font-bold text-yellow-extinction"><%= (aaaahScores !== null) ? aaaahScores.win : 0 %></span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="mr-12">Pourcentage de victoires</span>
+                        <span class="mr-12 chartist-button hover:underline cursor-pointer">Pourcentage de victoires</span>
                         <span class="font-bold"><%= (aaaahScores !== null) ? ((aaaahScores.win/aaaahScores.total)*100).toFixed(2) : 0 %>%</span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="mr-12">Guidages</span>
+                        <span class="mr-12 chartist-button hover:underline cursor-pointer">Guidages</span>
                         <span class="font-bold text-yellow-extinction"><%= (aaaahScores !== null) ? aaaahScores.guiding : 0 %></span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="mr-12">Pourcentage de guidage</span>
+                        <span class="mr-12 chartist-button hover:underline cursor-pointer">Pourcentage de guidage</span>
                         <span class="font-bold"><%= (aaaahScores !== null) ? aaaahScores.guiding_ratio/100 : 0 %>%</span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="mr-12">Parties jouées</span>
+                        <span class="mr-12 chartist-button hover:underline cursor-pointer">Parties jouées</span>
                         <span class="font-bold"><%= (aaaahScores !== null) ? aaaahScores.total : 0 %></span>
                     </div>
                 </div>
             </div>
         </div>
-
+        <span>Ici : onglets pour choisir le graphique</span>
         <div class="mt-4" style="width: 700px; height: 300px">
             <div class="bg-extinction-dark rounded h-full pt-4">
                 <div class="ct-chart ct-perfect-fourth"></div>
