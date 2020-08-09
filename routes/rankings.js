@@ -25,7 +25,7 @@ router.get('/', async (req, res, next) => {
 
   if (game === 'bouboum') {
     ScoreBouboum.findAll({
-      order: [['win', 'DESC']],
+      order: [['rank', 'ASC']],
       where: {
         date: date
       },
@@ -37,7 +37,7 @@ router.get('/', async (req, res, next) => {
 
   } else {
     ScoreAaaah.findAll({
-      order: [['win', 'DESC']],
+      order: [['rank', 'ASC']],
       where: {
         date: date
       },

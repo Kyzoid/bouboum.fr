@@ -9,8 +9,9 @@ const getAaaahRankings = async () => {
 };
 
 const formattedBouboumPlayersDataForChartist = (bouboumRankings) => {
+  console.log(bouboumRankings)
   return {
-    'bouboum-rank': [23, 32, 32, 30, 39, 29, 38, 19, 19, 23, 13, 32, 32, 39, 29, 32, 19, 19],
+    'bouboum-rank': bouboumRankings.map(bouboumRanking => bouboumRanking.rank),
     'bouboum-win': bouboumRankings.map(bouboumRanking => bouboumRanking.win),
     'bouboum-ratio': bouboumRankings.map(bouboumRanking => bouboumRanking.ratio/100),
     'bouboum-total': bouboumRankings.map(bouboumRanking => bouboumRanking.total),
@@ -20,7 +21,7 @@ const formattedBouboumPlayersDataForChartist = (bouboumRankings) => {
 
 const formattedAaaahPlayersDataForChartist = (aaaahRankings) => {
   return {
-    'aaaah-rank': [23, 32, 32, 30, 39, 29, 38, 19, 19, 23, 13, 32, 32, 39, 29, 32, 19, 19],
+    'aaaah-rank': aaaahRankings.map(aaaahRanking => aaaahRanking.rank),
     'aaaah-win': aaaahRankings.map(aaaahRanking => aaaahRanking.win),
     'aaaah-win-ratio': aaaahRankings.map(aaaahRanking => aaaahRanking.win_ratio/100),
     'aaaah-guiding': aaaahRankings.map(aaaahRanking => aaaahRanking.guiding),

@@ -32,7 +32,7 @@ const formatData = async () => {
       date = userStats[0];
       userStats.shift();
 
-      userStats.forEach(userStat => {
+      userStats.forEach((userStat, i) => {
         userStat = userStat.split(',');
         userStat[0] = userStat[0].toLowerCase();
         userStat[userStat.length] = date;
@@ -41,6 +41,7 @@ const formatData = async () => {
 
         if (game.toLowerCase() === 'bouboum') {
           scoresToInsert.push({
+            'rank': i,
             'player': userStat[0],
             'total': userStat[1],
             'win': userStat[2],
@@ -51,6 +52,7 @@ const formatData = async () => {
 
         if (game.toLowerCase() === 'aaaah') {
           scoresToInsert.push({
+            'rank': i,
             'player': userStat[0],
             'total': userStat[1],
             'guiding': userStat[2],

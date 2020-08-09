@@ -5,6 +5,10 @@ const Player = require('./Player');
 class ScoreAaaah extends Model { }
 ScoreAaaah.init(
   {
+    rank: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
     total: {
       type: DataTypes.INTEGER,
       allowNull: false
