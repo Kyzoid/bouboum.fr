@@ -2,17 +2,17 @@ const playerId = document.getElementById('player').dataset.playerId;
 
 const chartNames = {
   'bouboum-rank': 'Classement - Bouboum',
-  'bouboum-ratio' : 'TPS - Bouboum',
-  'bouboum-win' : 'Victoires - Bouboum',
-  'bouboum-win-ratio' : 'Pourcentage de victoire - Bouboum',
-  'bouboum-total' : 'Parties jouées - Bouboum',
-  'aaaah-rank' : 'Classement - Aaaah !',
-  'aaaah-kill' : 'Tués - Aaaah !',
-  'aaaah-win' : 'Victoires - Aaaah !',
-  'aaaah-win-ratio' : 'Pourcentage de victoires - Aaaah !',
-  'aaaah-guiding' : 'Guidages - Aaaah !',
-  'aaaah-guiding-ratio' : 'Pourcentage de guidages - Aaaah !',
-  'aaaah-total' : 'Parties jouées - Aaaah !'
+  'bouboum-ratio': 'TPS - Bouboum',
+  'bouboum-win': 'Victoires - Bouboum',
+  'bouboum-win-ratio': 'Pourcentage de victoire - Bouboum',
+  'bouboum-total': 'Parties jouées - Bouboum',
+  'aaaah-rank': 'Classement - Aaaah !',
+  'aaaah-kill': 'Tués - Aaaah !',
+  'aaaah-win': 'Victoires - Aaaah !',
+  'aaaah-win-ratio': 'Pourcentage de victoires - Aaaah !',
+  'aaaah-guiding': 'Guidages - Aaaah !',
+  'aaaah-guiding-ratio': 'Pourcentage de guidages - Aaaah !',
+  'aaaah-total': 'Parties jouées - Aaaah !'
 };
 
 const getBouboumRankings = async () => {
@@ -27,7 +27,7 @@ const formattedBouboumPlayersDataForChartist = (bouboumRankings) => {
   return {
     'bouboum-rank': bouboumRankings.map(bouboumRanking => bouboumRanking.rank),
     'bouboum-win': bouboumRankings.map(bouboumRanking => bouboumRanking.win),
-    'bouboum-ratio': bouboumRankings.map(bouboumRanking => bouboumRanking.ratio/100),
+    'bouboum-ratio': bouboumRankings.map(bouboumRanking => bouboumRanking.ratio / 100),
     'bouboum-total': bouboumRankings.map(bouboumRanking => bouboumRanking.total),
     'bouboum-win-ratio': bouboumRankings.map(bouboumRanking => ((bouboumRanking.win / bouboumRanking.total) * 100).toFixed(2)),
   }
@@ -37,10 +37,10 @@ const formattedAaaahPlayersDataForChartist = (aaaahRankings) => {
   return {
     'aaaah-rank': aaaahRankings.map(aaaahRanking => aaaahRanking.rank),
     'aaaah-win': aaaahRankings.map(aaaahRanking => aaaahRanking.win),
-    'aaaah-win-ratio': aaaahRankings.map(aaaahRanking => aaaahRanking.win_ratio/100),
+    'aaaah-win-ratio': aaaahRankings.map(aaaahRanking => aaaahRanking.win_ratio / 100),
     'aaaah-guiding': aaaahRankings.map(aaaahRanking => aaaahRanking.guiding),
     'aaaah-kill': aaaahRankings.map(aaaahRanking => aaaahRanking.kill),
-    'aaaah-guiding-ratio': aaaahRankings.map(aaaahRanking => aaaahRanking.guiding_ratio/100),
+    'aaaah-guiding-ratio': aaaahRankings.map(aaaahRanking => aaaahRanking.guiding_ratio / 100),
     'aaaah-total': aaaahRankings.map(aaaahRanking => aaaahRanking.total)
   }
 };
@@ -67,6 +67,21 @@ const options = {
   }
 };
 
+const rankOptions = {
+  width: 700,
+  height: 300,
+  series: {
+    'series-1': {
+      lineSmooth: Chartist.Interpolation.simple()
+    }
+  },
+  axisY: {
+    labelInterpolationFnc: (value) => {
+      return -value+1;
+    }
+  }
+};
+
 let bouboumData = null;
 let aaaahData = null;
 
@@ -81,7 +96,14 @@ const drawCharts = (gameData, charts, game) => {
       div.classList.add(className);
       charts.appendChild(div);
     }
-    new Chartist.Line(`.${className}`, chartistData(data), options);
+    if (className === 'bouboum-rank' || className === 'aaaah-rank') {
+      new Chartist.Line(`.${className}`, chartistData(data), rankOptions).on('data', (context) => {
+        context.data.series[0].data = context.data.series[0].data.map((value) => -value);
+      });
+    } else {
+      new Chartist.Line(`.${className}`, chartistData(data), options);
+    }
+    
   });
 };
 
@@ -107,7 +129,7 @@ const drawCharts = (gameData, charts, game) => {
 const showChart = (event) => {
   const key = event.target.dataset.key;
   const allCharts = document.getElementById('charts').childNodes;
-  
+
   allCharts.forEach(chart => {
     if (!chart.classList.contains('hidden')) {
       chart.classList.add('hidden');
