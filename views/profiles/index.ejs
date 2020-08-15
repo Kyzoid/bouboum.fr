@@ -17,10 +17,7 @@
                             class="font-bold"><%= player.createdAt %></span></div>
                 </div>
                 <div class="flex">
-                    <img src="/images/medal-1.png" title="Vainqueur de la DuoCup avec Blond">
-                    <img src="/images/medal-3.png" title="Vainqueur de la DuoCup avec Blond">
-                    <img src="/images/medal-2.png" title="Vainqueur de la DuoCup avec Blond">
-                    <img src="/images/medal-1.png" title="Vainqueur de la DuoCup avec Blond">
+
                 </div>
             </div>
             <div class="flex items-stretch justify-between mt-4 h-full">
@@ -29,7 +26,7 @@
                         <h3 class="text-green-extinction text-lg">Bouboum</h3>
                         <div class="flex items-center font-bold text-lg chartist-button hover:underline cursor-pointer"
                             data-key="bouboum-rank">
-                            <span><%= (bouboumScores !== null) ? `${bouboumScores.rank+1}` : 'N/A'  %></span>
+                            <span data-key="bouboum-rank"><%= (bouboumScores !== null) ? `${bouboumScores.rank+1}` : 'N/A'  %></span>
                             <sup class="font-normal text-xs" data-key="bouboum-rank">
                                 <%= (bouboumScores !== null && bouboumScores.rank+1 === 1) ? 'er' : 'ème' %>
                             </sup>

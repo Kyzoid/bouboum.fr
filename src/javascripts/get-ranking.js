@@ -40,7 +40,7 @@ export const getBouboumRanking = (date, isPrevButtonAvailable = true, isNextButt
           const tr = table.insertRow();
           tr.classList.add('shadow-xs');
           tr.classList.add('bg-extinction-dark');
-          row = { id: i + 1, player: row.player.name, win: row.win, total: row.total, ratio: row.ratio };
+          row = { id: i + 1, player: row.player.name, win: row.win, total: row.total, ratio: row.ratio, playerId: row.player.id };
 
           Object.values(row).forEach((column, i) => {
             const td = tr.insertCell();
@@ -52,7 +52,11 @@ export const getBouboumRanking = (date, isPrevButtonAvailable = true, isNextButt
             }
             if (Object.keys(row)[i] === 'player') {
               td.classList.add('text-blue-extinction');
-              td.innerText = ucFirst(column);
+              const anchor = document.createElement('a');
+              anchor.href = `/profil/${row.playerId}`;
+              anchor.innerText = ucFirst(column);
+              anchor.classList.add('hover:underline');
+              td.appendChild(anchor);
             }
             if (Object.keys(row)[i] === 'win') {
               td.classList.add('text-center');
@@ -122,7 +126,7 @@ export const getAaaahRanking = (date, isPrevButtonAvailable = true, isNextButton
           const tr = table.insertRow();
           tr.classList.add('shadow-xs');
           tr.classList.add('bg-extinction-dark');
-          row = { id: i + 1, player: row.player.name, win: row.win, total: row.total, guiding: row.guiding, guiding_ratio: row.guiding_ratio, kill: row.kill} ;
+          row = { id: i + 1, player: row.player.name, win: row.win, total: row.total, guiding: row.guiding, guiding_ratio: row.guiding_ratio, kill: row.kill, playerId: row.player.id } ;
 
           Object.values(row).forEach((column, i) => {
             let td;
@@ -137,7 +141,11 @@ export const getAaaahRanking = (date, isPrevButtonAvailable = true, isNextButton
             }
             if (Object.keys(row)[i] === 'player') {
               td.classList.add('text-blue-extinction');
-              td.innerText = ucFirst(column);
+              const anchor = document.createElement('a');
+              anchor.href = `/profil/${row.playerId}`;
+              anchor.innerText = ucFirst(column);
+              anchor.classList.add('hover:underline');
+              td.appendChild(anchor);
             }
             if (Object.keys(row)[i] === 'win') {
               td.classList.add('text-center');

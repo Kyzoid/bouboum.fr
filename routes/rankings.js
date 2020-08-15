@@ -29,8 +29,8 @@ router.get('/', async (req, res, next) => {
       where: {
         date: date
       },
-      attributes: ['player.name', 'win', 'total', 'ratio'],
-      include: [{ model: Player, attributes: ['name'] }]
+      attributes: ['player.id', 'player.name', 'win', 'total', 'ratio'],
+      include: [{ model: Player, attributes: ['id', 'name'] }]
     }).then(scores => {
       res.send(scores);
     });
@@ -41,8 +41,8 @@ router.get('/', async (req, res, next) => {
       where: {
         date: date
       },
-      attributes: ['player.name', 'win', 'total', 'guiding', 'guiding_ratio', 'kill'],
-      include: [{ model: Player, attributes: ['name'] }],
+      attributes: ['player.id', 'player.name', 'win', 'total', 'guiding', 'guiding_ratio', 'kill'],
+      include: [{ model: Player, attributes: ['id', 'name'] }],
       
     }).then(scores => {
       res.send(scores);

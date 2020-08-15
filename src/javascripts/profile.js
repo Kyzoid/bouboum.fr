@@ -9,7 +9,6 @@ const getAaaahRankings = async () => {
 };
 
 const formattedBouboumPlayersDataForChartist = (bouboumRankings) => {
-  console.log(bouboumRankings)
   return {
     'bouboum-rank': bouboumRankings.map(bouboumRanking => bouboumRanking.rank),
     'bouboum-win': bouboumRankings.map(bouboumRanking => bouboumRanking.win),
