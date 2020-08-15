@@ -1,6 +1,6 @@
 # Bouboum Ranking
 
-Statistiques du classement Bouboum.
+Editeur Bouboum, sondages, classements et statistiques liées à extinction-minijeux.fr
 
 ## Développement
 
@@ -41,7 +41,7 @@ $ docker volume rm <name>
 
 
 #### Sauvegardes
-Un CRON pg_dump la base de données PostgreSQL sur le serveur de production tous les jours à 01h00
+Un CRON pg_dump la base de données PostgreSQL sur le serveur de production tous les jours à 01h00 et 13h00.
 
 Faire un dump de la base de données : pg_dump
 ```sh
