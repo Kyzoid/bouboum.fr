@@ -1,5 +1,20 @@
 const playerId = document.getElementById('player').dataset.playerId;
 
+const chartNames = {
+  'bouboum-rank': 'Classement - Bouboum',
+  'bouboum-ratio' : 'TPS - Bouboum',
+  'bouboum-win' : 'Victoires - Bouboum',
+  'bouboum-win-ratio' : 'Pourcentage de victoire - Bouboum',
+  'bouboum-total' : 'Parties jouées - Bouboum',
+  'aaaah-rank' : 'Classement - Aaaah !',
+  'aaaah-kill' : 'Tués - Aaaah !',
+  'aaaah-win' : 'Victoires - Aaaah !',
+  'aaaah-win-ratio' : 'Pourcentage de victoires - Aaaah !',
+  'aaaah-guiding' : 'Guidages - Aaaah !',
+  'aaaah-guiding-ratio' : 'Pourcentage de guidages - Aaaah !',
+  'aaaah-total' : 'Parties jouées - Aaaah !'
+};
+
 const getBouboumRankings = async () => {
   return await fetch(`/profil/${playerId}/bouboum`, { method: 'GET' }).then((res) => res.json());
 };
@@ -55,6 +70,7 @@ const options = {
 let bouboumData = null;
 let aaaahData = null;
 
+const chartName = document.getElementById('chart-name');
 const drawCharts = (gameData, charts, game) => {
   Object.values(gameData).forEach((data, i) => {
     const className = Object.keys(gameData)[i];
@@ -81,8 +97,10 @@ const drawCharts = (gameData, charts, game) => {
 
   if (bouboumRankings.length > 0) {
     document.querySelector('.bouboum-rank').classList.remove('hidden');
+    chartName.innerText = 'Classement - Bouboum';
   } else {
     document.querySelector('.aaaah-rank').classList.remove('hidden');
+    chartName.innerText = 'Classement - Aaaah !';
   }
 })();
 
@@ -95,7 +113,7 @@ const showChart = (event) => {
       chart.classList.add('hidden');
     }
   });
-
+  chartName.innerText = chartNames[key];
   document.querySelector(`.${key}`).classList.remove('hidden');
 };
 

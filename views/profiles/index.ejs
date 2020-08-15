@@ -61,7 +61,7 @@
                         <h3 class="text-green-extinction text-lg">Aaaah !</h3>
                         <div class="flex items-center font-bold text-lg chartist-button hover:underline cursor-pointer"
                             data-key="aaaah-rank">
-                            <span><%= (aaaahScores !== null) ? `${aaaahScores.rank+1}` : 'N/A'  %></span>
+                            <span data-key="aaaah-rank"><%= (aaaahScores !== null) ? `${aaaahScores.rank+1}` : 'N/A'  %></span>
                             <sup class="font-normal text-xs" data-key="aaaah-rank">
                                 <%= (aaaahScores !== null && aaaahScores.rank+1 === 1) ? 'er' : 'ème' %>
                             </sup>
@@ -94,7 +94,7 @@
                     </div>
                     <div class="flex justify-between">
                         <span class="mr-12 chartist-button hover:underline cursor-pointer"
-                            data-key="aaaah-guiding-ratio">Pourcentage de guidage</span>
+                            data-key="aaaah-guiding-ratio">Pourcentage de guidages</span>
                         <span
                             class="font-bold"><%= (aaaahScores !== null) ? aaaahScores.guiding_ratio/100 : 0 %>%</span>
                     </div>
@@ -109,7 +109,7 @@
         <ul class="flex mt-4">
             <li class="-mb-px mr-1">
                 <a
-                    class="bg-extinction-dark inline-block rounded-t py-2 px-4 text-green-extinction font-semibold">Classement</a>
+                    class="bg-extinction-dark inline-block rounded-t py-2 px-4 text-green-extinction font-semibold h-full" id="chart-name"></a>
             </li>
         </ul>
         <div class="" style="width: 700px; height: 300px">
