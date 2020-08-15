@@ -6,7 +6,8 @@
   "browserslist": [
     "last 2 versions",
     "safari >= 7",
-    "ie >= 7"
+    "ie >= 7",
+    "electron >= 2.0"
   ],
   "scripts": {
     "sync": "node ./scripts/dataSynchronizer.js",
