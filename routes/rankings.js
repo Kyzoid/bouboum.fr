@@ -12,6 +12,20 @@ router.get('/bouboum', (req, res, next) => {
   });
 });
 
+router.get('/bouboum/dates', (req, res, next) => {
+  ScoreBouboum.findAll({attributes: ['date'], group: ['date']}).then(dates => {
+    const result = dates.map(date => date.date);
+    res.send(result);
+  });
+});
+
+router.get('/aaaah/dates', (req, res, next) => {
+  ScoreAaaah.findAll({attributes: ['date'], group: ['date']}).then(dates => {
+    const result = dates.map(date => date.date);
+    res.send(result);
+  });
+});
+
 router.get('/aaaah', (req, res, next) => {
   res.render('rankings/index', {
     date: dayjs().locale('fr').format('DD/MM/YYYY'),
