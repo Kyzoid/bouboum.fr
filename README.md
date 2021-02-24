@@ -1,63 +1,26 @@
 # Bouboum Ranking
 
-Editeur Bouboum, sondages, classements et statistiques liées à extinction-minijeux.fr
+Map editor, polls, rankings and statistics related to [extinction-minijeux.fr](https://extinction-minijeux.fr/).
 
-## Développement
+## Installation
 
-Certbot et Webserver sont des services utilisés pour le déploiement en production.
+Use [npm](https://www.npmjs.com/) to install dependencies.
+```sh
+$ npm install
+```
+
+Use [docker](https://www.docker.com/) to set-up your dev environment (you only need nodejs, redis and db containers for developments).
 ```sh
 $ docker-compose up -d nodejs redis db
 ```
 
-Lancer Webpack
+Use [webpack](https://webpack.js.org/) to watch and compile assets.
 ```sh
-$ docker-compose exec app npm run webpack:dev
+$ docker-compose exec nodejs npm run webpack:dev
 ```
 
-## Production
-Pour configurer la production :
-- Renommer la config ssl en nginx.conf.
-- Modifier les variables d'environnements dans le .env et celles dans le docker-compose.yml.
-- Modifier le Dockerfile pour que ça lance start:prod.
-- Lancer webpack:prod si ça n'a pas déjà été fait.
-
-#### Docker
-Démarrer un service
-```sh
-$ docker-compose up -d --force-recreate --no-deps <service>
-```
-Stop un service
-```sh
-$ docker-compose stop <service>
-ou
-$ docker-compose rm -fsv <service>
-```
-
-Volumes
-```sh
-$ docker volume ls
-$ docker volume rm <name>
-```
-
-
-#### Sauvegardes
-Un CRON pg_dump la base de données PostgreSQL sur le serveur de production tous les jours à 01h00 et 13h00.
-
-Faire un dump de la base de données : pg_dump
-```sh
-$ docker exec -i db pg_dump -U dbuser --format=tar database | gzip > ~/backups/dump_$(date +%Y-%m-%d_%H-%M-%S).tar.gz
-```
-Récupérer le dump sur sa machine : rsync
-```sh
-$ rsync -aP --delete user@ip:~/backups/ ./backups
-```
-Restaurer les données : pg_restore
-```sh
-$ gunzip -c dump_2020-06-05_20-32-25.tar.gz | docker exec -i db pg_restore -U dbuser --no-owner --clean --verbose --dbname=database
-```
-
-## Collaborer
-Si vous avez envie de coder, faites des PR.
+## Contributing
+Pull requests are welcome. Please open an issue first to discuss what you would like to change.
 
 ## Licence
 [MIT](https://choosealicense.com/licenses/mit/)
